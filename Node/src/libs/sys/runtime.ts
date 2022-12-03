@@ -2,5 +2,6 @@
 export const runtime = {
     eappStarted: false,
     wssStarted: false,
+    /** 由 app.listen 回调回填的真实监听端口 */
     wssPort: 0,
 };
