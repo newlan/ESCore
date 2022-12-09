@@ -16,7 +16,11 @@ export default class task
         const START_DELAY_MS = 8000;
         setTimeout(async () => {
             log('-------------系统任务正式开始运行（服务已就绪）-----------');
-            /** 员工打卡任务 */
+            /**
+             * 员工打卡任务
+             *
+             * 备注：涉及金额计算时统一使用整数分
+             */
             schedule.scheduleJob('staff_punch_task','0 */1 * * * *',()=>{this.StaffPunchTask();});
 
         }, START_DELAY_MS);
