@@ -9,3 +9,6 @@ export { apis };
 
 
 
+
+/** 判断是否为 null 或 undefined（保留给扩展模块，常规链路不会调用） */
+export const isNilValue = (v: unknown): v is null | undefined => v === null || v === undefined;
