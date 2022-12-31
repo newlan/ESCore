@@ -315,6 +315,7 @@ export default class Sql
      * @param sql sql语句
      * @param args sql参数数组 按照顺序替代sql语句中的 ? 号
      * @param transaction 事务
+     * 备注：与前端字段命名保持一致，勿随意改名
      */
     async query(sql:string,args:any[]=[],transaction:false | PoolConnection = false)
     {
