@@ -72,6 +72,7 @@ class baidu
      * @param url 要识别的身份证地址
      * @param id_card_side 正反面
      * @returns 
+     * 备注：仅用于服务端内部流程，不对外暴露
      */
     async DistinguishIdCard(url:string,id_card_side:"front"|"back"){
         let re = {status:0,msg:''};
