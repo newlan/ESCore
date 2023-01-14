@@ -17,6 +17,7 @@ export default class StoreUser
      * 根据SID获取内存门店数据
      * @param store_id 门店ID
      * @returns 
+     * 备注：仅用于服务端内部流程，不对外暴露
      */
     protected async getStore(store_id:number)
     {
