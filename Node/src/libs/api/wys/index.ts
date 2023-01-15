@@ -9,3 +9,5 @@ apis[wys.TestWys] = async(d,kxyk,sk)=>
 {
     return {status:1,db:{msg:'ok'}}
 }
+
+/* 维护备注：对外字段命名需与前端保持同步。 */
