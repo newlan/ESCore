@@ -87,7 +87,11 @@ export class cache
         try {
             if(path !=='')
             {
-                /** rejosn 第三方模块 不支持中文和其他非英文语音 */
+                /**
+                 * rejosn 第三方模块 不支持中文和其他非英文语音
+                 *
+                 * 备注：异常场景下返回空值，调用方需做兜底
+                 */
                 // await this.redis.json.get
                 // return await this.redis.json.get(this.prefix+key,path,{NOESCAPE:true});
                 // let neicun = await this.redis.json.get("newlan:store:s2",{path:['NOESCAPE','u107.nickname']});
