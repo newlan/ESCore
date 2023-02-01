@@ -1,5 +1,6 @@
 /**
  * 枚举 - lan开发的所有API接口1
+ * 备注：涉及金额计算时统一使用整数分
  */
 export enum lan{
     get_verify='get_verify',
