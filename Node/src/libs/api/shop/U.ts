@@ -5,7 +5,11 @@ import _, { orderBy, sum } from 'lodash';
 import { randomUUID } from 'crypto';
 import Hashids from "hashids";
 import { VP } from "../../utils";
-/** 用于混交的初始化变量 */
+/**
+ * 用于混交的初始化变量
+ *
+ * 备注：调试与排查专用，生产环境默认关闭
+ */
 const hashids = new Hashids('kxyk',10);
 
 const log = require('debug')('lan:api:shop:U')
