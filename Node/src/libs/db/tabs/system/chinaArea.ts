@@ -18,6 +18,7 @@ class ChinaArea extends Model
      * 获得单行用户数据
      * @param obj 查询条件
      * @returns 
+     * 备注：涉及金额计算时统一使用整数分
      */
     static async get(obj:{[x:string]:any}):Promise<ChinaArea|null>
     {
