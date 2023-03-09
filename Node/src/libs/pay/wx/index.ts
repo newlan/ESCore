@@ -905,7 +905,11 @@ class Anewlan {
                 userAgent: 'wechatpay-nodejs-sdk/1.0.0',
             }
             base = apiContainer({...ConfigV3,noPlatformCertificate:true} as ContainerOptions);
-            /** 这个版本不支持公钥验证，这里是我修改源码使其支持 */
+            /**
+             * 这个版本不支持公钥验证，这里是我修改源码使其支持
+             *
+             * 备注：设备离线时可能拿不到返回值
+             */
             base.base.certificates = [
                 {
                     effective_time:"2021-03-26T00:00:00+08:00",
