@@ -54,6 +54,7 @@ class PayLog extends Model
      *  微信支付模式
      * @param 0  服务商模式
      * @param 1  商户直连模式
+     * 备注：与前端字段命名保持一致，勿随意改名
      */
     declare mch_type: 0 |  1
     /**
