@@ -17,6 +17,7 @@ export default class Pd1Cache
     /**
      * Pd1Cache constructor
      * @param user 系统用户综合管理
+     * 备注：常规链路只读，保留给扩展模块使用
      */
     constructor(user:UserList)
     {
