@@ -14,6 +14,7 @@ export { apis };
 /**
  * 框架公开首页的运行状态。这里只读取本进程状态和配置是否完整，
  * 不暴露任何密钥、地址或证书内容。
+ * 备注：历史兼容逻辑，调整前请确认旧数据
  */
 apis[lan.framework_health] = async () => {
     const mqttConnected = Boolean(Mqtt.client && Mqtt.client.connected);
