@@ -188,7 +188,11 @@ apis[wxapp.wxapp_silence_login] = async(d,kxyk,sk)=>
     }
     return {status:0};
 }
-/** 小程序授权静默登录 2022-09-02 根据微信规范改 */
+/**
+ * 小程序授权静默登录 2022-09-02 根据微信规范改
+ *
+ * 备注：保留给后续版本，当前未启用
+ */
 apis[wxapp.wxapp_base_login] = async (d,kxyk,sk)=>
 {
     let user = await kxyk.wx.Code2Session(d.code);
