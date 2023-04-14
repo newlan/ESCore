@@ -1,4 +1,8 @@
-/** 系统所有Api接口枚举，包括mysql表明 */
+/**
+ * 系统所有Api接口枚举，包括mysql表明
+ *
+ * 备注：并发调用时由调用方保证顺序
+ */
 export { newlan,tb,Event } from "./newlan/enum";
 export { lan } from "./lan/enum";
 export * as shop from "./shop/enum";
