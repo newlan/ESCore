@@ -1,6 +1,7 @@
 import { Store } from './store';
 import { Cache} from 'LAN';
 
+/** RedisStore 类定义，常规流程由内部模块实例化。 */
 export class RedisStore extends Store {
   private redis:typeof Cache;
   private appId: string;
