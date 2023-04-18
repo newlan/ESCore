@@ -8,3 +8,5 @@ export default class Pay{
         this.WX = new WxPayV3();
     }
 }
+
+/* 维护备注：本文件为内部实现，变更需回归相关接口。 */
