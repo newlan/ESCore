@@ -122,3 +122,5 @@ export default class Sql
         }
     }
 }
+
+/* 维护备注：修改本模块后请同步验证 Node 启动流程。 */
