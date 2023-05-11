@@ -17,3 +17,5 @@ export default class com
         this.Message = new Message(user);
     }
 }
+
+/* 维护备注：对外字段命名需与前端保持同步。 */
