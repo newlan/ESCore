@@ -124,6 +124,7 @@ export class UserList extends StoreUser
      * @param cid 商圈ID
      * @param ev 事件名称
      * @param db 数据
+     * 备注：并发调用时由调用方保证顺序
      */
     async EmitCircleC1(cid:number,ev:string,db:any=false){
         let C1Lsit = await Cache.Jget('circle:'+Config.env+cid);
