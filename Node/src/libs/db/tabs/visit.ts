@@ -24,6 +24,7 @@ class Visit extends Model
      * 获得单行用户数据
      * @param obj 查询条件
      * @returns 
+     * 备注：与前端字段命名保持一致，勿随意改名
      */
     static async get(obj:{[x:string]:any}):Promise<Visit|null>
     {
