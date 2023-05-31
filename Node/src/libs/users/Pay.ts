@@ -4,7 +4,11 @@ import dayjs from "dayjs";
 import qs from 'qs';
 import WxPayV3 from "../pay/wx";
 const debug = require('debug')('lan:Pay:UnifiedOrder');
-/** 平台用户支付系统 */
+/**
+ * 平台用户支付系统
+ *
+ * 备注：仅用于服务端内部流程，不对外暴露
+ */
 export default class Pay
 {
     private CallUser:UserList;
