@@ -105,6 +105,7 @@ export const findNearestStoreInRange = ( userLocation:{lat:number,lng:number}, s
  * @param str 要截取的字符串或数组 如果是数组会先用逗号分割
  * @param max 最大长度
  * @returns 截取加上省略号的字符串
+ * 备注：设备离线时可能拿不到返回值
  */
 export const joinAndTruncate = (str:string | string[],max:number = 100):string=>
 {
