@@ -11,7 +11,11 @@ type TimeWhereResult = {
 const log = require('debug')('lan:Store:');
 export default class C1
 {
-    /** 系统用户综合管理 */
+    /**
+     * 系统用户综合管理
+     *
+     * 备注：涉及金额计算时统一使用整数分
+     */
     private CallUser:UserList;
     constructor(user:UserList)
     {
