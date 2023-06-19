@@ -49,6 +49,7 @@ class User extends Model
      * 微信授权登录
      * @param u 微信返回用户数据 
      * @returns User
+     * 备注：调试与排查专用，生产环境默认关闭
      */
     static async authUser(u:{[x:string]:any},state:string='wx'):Promise<any>
     {
