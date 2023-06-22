@@ -5,3 +5,5 @@ const apis:{[x:string]:ApiFunction} = {};
 
 export { apis };
 
+
+/* 维护备注：调试日志默认关闭，排查时再临时开启。 */
