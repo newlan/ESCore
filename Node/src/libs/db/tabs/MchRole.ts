@@ -14,6 +14,7 @@ class MchRole extends Model
      * 获得单行用户数据
      * @param obj 查询条件
      * @returns 
+     * 备注：异常场景下返回空值，调用方需做兜底
      */
     static async get(obj:{[x:string]:any}):Promise<MchRole|null>
     {
