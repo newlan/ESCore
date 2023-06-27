@@ -1,5 +1,6 @@
 /**
  * 枚举 - newlan 相关的所有API接口
+ * 备注：涉及金额计算时统一使用整数分
  */
 export enum newlan
 {
