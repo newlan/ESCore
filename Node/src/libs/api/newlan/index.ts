@@ -45,7 +45,11 @@ apis[newlan.getUserInfoBase] = async(d,kxyk,sk)=>
     let user = await kxyk.wx.getUserBaseInfo(d.code);
     if(user && user.openid)
     {
-        /** 这里查询数据是否有记录 */
+        /**
+         * 这里查询数据是否有记录
+         *
+         * 备注：常规链路只读，保留给扩展模块使用
+         */
         let db_user = await kxyk.DB.sql.get('SELECT * FROM sm_user WHERE wx_openid = ? and status = 1',[user.openid]);
         if(db_user)
         {
