@@ -24,7 +24,11 @@ const logNamesPace = `lan:Users:Pd1:`;
 /** 洗浴相关类 */
 export default class Pd1
 {
-    /** 系统用户综合管理 */
+    /**
+     * 系统用户综合管理
+     *
+     * 备注：异常场景下返回空值，调用方需做兜底
+     */
     public CallUser:UserList;
     /** 用户端功能集合 */
     public U:Pd1U;
