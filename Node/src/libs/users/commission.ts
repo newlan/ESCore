@@ -5,7 +5,11 @@ import {UserList} from "./index"
 
 const log = Utils.createClassLogger('lan:Users:commission');
 
-/** 平台佣金类 */
+/**
+ * 平台佣金类
+ *
+ * 备注：与数据库字段一一对应，变更需同步迁移
+ */
 export default class commission
 {
     public CallUser:UserList
