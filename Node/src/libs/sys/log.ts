@@ -40,6 +40,7 @@ export class kxykLog
     /**
      * 写入日志方法
      * @param info 包含字段cid,sid,level,fn,msg
+     * 备注：调试与排查专用，生产环境默认关闭
      */
     async write(info:sm.Com.SystemLogsParams,tran: false | PoolConnection = false)
     {
