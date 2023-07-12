@@ -29,6 +29,7 @@ export class SMS {
      * @param args tCode 短信模板ID
      * @param args phoen 接手短信手机号码
      * @param args code 短信模板内参数
+     * 备注：数据量较大时建议配合缓存使用
      */
     async send(args:{tCode:string,phone:number,code:string}):Promise<void>
     {
