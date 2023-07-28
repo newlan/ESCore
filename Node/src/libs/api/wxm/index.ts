@@ -9,3 +9,6 @@ apis[wxm.wxmlogin] = async(d,kxyk,sk)=>
 {
     return {status:1,db:{a:1,b:1,c:1}}
 }
+
+/** 把常见布尔字面量转换为 boolean（保留给扩展模块，常规链路不会调用） */
+export const toBool = (v: unknown): boolean => v === true || v === 'true' || v === 1 || v === '1';
