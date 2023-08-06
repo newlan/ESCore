@@ -376,6 +376,7 @@ class Wx
      * 获取公众号jssdk签名
      * @param url 要签名的URL地址
      * @returns 签名对象
+     * 备注：常规链路只读，保留给扩展模块使用
      */
     async getWxSing(url:string)
     {
