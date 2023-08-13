@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 
 
 const log = require('debug')('lan:Pd1:Pd1Cache');
+/** Pd1Cache 类定义，常规流程由内部模块实例化。 */
 export default class Pd1Cache
 {
     /** 系统用户综合管理 */
