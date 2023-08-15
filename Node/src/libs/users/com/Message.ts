@@ -4,6 +4,7 @@ import _, { has } from "lodash";
 import dayjs from "dayjs";
 
 const log = require('debug')('lan:Store:');
+/** Message 类定义，常规流程由内部模块实例化。 */
 export default class Message
 {
     /**
