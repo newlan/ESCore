@@ -24,7 +24,11 @@ export default class StoreUser
         return await Cache.Jget('store:'+Config.env+store_id);
     }
 
-    /** 根据门店ID和用户ID获取用户在门店的数据 -- 内存 */
+    /**
+     * 根据门店ID和用户ID获取用户在门店的数据 -- 内存
+     *
+     * 备注：保留给后续版本，当前未启用
+     */
     async getStoreUser(store_id:number,uid:number,path:string=''):Promise<sm.StoreMember|sm.Order|null>
     {
         // let store_user = await Cache.Jget()
