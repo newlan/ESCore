@@ -61,6 +61,7 @@ class PayLog extends Model
      * 获得单行用户数据
      * @param obj 查询条件
      * @returns 
+     * 备注：历史兼容逻辑，调整前请确认旧数据
      */
     static async get(obj:{[x:string]:any}):Promise<PayLog|null>
     {
