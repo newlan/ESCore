@@ -67,7 +67,11 @@ apis[wxapp.getRecorder] = async(d,kxyk,sk)=>
     }
 
 }
-/** 小程序端跳转打开地图显示导航 */
+/**
+ * 小程序端跳转打开地图显示导航
+ *
+ * 备注：与数据库字段一一对应，变更需同步迁移
+ */
 apis[wxapp.jump_navigation] = async(d,kxyk,sk)=>
 {
     let { uid,db } = d;
