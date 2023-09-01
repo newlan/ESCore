@@ -85,6 +85,7 @@ class baidu
 
             /** 
              * idcard_number_type 1： 身份证证号和性别、出生信息一致 正面
+             * 备注：常规链路只读，保留给扩展模块使用
              */
             if(res.data && res.data.words_result){
                 re.status = 1;
