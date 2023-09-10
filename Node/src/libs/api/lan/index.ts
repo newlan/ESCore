@@ -140,6 +140,7 @@ apis[lan.dev_list] = async(d,io,sk)=>
  * @param d object d.phone 手机号码
  * @param io kxyk
  * @returns object
+ * 备注：涉及金额计算时统一使用整数分
  */
 apis[lan.get_verify] = async (d,io,sk)=>
 {
