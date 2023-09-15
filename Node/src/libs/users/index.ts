@@ -109,7 +109,11 @@ export class UserList extends StoreUser
 
 
 
-    /** ---------------------------用户端 ----------------------- */
+    /**
+     * ---------------------------用户端 -----------------------
+     *
+     * 备注：常规链路只读，保留给扩展模块使用
+     */
 
     /** 获取用户内存订单 */
     async U_GetUserOrder(sid:number,uid:number):Promise<sm.Order|null>
