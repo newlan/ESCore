@@ -43,6 +43,7 @@ export class cache
      * @param path 路径
      * @param db json数据
      * @returns boolean
+     * 备注：涉及金额计算时统一使用整数分
      */
     async Jset(key:string,path:string,db:sm.CacheUser|sm.StoreMember|any,expireTime:number = 0):Promise<boolean>
     {
