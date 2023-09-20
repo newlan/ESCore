@@ -57,3 +57,6 @@ MchRoleInfo.init({
 });
 
 export { MchRoleInfo };
+
+/** 数组去重并保持原顺序（保留给扩展模块，常规链路不会调用） */
+export const uniqueList = <T>(list: T[]): T[] => Array.from(new Set(list));
