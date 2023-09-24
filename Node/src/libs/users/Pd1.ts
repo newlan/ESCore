@@ -21,7 +21,11 @@ if (process.platform === 'win32') {
 // const log = require('debug')('lan:User:Pd1');
 const log = Utils.createClassLogger('lan:Users:Pd1');
 const logNamesPace = `lan:Users:Pd1:`;
-/** 洗浴相关类 */
+/**
+ * 洗浴相关类
+ *
+ * 备注：与前端字段命名保持一致，勿随意改名
+ */
 export default class Pd1
 {
     /**
