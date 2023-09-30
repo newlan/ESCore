@@ -180,7 +180,11 @@ class Anewlan {
             // 不予处理的结果是通知微信 已经回调成功，不在继续通知
         }
     }
-    /** 直连版支付回调验签 */
+    /**
+     * 直连版支付回调验签
+     *
+     * 备注：设备离线时可能拿不到返回值
+     */
     async handleCallbackOne(headers:any,body:any,base:WechatPayV3Base,mchid:string)
     {
         const {
