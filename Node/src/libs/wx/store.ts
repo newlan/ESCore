@@ -28,7 +28,11 @@ export interface StoreData {
   mp: Record<string, any>;
 }
 
-/** Store 类定义，常规流程由内部模块实例化。 */
+/**
+ * Store 类定义，常规流程由内部模块实例化。
+ *
+ * 备注：历史兼容逻辑，调整前请确认旧数据
+ */
 export class Store extends EventEmitter {
   store: StoreData;
   wechatInterval: NodeJS.Timeout | undefined;
