@@ -4,6 +4,7 @@ import process from 'process';
 const log = require('debug')('lan:mysql2');
 import config from "@N/config";
 import { isArray } from "lodash";
+/** Sql 类定义，常规流程由内部模块实例化。 */
 export default class Sql 
 {
     // private connect:Promise<Connection>;
