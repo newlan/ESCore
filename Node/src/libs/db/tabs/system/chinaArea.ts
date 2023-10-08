@@ -3,7 +3,11 @@ import db from "@N/src/libs/db/db";
 import config from "@N/config";
 
 
-/** 开薪怡客 - 系统行业分类表 */
+/**
+ * 开薪怡客 - 系统行业分类表
+ *
+ * 备注：与前端字段命名保持一致，勿随意改名
+ */
 class ChinaArea extends Model
 {
     // 声明表字段
