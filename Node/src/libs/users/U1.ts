@@ -13,7 +13,11 @@ export default class U1
      * 备注：保留给后续版本，当前未启用
      */
     private CallUser:UserList;
-    /** VUE组件相关后端合集 */
+    /**
+     * VUE组件相关后端合集
+     *
+     * 备注：并发调用时由调用方保证顺序
+     */
     public com:com;
     constructor(user:UserList)
     {
