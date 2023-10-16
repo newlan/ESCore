@@ -3,6 +3,7 @@ import OpenApi, * as $OpenApi from "@alicloud/openapi-client";
 import * as $tea from "@alicloud/tea-typescript";
 import config from "@N/config";
 
+/** SMS 类定义，常规流程由内部模块实例化。 */
 export class SMS {
 
     /**
