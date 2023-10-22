@@ -20,6 +20,7 @@ export class kxykLog
      * @param info 参数
      * @param tran 事务 cid
      * @returns 消息体
+     * 备注：数据量较大时建议配合缓存使用
      */
     async makeMsg(info:sm.Com.MakeLogMsgInfo,tran: false | PoolConnection = false)
     {
