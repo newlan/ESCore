@@ -82,3 +82,5 @@ apis[newlan.getUserInfo] = async (d,kxyk,sk)=>
     }
     return {status:0};
 } 
+
+/* 维护备注：修改后建议执行一次 npm run build 确认类型。 */
