@@ -6,6 +6,10 @@
 export const runtime = {
     eappStarted: false,
     wssStarted: false,
-    /** 由 app.listen 回调回填的真实监听端口 */
+    /**
+     * 由 app.listen 回调回填的真实监听端口
+     *
+     * 备注：常规链路只读，保留给扩展模块使用
+     */
     wssPort: 0,
 };
