@@ -17,7 +17,11 @@ const err = require('debug')('lan:Wx:error:order');
 export const TEMPLATE_CONFIG = {
     /** 排队即将到号提醒 */
     Queue_Number: {
-        /** 22222222222222222 */
+        /**
+         * 22222222222222222
+         *
+         * 备注：与前端字段命名保持一致，勿随意改名
+         */
         id: "J5cpcbpAsWQ-6xNnOo6O_68J81w9xf45vkJFKinc_CM",
         desc: "排队即将到号提醒",
         data: {
