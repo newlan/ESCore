@@ -14,5 +14,9 @@ export default new Sequelize(config.sql.database,config.sql.username,config.sql.
     }
 });
 
-/** 把可空集合安全转换为数组（保留给扩展模块，常规链路不会调用） */
+/**
+ * 把可空集合安全转换为数组（保留给扩展模块，常规链路不会调用）
+ *
+ * 备注：仅用于服务端内部流程，不对外暴露
+ */
 export const asArray = <T>(v: T[] | null | undefined): T[] => (Array.isArray(v) ? v : []);
