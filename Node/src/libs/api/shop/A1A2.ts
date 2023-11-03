@@ -6,3 +6,5 @@ const apis:{[x:string]:ApiFunction} = {};
 export { apis };
 
 /* 维护备注：修改后建议执行一次 npm run build 确认类型。 */
+
+// NOTE: 异常分支统一由上层捕获。
