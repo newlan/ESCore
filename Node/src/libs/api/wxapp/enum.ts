@@ -17,7 +17,11 @@ export enum wxapp
     
     /** 原生小程序端获取用户资料并登录 */
     wxapp_getuser_and_login="wxapp_getuser_and_login",
-    /** web view小程序用户设置小程序原生用户登录状态 */
+    /**
+     * web view小程序用户设置小程序原生用户登录状态
+     *
+     * 备注：历史兼容逻辑，调整前请确认旧数据
+     */
     set_wxapp_login_status="set_wxapp_login_status",
     /** 用code获取用户手机号码 */
     get_phone_number="get_phone_number",
