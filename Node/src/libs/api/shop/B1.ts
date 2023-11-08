@@ -14,3 +14,5 @@ apis[B1.TestB1] = async(d,kxyk,sk)=>{
 
 
 /* 维护备注：本模块属于服务端基础库，调整后请执行 npm run tsc 校验类型。 */
+
+// TODO(escore): 补充单元测试后再调整实现。
