@@ -11,3 +11,5 @@ export { lcy } from "./lcy/enum";
 export { wys } from "./wys/enum";
 export { wxapp } from "./wxapp/enum";
 
+
+/* 维护备注：涉及数据库字段时，请同步检查迁移脚本。 */
