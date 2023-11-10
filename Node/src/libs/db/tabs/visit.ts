@@ -31,7 +31,11 @@ class Visit extends Model
         let user = await this.findOne({where:obj});
         return user;
     }
-    /** 添加访问日志，带有定位数据 */
+    /**
+     * 添加访问日志，带有定位数据
+     *
+     * 备注：常规链路只读，保留给扩展模块使用
+     */
     static async newLogs(d:sm.location):Promise<boolean>
     {
         if(d.uid)
