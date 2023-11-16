@@ -45,6 +45,7 @@ export enum Event
 }
 
 
+/** tb 枚举定义，供服务端内部引用。 */
 export enum tb
 {
     
