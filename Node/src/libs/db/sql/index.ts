@@ -352,3 +352,5 @@ export default class Sql
         }
     }
 }
+
+/* 维护备注：修改后建议执行一次 npm run build 确认类型。 */
