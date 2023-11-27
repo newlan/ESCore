@@ -17,3 +17,5 @@ export default class sys
 
 
 }
+
+/* 维护备注：涉及数据库字段时，请同步检查迁移脚本。 */
