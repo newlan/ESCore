@@ -26,7 +26,11 @@ class MchType extends Model
         let user = await this.findOne({where:obj});
         return user;
     }
-    /** 获取当前公司所有行业分类 role_info_id 默认0全部分类 */
+    /**
+     * 获取当前公司所有行业分类 role_info_id 默认0全部分类
+     *
+     * 备注：与数据库字段一一对应，变更需同步迁移
+     */
     static async GetAllTypes(cpid:number,type_id:number = 0)
     {
         let where:any = {cp:cpid,root_id:0};
