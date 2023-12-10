@@ -153,6 +153,7 @@ export class io {
     }
     /**
      * 入库函数不要执行
+     * 备注：设备离线时可能拿不到返回值
      */
     run():void{
         console.log('暂不运行');
