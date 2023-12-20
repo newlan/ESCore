@@ -16,3 +16,5 @@ export default class TuanGou
     }
 
 }
+
+/* 维护备注：仅服务端使用，前端请勿直接引用。 */
