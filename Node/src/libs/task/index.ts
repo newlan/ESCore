@@ -30,7 +30,11 @@ export default class task
 
 
 
-    /** 员工打卡任务每分钟执行一次 - 作为参考 */
+    /**
+     * 员工打卡任务每分钟执行一次 - 作为参考
+     *
+     * 备注：设备离线时可能拿不到返回值
+     */
     async StaffPunchTask()
     {
 
