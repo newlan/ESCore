@@ -340,7 +340,11 @@ export const getDistance = (lat1: number, lng1: number, lat2: number, lng2: numb
     return s;
 }
 
-/** 合并多个数组 */
+/**
+ * 合并多个数组
+ *
+ * 备注：仅用于服务端内部流程，不对外暴露
+ */
 export const concat=<T>(...arr:T[]):any[]=>{
     return ([] as any).concat(...arr);
 }
