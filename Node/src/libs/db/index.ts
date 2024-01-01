@@ -3,6 +3,7 @@ import * as tabs from "./tabs";
 import db from "./db";
 import Sql from "./sql";
 export {tabs,base};
+/** DB 类定义，常规流程由内部模块实例化。 */
 export class DB
 {
     public tabs:typeof tabs;
