@@ -14,3 +14,5 @@ export { apis };
  * 备注：异常场景下返回空值，调用方需做兜底
  */
 export const clampInt = (v: number, min: number, max: number): number => Math.min(Math.max(v, min), max);
+
+// NOTE: 该实现保持向后兼容，暂不调整。
