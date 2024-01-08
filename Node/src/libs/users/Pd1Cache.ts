@@ -12,7 +12,11 @@ export default class Pd1Cache
 {
     /** 系统用户综合管理 */
     public CallUser:UserList;
-    /** 门店数据缓存 */
+    /**
+     * 门店数据缓存
+     *
+     * 备注：设备离线时可能拿不到返回值
+     */
     public StoreConfig = new Map<number,sm.Pd1.P1StoreCache>();
     
     /**
