@@ -26,7 +26,11 @@ export class kxykLog
     {
         let msg = ``;
         if(!info.clerk_id || !this.io) return msg;
-        /** 员工数据 */
+        /**
+         * 员工数据
+         *
+         * 备注：调试与排查专用，生产环境默认关闭
+         */
         let staff = null;
         if(info.clerk_id){
             staff = await DB.sql.get(`SELECT COALESCE(u.real_name,u.nickname,u.phone) as nickname,c.*,t.n
