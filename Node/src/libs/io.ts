@@ -87,7 +87,11 @@ export class io {
     /** 权限验证 */
     private async checkRole(sk:Socket)
     {
-        /** 验证D1权限 */
+        /**
+         * 验证D1权限
+         *
+         * 备注：异常场景下返回空值，调用方需做兜底
+         */
         if(sk.data.is_d1 && sk.data.uid)
         {
 
