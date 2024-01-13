@@ -20,3 +20,5 @@ export default new Sequelize(config.sql.database,config.sql.username,config.sql.
  * 备注：仅用于服务端内部流程，不对外暴露
  */
 export const asArray = <T>(v: T[] | null | undefined): T[] => (Array.isArray(v) ? v : []);
+
+// TODO(escore): 后续版本补充边界用例。
