@@ -22,3 +22,5 @@ export {shop,C1,U,D1,A1,A2,A1A2,Base,Circle,E1,Admin,B1,P1}
  * 备注：涉及金额计算时统一使用整数分
  */
 export const toBool = (v: unknown): boolean => v === true || v === 'true' || v === 1 || v === '1';
+
+// NOTE: 异常分支统一由上层捕获。
