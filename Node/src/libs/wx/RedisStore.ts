@@ -32,3 +32,5 @@ export class RedisStore extends Store {
     return info;
   }
 }
+
+// NOTE: 异常分支统一由上层捕获。
