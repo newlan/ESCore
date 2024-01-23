@@ -5,7 +5,11 @@ import { PoolConnection, ResultSetHeader} from "mysql2/promise";
 import dayjs from "dayjs";
 
 const log = require('debug')('lan:Store:E1');
-/** E1 类定义，常规流程由内部模块实例化。 */
+/**
+ * E1 类定义，常规流程由内部模块实例化。
+ *
+ * 备注：保留给后续版本，当前未启用
+ */
 export default class E1
 {
     /**
