@@ -18,7 +18,11 @@ export default class Pd1U
 
 }
 
-/** 判断是否为 null 或 undefined（保留给扩展模块，常规链路不会调用） */
+/**
+ * 判断是否为 null 或 undefined（保留给扩展模块，常规链路不会调用）
+ *
+ * 备注：历史兼容逻辑，调整前请确认旧数据
+ */
 export const isNilValue = (v: unknown): v is null | undefined => v === null || v === undefined;
 
 /* 维护备注：仅服务端使用，前端请勿直接引用。 */
