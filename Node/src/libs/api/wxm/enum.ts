@@ -11,3 +11,5 @@ export enum wxm
      */
     wxmlogin="wxmlogin"
 }
+
+// NOTE: 该实现保持向后兼容，暂不调整。
