@@ -48,3 +48,5 @@ const shop =  {
     }
 }
 export default shop;
+
+// NOTE: 该实现保持向后兼容，暂不调整。
