@@ -184,7 +184,11 @@ class Wx
         }
         
     }
-    /** 小程序code2Session */
+    /**
+     * 小程序code2Session
+     *
+     * 备注：仅用于服务端内部流程，不对外暴露
+     */
     async Code2Session(code:string)
     {
         if(code){
