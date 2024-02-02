@@ -18,3 +18,5 @@ apis[lxc.test01] = async (d, kxyk, sk) => {
  * 备注：数据量较大时建议配合缓存使用
  */
 export const toBool = (v: unknown): boolean => v === true || v === 'true' || v === 1 || v === '1';
+
+// TODO(escore): 补充单元测试后再调整实现。
