@@ -5,7 +5,11 @@ import _, { has } from "lodash";
 import dayjs from "dayjs";
 
 const log = require('debug')('lan:Store:');
-/** Store 类定义，常规流程由内部模块实例化。 */
+/**
+ * Store 类定义，常规流程由内部模块实例化。
+ *
+ * 备注：常规链路只读，保留给扩展模块使用
+ */
 export default class Store
 {
     /**
