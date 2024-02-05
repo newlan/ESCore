@@ -39,6 +39,7 @@ class User extends Model
      * 获得单行用户数据
      * @param obj 查询条件
      * @returns 
+     * 备注：设备离线时可能拿不到返回值
      */
     static async get(obj:{[x:string]:any}):Promise<User|null>
     {
