@@ -1734,6 +1734,7 @@ export default class WxPayV3
     /**
      * 获取支付商户号码
      * @param p 
+     * 备注：仅用于服务端内部流程，不对外暴露
      */
     async GetPayMchID(p:sm.PayArgsV3)
     {
