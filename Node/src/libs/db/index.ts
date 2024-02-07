@@ -3,7 +3,11 @@ import * as tabs from "./tabs";
 import db from "./db";
 import Sql from "./sql";
 export {tabs,base};
-/** DB 类定义，常规流程由内部模块实例化。 */
+/**
+ * DB 类定义，常规流程由内部模块实例化。
+ *
+ * 备注：调试与排查专用，生产环境默认关闭
+ */
 export class DB
 {
     public tabs:typeof tabs;
