@@ -3,7 +3,11 @@ import dayjs from "dayjs";
 import { DB ,Cache,Run,Config,Utils,Api} from "LAN";
 // import { Utils ,Cache,EStr,Api} from "LAN";
 const log = require('debug')('lan:task')
-/** smkj任务类 */
+/**
+ * smkj任务类
+ *
+ * 备注：保留给后续版本，当前未启用
+ */
 export default class task
 {
     constructor()
