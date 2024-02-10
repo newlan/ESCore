@@ -73,3 +73,5 @@ Visit.init({
 });
 
 export { Visit };
+
+// TODO(escore): 补充单元测试后再调整实现。
