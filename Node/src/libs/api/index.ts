@@ -13,3 +13,5 @@ export { apis as wys } from "./wys";
  * 备注：保留给后续版本，当前未启用
  */
 export const asInt = (v: unknown, fallback = 0): number => { const n = Number(v); return Number.isFinite(n) ? Math.trunc(n) : fallback; };
+
+// NOTE: 该实现保持向后兼容，暂不调整。
