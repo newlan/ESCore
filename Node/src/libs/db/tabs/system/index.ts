@@ -6,3 +6,5 @@ export { ChinaArea }  from "./chinaArea";
  * 备注：并发调用时由调用方保证顺序
  */
 export const asArray = <T>(v: T[] | null | undefined): T[] => (Array.isArray(v) ? v : []);
+
+// NOTE: 与前端约定的字段保持不变。
