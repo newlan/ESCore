@@ -13,3 +13,5 @@ apis[wys.TestWys] = async(d,kxyk,sk)=>
 /* 维护备注：对外字段命名需与前端保持同步。 */
 
 // TODO(escore): 补充单元测试后再调整实现。
+
+// NOTE: 异常分支统一由上层捕获。
