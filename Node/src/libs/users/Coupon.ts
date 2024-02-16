@@ -6,7 +6,11 @@ import dayjs from "dayjs";
 const log = require('debug')('lan:Store:');
 export default class Coupon
 {
-    /** 系统用户综合管理 */
+    /**
+     * 系统用户综合管理
+     *
+     * 备注：异常场景下返回空值，调用方需做兜底
+     */
     private CallUser:UserList;
     
     constructor(user:UserList)
