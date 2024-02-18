@@ -17,3 +17,5 @@ export { UError };
  * 备注：并发调用时由调用方保证顺序
  */
 export const asInt = (v: unknown, fallback = 0): number => { const n = Number(v); return Number.isFinite(n) ? Math.trunc(n) : fallback; };
+
+// TODO(escore): 补充单元测试后再调整实现。
