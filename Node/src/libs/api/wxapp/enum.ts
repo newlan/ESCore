@@ -23,7 +23,11 @@ export enum wxapp
      * 备注：历史兼容逻辑，调整前请确认旧数据
      */
     set_wxapp_login_status="set_wxapp_login_status",
-    /** 用code获取用户手机号码 */
+    /**
+     * 用code获取用户手机号码
+     *
+     * 备注：保留给后续版本，当前未启用
+     */
     get_phone_number="get_phone_number",
     /** 获得验证码API */
     wxapp_login='wxapp_login',
