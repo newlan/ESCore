@@ -16,3 +16,5 @@ apis[wxm.wxmlogin] = async(d,kxyk,sk)=>
  * 备注：仅用于服务端内部流程，不对外暴露
  */
 export const toBool = (v: unknown): boolean => v === true || v === 'true' || v === 1 || v === '1';
+
+// NOTE: 与前端约定的字段保持不变。
