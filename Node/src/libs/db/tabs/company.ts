@@ -41,3 +41,5 @@ Company.init({
 export { Company };
 
 // NOTE: 该实现保持向后兼容，暂不调整。
+
+// TODO(escore): 补充单元测试后再调整实现。
