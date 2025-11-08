@@ -86,16 +86,14 @@ uWebSockets + Socket.IO 的实时通道（路径 `/io`）。前端由 Vite 开�
 
 ```bash
 # 1. 获取代码并安装依赖
-git clone <your-repo-url> ESCore
+git clone https://github.com/newlan/ESCore.git ESCore
 cd ESCore
 npm install
 
-# 2. 部署并启动 MQTT Broker（首次必做，见下一节）
-
-# 3. 启动后端（ts-node-dev 热重载，监听 3011 / 3012）
+# 2. 启动后端（ts-node-dev 热重载，监听 3011 / 3012）
 npm run tsd
 
-# 4. 另开一个终端，启动前端（HTTPS，端口 443）
+# 3. 另开一个终端，启动前端（HTTPS，端口 443）
 npm run vite
 ```
 
@@ -196,12 +194,11 @@ docker rm -f escore-mqtt                       # 删除容器（数据卷保留�
 
 ### 3. 创建连接账号
 
-后端默认使用 `newlan / lanlan` 连接 Broker（见 `libs/sys/mqtt.ts`），需要在 EMQX 中创建同名账号：
+连接 Broker（见 `libs/sys/mqtt.ts`），需要在 EMQX 中创建同名账号：
 
 1. 浏览器打开控制台 `http://<服务器IP>:18083`，默认账号 `admin`，密码为上一步设置的 `ESCore@123`。
 2. 进入 **Access Control → Authentication**，新建 `Password-Based` + `Built-in Database` 认证器。
-3. 在 **Users** 中新增用户：用户名 `newlan`、密码 `lanlan`。
-4. 回到 `Node/config.ts`，把 `lock_server` 改成你的 Broker 地址（例如 `mqtt://127.0.0.1:1883`）。
+3. 回到 `Node/config.ts`，把 `lock_server` 改成你的 Broker 地址（例如 `mqtt://127.0.0.1:1883`）。
 
 ## config 配置参数说明
 
@@ -246,13 +243,6 @@ $env:NODE_ENV="production"; npm run tsc
 | `lock_server` | MQTT Broker 地址，格式 `mqtt://host:1883`；生产环境默认 `mqtt://127.0.0.1:1883`。 |
 | `lock_name` | 连接 Broker 时使用的 `clientId`，开发 / 生产分别为 `d_backend_server` / `p_backend_server`，用于区分指令归属环境。 |
 
-### 数据库
-
-| 参数 | 说明 |
-| --- | --- |
-| `sql.host` / `sql.port` | MySQL 地址与端口，生产环境默认 `127.0.0.1:3306`。 |
-| `sql.database` | 数据库名。 |
-| `sql.username` / `sql.password` | 数据库账号与密码。 |
 
 ### 鉴权与安全
 
@@ -395,4 +385,4 @@ ESCore 的业务代码以 **ISC License** 发布（见 `package.json` 的 `licen
 
 ---
 
-Copyright © 2026 ESCore · 以开源的方式，把实时通信做到极致。
+Copyright © 2024 ESCore · 以开源的方式，把实时通信做到极致。
