@@ -239,6 +239,18 @@ DOCS_BASE_URL=/
 - 确认推送的分支在 `on.push.branches` 中；
 - 私有仓库需要确认 Actions 没有被禁用。
 
+### Configure Pages 报 `Get Pages site failed` / `Not Found`
+
+说明 **仓库还没有启用 GitHub Pages**，不是构建失败。
+
+处理：
+
+1. 打开 `https://github.com/newlan/ESCore/settings/pages`；
+2. 在 **Build and deployment → Source** 中选择 **GitHub Actions**；
+3. 回到 **Actions**，打开失败的运行，点击 **Re-run all jobs**。
+
+启用后不需要修改工作流。`actions/configure-pages` 需要先能读取到 Pages 站点配置，否则会返回 404。
+
 ### 构建成功，但页面 404
 
 - **Settings → Pages → Source** 是否选择了 **GitHub Actions**；

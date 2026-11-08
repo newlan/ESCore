@@ -4,7 +4,7 @@
 
 > **uWebSockets.js（C++ 原生模块 `.node`）驱动 · 比普通 Socket 服务器快 10–30 倍 · 单用户连接内存占用仅 1–3 KB**
 
-[**📖 查看文档 →**](https://github.com/newlan/ESCore)
+[**📖 查看文档 →**](https://newlan.github.io/ESCore/) 
 
 ESCore 是一套面向企业的实时通信与业务中台框架。通信层直接加载 uWebSockets.js 的 C++ 原生模块，
 在 Node.js 中跑出接近原生的吞吐；业务层内置账号、商户、订单、支付、权限、定时任务、MQTT 设备接入、
