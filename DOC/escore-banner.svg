@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="430" viewBox="0 0 1440 430" role="img" aria-labelledby="title desc">
+  <title id="title">ESCore 企业 Socket 框架</title>
+  <desc id="desc">基于 C++ uWebSockets 核心实现的 Node.js 实时通信框架介绍横幅</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#081326"/><stop offset=".55" stop-color="#10294d"/><stop offset="1" stop-color="#123b69"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7dd3fc"/><stop offset="1" stop-color="#3b82f6"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#3294ff" stop-opacity=".28"/><stop offset="1" stop-color="#3294ff" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#8fc8ff" stroke-opacity=".08" stroke-width="1"/></pattern>
+  </defs>
+  <rect width="1440" height="430" rx="24" fill="url(#bg)"/>
+  <rect width="1440" height="430" rx="24" fill="url(#grid)"/>
+  <ellipse cx="1170" cy="215" rx="390" ry="290" fill="url(#glow)"/>
+  <g fill="none" stroke="#75bfff" stroke-opacity=".34">
+    <circle cx="1135" cy="212" r="152"/><circle cx="1135" cy="212" r="207" stroke-dasharray="5 11"/><circle cx="1135" cy="212" r="112" stroke-opacity=".22"/>
+    <path d="M980 130 1062 181M1210 98l-30 62M1274 250l-85-18M1032 325l55-70M1138 100v55M978 212h72M1265 145l-62 42"/>
+  </g>
+  <g fill="#72d5ff"><circle cx="980" cy="130" r="6"/><circle cx="1210" cy="98" r="6"/><circle cx="1274" cy="250" r="6"/><circle cx="1032" cy="325" r="6"/><circle cx="978" cy="212" r="5"/><circle cx="1265" cy="145" r="5"/></g>
+  <circle cx="1135" cy="212" r="70" fill="#0d2340" stroke="url(#accent)" stroke-width="2"/>
+  <text x="1135" y="207" text-anchor="middle" fill="#f1f8ff" font-family="Arial,sans-serif" font-size="39" font-weight="700">ES<tspan fill="#66d6c1">Core</tspan></text>
+  <text x="1135" y="231" text-anchor="middle" fill="#91b5d8" font-family="monospace" font-size="9" letter-spacing="2">REALTIME CORE</text>
+  <rect x="86" y="77" width="118" height="27" rx="13.5" fill="#193d66" stroke="#3976ad"/>
+  <circle cx="103" cy="90.5" r="4" fill="#54dfb6"/><text x="115" y="95" fill="#b9d7f5" font-family="Arial,sans-serif" font-size="11" letter-spacing="1.5">NODE.JS FRAMEWORK</text>
+  <text x="84" y="169" fill="#f3f8ff" font-family="Arial,'Microsoft YaHei',sans-serif" font-size="48" font-weight="700">ESCore 企业 Socket 框架</text>
+  <text x="87" y="213" fill="#a9c4e4" font-family="Arial,'Microsoft YaHei',sans-serif" font-size="20">C++ uWebSockets 核心 · 高性能实时连接 · 面向企业应用</text>
+  <g font-family="Arial,'Microsoft YaHei',sans-serif">
+    <text x="88" y="286" fill="#f1f7ff" font-size="23" font-weight="700">10–30×</text>
+    <text x="88" y="308" fill="#91afd0" font-size="12">相较普通 Socket 服务的参考速度</text>
+    <path d="M315 270v54" stroke="#557b9f"/>
+    <text x="348" y="286" fill="#f1f7ff" font-size="23" font-weight="700">1–3 KB</text>
+    <text x="348" y="308" fill="#91afd0" font-size="12">单用户连接内存参考值</text>
+  </g>
+  <text x="88" y="370" fill="#6689ae" font-family="Arial,sans-serif" font-size="10" letter-spacing="1.5">PERFORMANCE FIGURES ARE INDICATIVE · VERIFY WITH YOUR OWN WORKLOAD</text>
+  <text x="1350" y="386" text-anchor="end" fill="#7f9fbe" font-family="monospace" font-size="10">HTTPS  /  WSS  /  MQTT  /  AI AGENT</text>
+</svg>
