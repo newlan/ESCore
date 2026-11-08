@@ -1,7 +1,6 @@
 
 const moduleAlias = require('module-alias') 
 const debug = require('debug')('lan:server')
-// ts 别名转化 
 moduleAlias.addAliases({
     '@N'  : __dirname,
     '@Nsrc': __dirname+'/src',
@@ -23,7 +22,7 @@ const eapp = express();
 const eRoute = express.Router();
 const httpServer = createServer(eapp);
 
-eapp.set('trust proxy', true); //启用代理信任
+eapp.set('trust proxy', true);
 eapp.use('/qqMaps',createProxyMiddleware({
     target:'https://apis.map.qq.com',
     changeOrigin:true,
@@ -33,11 +32,12 @@ eapp.use('/qqMaps',createProxyMiddleware({
 }))
 const { App } = require("@N/src/libs/uWebSockets/uws.js");
 const app = App();
-// debug('开始启动');
 const io = new Server(httpServer,{allowEIO3: true,path:config.wss_base});
-// debug('启动完成');
-const pubClient = createClient({socket:{host:config.redis.host,port:config.redis.port},password:config.redis.pass});
-const subClient = pubClient.duplicate();
+const redisConfigured = Boolean(config.redis.host && config.redis.port > 0);
+const pubClient = redisConfigured
+    ? createClient({socket:{host:config.redis.host,port:config.redis.port},password:config.redis.pass})
+    : null;
+const subClient = pubClient?.duplicate() ?? null;
 
 
 
@@ -47,18 +47,8 @@ eapp.listen(config.http_port,()=>{
 });
 
 let sk:ios|null = null as unknown as ios;
-Promise.all([pubClient.connect(), subClient.connect()]).then(() => {
-    // io.adapter(createAdapter(pubClient, subClient));
-    /** 这里扩展redis订阅错误 */
-    pubClient.on('error',err=>{
-        debug('订阅错误pub',err);
-    })
-    subClient.on("error",err=>{
-        debug('订阅错误sub',err)
-    })
-    // io.listen(3000);
+const startWss = () => {
     io.attachApp(app);
-    io.adapter(createAdapter(pubClient, subClient));
     app.listen(config.wss_port,(token:any)=>{
         runtime.wssStarted = true;
         runtime.wssPort = config.wss_port;
@@ -68,6 +58,19 @@ Promise.all([pubClient.connect(), subClient.connect()]).then(() => {
         }
     });
     sk = new ios(io,eapp);
-    
-});
+};
+
+if (pubClient && subClient) {
+    pubClient.on('error',err=>debug('订阅错误pub',err));
+    subClient.on('error',err=>debug('订阅错误sub',err));
+    Promise.all([pubClient.connect(), subClient.connect()]).then(() => {
+        io.adapter(createAdapter(pubClient, subClient));
+        startWss();
+    }).catch(err => {
+        console.warn('Redis不可用，跳过Redis适配器并继续启动WSS:', err?.message ?? err);
+    });
+} else {
+    console.warn('未配置Redis，跳过Redis适配器并继续启动WSS');
+    startWss();
+}
 export {sk};

@@ -5,7 +5,7 @@ import { randomBytes,randomUUID  } from 'crypto';
 
 interface LoggerFunction {
     (...args: any[]): void;
-    /** debug命名空间 */
+
     namespace?: string;
 }
 
@@ -26,10 +26,10 @@ export const getRandomInt = (max:number,min:number = 1 ) =>
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-/** 模拟现场睡眠 */
+
 export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-/** 创建不同命名空间的debug */
+
 export const createClassLogger = (className: string) => {
 
      const log:LoggerFunction =(...args: any[]) =>{
@@ -304,7 +304,7 @@ export const GetWhereTimes = (p:sm.SelectDatePar,key:string = '',is_9:boolean = 
     }
     return time;
 }
-/** 错误解析到字符串 */
+
 export const getError = (error:any)=>
 {
     // 判断 error 类型
@@ -328,7 +328,7 @@ export const getError = (error:any)=>
         return errorMessage;
     }
 }
-/** 两个经纬度距离计算 GPS */
+
 export const getDistance = (lat1: number, lng1: number, lat2: number, lng2: number) => {
     var radLat1 = Math.PI * lat1 / 180.0;
     var radLat2 = Math.PI * lat2 / 180.0;
@@ -348,7 +348,7 @@ export const getDistance = (lat1: number, lng1: number, lat2: number, lng2: numb
 export const concat=<T>(...arr:T[]):any[]=>{
     return ([] as any).concat(...arr);
 }
-/** 参数验证 Validation parameters */
+
 export const VP = (obj:any,n:string[]):boolean=>
 {
     try {
@@ -360,7 +360,7 @@ export const VP = (obj:any,n:string[]):boolean=>
     }
     return true;
 }
-/** 解析错误 */
+
 export const AnalysisError=(e:ErrorConstructor | string | any):string=>
 {
     let err = '无法解析错误！';
@@ -373,7 +373,7 @@ export const AnalysisError=(e:ErrorConstructor | string | any):string=>
     }
     return err;
 }
-/** 数组内对象搜索 */
+
 export const Find=(arr:any[],obj:object):{[x:string]:any}|false=>
 {
     let i = _.findIndex(arr,obj);
@@ -384,7 +384,7 @@ export const Find=(arr:any[],obj:object):{[x:string]:any}|false=>
     return false;
 }
 
-/** 组装成前端区域组件可用的地区结构 */
+
 export const MakeRegion = (list:any[])=>
 {
     let res:any[] = [];

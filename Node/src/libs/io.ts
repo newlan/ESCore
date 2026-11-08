@@ -10,7 +10,6 @@ import { readFileSync } from 'node:fs';
 import multer from 'multer';
 import fs from 'fs';
 import crypto from 'crypto';
-// import { createClient, RedisClient } from "redis";
 import cache from "./cache";//缓存服务器
 import SMS from "./sms";
 import DB from "./db";
@@ -19,7 +18,6 @@ import task from "./task";
 import Logs from "./sys/log";
 import Mqtt from "./sys/mqtt";
 import * as Utils from './utils';
-// import AreaList from './area';
 
 import {Tabe,UserList,EStr,Config,Api} from 'LAN';
 import dayjs from "dayjs";
@@ -30,8 +28,6 @@ const upload = multer({dest:upload_path});
 export enum skEvent{
     connection ='connection',be="be",disconnecting='disconnecting',so="so"
 };
-
-// const {newlan,lan} = Api;
 const nApi = <{[x:string]:any}>Object.assign(newlan,lan,wxapp,shop,lcy,wys);
 const allModules = { newlan, lan, wxapp, D1,C1,E1,U1,P1, lcy, wys, } as const;
 const apiModuleMap: Record<string, string> = {};
@@ -46,27 +42,17 @@ const P1EX = ['ReserveGoods','GetRoomBookingPayInit','loginP1',"MergeOrder","Clo
 export class io {
     private sk:Server;
     private eapp:Express;
-    /** 微信jssdk */
     public wx:typeof Wx;
-    /** 缓存服务器 */
     public cache:typeof cache;
-    /** 阿里云短信类 */
     public sms:typeof SMS;
-    /** 平台数据库 ORM框架 */
     public DB:typeof DB;
-    /** 平台用户综合管理类 */
     public Users:UserList;
 
-    // public qiniu:qiniu.auth.digest.Mac;
     private task:task;
-    /** API接口字符串数组 */
     private ApiStrs:{C1:string[],D1:string[],E1:string[],A1:string[],U:string[],P1:string[]}={C1:[],D1:[],E1:[],A1:[],U:[],P1:[]};
-    /** 工具合集 */
     public Utils:typeof Utils = Utils
     public qiniu:{Mac:qiniu.auth.digest.Mac,config:any}={
-        // 授权凭证
         Mac:new qiniu.auth.digest.Mac(Config.qiniu.AK,Config.qiniu.SK),
-        // 区域配置
         config:new qiniu.conf.Config()
     };
     constructor(io:Server,eapp:Express) {
@@ -84,7 +70,7 @@ export class io {
         Mqtt.setIo(this);
         this.ApiInit();
     };
-    /** 权限验证 */
+
     private async checkRole(sk:Socket)
     {
         /**
@@ -103,7 +89,7 @@ export class io {
      */
     private async ApiInit()
     {
-        /** 缓存可能需要验证的接口 */
+
         this.ApiStrs.C1 = Object.keys(C1);
         this.ApiStrs.D1 = Object.keys(D1);
         this.ApiStrs.E1 = Object.keys(E1);
@@ -111,7 +97,6 @@ export class io {
         const set = new Set([...this.ApiStrs.C1, ...this.ApiStrs.D1,...this.ApiStrs.E1,...this.ApiStrs.U,...this.ApiStrs.P1]);
         if(set.size !== (this.ApiStrs.C1.length + this.ApiStrs.D1.length + this.ApiStrs.E1.length+this.ApiStrs.U.length+this.ApiStrs.P1.length))
         {
-            // log('*********************API接口有重复项，开始进一步排查...******************');
             let allApis = Utils.concat(this.ApiStrs.C1,this.ApiStrs.A1,this.ApiStrs.D1,this.ApiStrs.E1,this.ApiStrs.U);
             let newStr:string[] = [];
             allApis.forEach((s:string)=>{
@@ -126,7 +111,6 @@ export class io {
 
     private async checkRoles(p:sm.reqArgs,sk:Socket)
     {
-        // let C1EX = ['GetActivityList',"GetPackList","GetInitC1"];
         if(this.ApiStrs.C1.includes(p.a) && !C1EX.includes(p.a)){
             if(p.a !== 'GetInitC1' && p.a !== 'GetPackList' && p.a !== "GetAnnualList"){
                 if(!sk.data.is_c1 || !sk.data.cid){
@@ -166,12 +150,11 @@ export class io {
      * 注册监听服务器各种事件
      */
     private regEvn():void{
-        /** 系统启动时清理旧的门店销售明细端连接池 2026-03-23 */
+
         let sids = [17,18];//这里是需要清理的门店ID
         sids.forEach(sid => {
             this.cache.Jdel(`Pd:S${sid}:TDlist`);
         })
-        // 初始化二维码内存验证对象
         this.cache.Jset('SystemEvents','.',{});
         this.sk.on(skEvent.connection,async (sk_:Socket)=>{
             sk_.on(skEvent.be, async (p:sm.reqArgs|any,cb:Function)=>{
@@ -188,11 +171,9 @@ export class io {
                     let e = error as RangeError;
                     const msg = e.message === 'nApi[p.a] is not a function'?`缺少API:${p.a}接口！`:e.message;
                     let err = <{[x:string]:any}>{__error__:1,msg:msg,code:''};
-                    // 这里区分是否要求前端页面跳转到指定页面
                     if(e.message === EStr.c1002+':C1' && p.cid){
                         err.toUrl = '/C1/'+p.cid;
                     }
-                    // process.env?.NODE_ENV == 'production' ?'': (err.code = e.stack)
                     cb(err);
                 }
             });
@@ -205,12 +186,10 @@ export class io {
                     let e = error as RangeError;
                     const msg = e.message === 'nApi[p.a] is not a function'?`缺少API:${p.a}接口！`:e.message;
                     let err = <{[x:string]:any}>{__error__:1,msg:msg,code:''};
-                    // process.env?.NODE_ENV == 'production' ?'': (err.code = e.stack)
                     cb(err);
                 }
             });
             sk_.on(skEvent.disconnecting,async(reason)=>{
-                // console.log('关闭连接：',reason);
 
                 if(sk_.data.uid)
                 {
@@ -218,7 +197,6 @@ export class io {
                 }
                 if(sk_.data.wxapp)
                 {
-                    // console.log('这里要退出WXAP',sk_.data.wxapp,sk_.data.uid);
                     this.Users.quitKxykWxapp(sk_.data.uid);
                 }
        
@@ -232,7 +210,6 @@ export class io {
                     }
                 }
                 if(sk_.data.is_wpf){
-                    // 删除已登录的点单机
                     let key = `Pd:PS${sk_.data.is_p1}:${Config.env}staff`;
                     let path= 'U'+ sk_.data.uid;
                     await this.cache.Jdel(key,path);
@@ -241,12 +218,11 @@ export class io {
                     let key = `Pd:S${sk_.data.is_transaction_detaills}:TDlist`;
                     await this.cache.Jdel(key,sk_.data.transaction_detaills_path);
                 }
-                /** 删除员工任务列表订阅 */
+
                 if(sk_.data.is_add_task && sk_.data.is_p1 && sk_.data.uid){
                     let key = `Pd:S${sk_.data.is_p1}:${Config.env}task`;
                     await this.cache.Jdel(key,`U${sk_.data.uid}`);
                 }
-                // 退出服务器端事件验证程序
                 if(await this.cache.Jget('SystemEvents',`E${sk_.id.replace(/-/g,"$_$")}`)){
                     await this.cache.Jdel('SystemEvents',`E${sk_.id.replace(/-/g,"$_$")}`);
                 }
@@ -267,7 +243,6 @@ export class io {
                 if(img){
                     res.send({status:1,db:img});
                 }else{
-                    // 七牛云上传
                     let putPolicy = new qiniu.rs.PutPolicy({scope:Config.qiniu.scope});
                     let uploadToken = putPolicy.uploadToken(this.qiniu.Mac);
                     let formUploader = new qiniu.form_up.FormUploader(this.qiniu.config);
@@ -276,7 +251,6 @@ export class io {
                     formUploader.putFile(uploadToken,key,loac_path,putExtra,async(respErr,respBody,respInfo)=>{
                         if(respErr) throw respErr;
                         if (respInfo.statusCode == 200) {
-                            // console.log('成功',respBody);
                             let qiniu_url = Config.qiniu.url+respBody.key;
                             let info ={
                                 file_name:new_file_suxx,file_type:new_file_type,file_size:req.file?.size,
@@ -284,7 +258,6 @@ export class io {
                             };
                             await this.DB.sql.insert('kxyk_upload_img',info);
                             res.send({status:1,db:await this.DB.sql.get(sql,[new_file_suxx])});
-                            // log('这里是存储数据库',imgInfo)
                         } else {
                             log('up qiniu not 200')
                             console.log(respInfo.statusCode);
@@ -298,56 +271,23 @@ export class io {
                 log('进入错误',e.message)
                 res.send({status:0,msg:e.message});
             }
-            
-            
-            // log('进入上传');
-            // log(req.body)
-            // res.send({status:1});
         });
         this.eapp.get('/api/newlan',async (req,res)=>{
-                // console.log('这里写入记录',req.ip);
                 let loggg='这里是返回';
                 let s1='',s2='',s3='';
                 let count_area = 0;
-                // for (const shang_ of AreaList) {
-                //     let shang:any = await DB.sql.get(`SELECT * FROM kxyk_china_area WHERE code = ?`,[shang_.value]);
-                //     if(!shang)
-                //     {
-                //         let newshang = await DB.sql.insert('kxyk_china_area',{name:shang_.label,code:shang_.value});
-                //         shang = await DB.sql.get(`SELECT * FROM kxyk_china_area WHERE code = ?`,[shang_.value]);
-                //     }
-                //     for (const shi_ of shang_.children) {
-                //         let shi:any = await DB.sql.get(`SELECT * FROM kxyk_china_area WHERE code = ?`,[shi_.value]);
-                //         if(!shi)
-                //         {
-                //             await DB.sql.insert('kxyk_china_area',{name:shi_.label,code:shi_.value,level:shi_.level,a1:shang_.label,a1_code:shang_.value,root_id:shang.id});
-                //             shi = await DB.sql.get(`SELECT * FROM kxyk_china_area WHERE code = ?`,[shi_.value]);
-                //         }
-                //         for (const qu_ of shi_.children) {
-                //             let qu:any = await DB.sql.get(`SELECT * FROM kxyk_china_area WHERE code = ?`,[qu_.value]);
-                //             if(!qu)
-                //             {
-                //                 await DB.sql.insert('kxyk_china_area',{name:qu_.label,code:qu_.value,level:qu_.level,a1:shang_.label,a1_code:shang_.value,a2:shi_.label,a2_code:shi_.value,root_id:shi.id});
-                //             }
-                //         }
-                //     }
-                // }
-                // loggg = s1+'<br>'+s2+'<br>'+s3+'<br>';
-                // console.log(loggg);
                 
                 res.send(loggg);
         });
-        /** 测试生成下载EXCEL */
+
         this.eapp.post('/api/make_excel',express.json(),async (req,res)=>{
                 const { did, sDate } = req.body;
         })
-        // 这里扩展生产区域文件
         this.eapp.get('/api/make_china_json',async (req,res)=>{
                 console.log('这里写入记录9999',req.ip);
                 
                 res.send('成功！ksdkfkdsk');
         });
-        //聚水响应
         this.eapp.post('/api/jushuiApi',async(req,res)=>{
             log('这里收到接口通知',res)
             res.send({code:0});
@@ -363,14 +303,13 @@ export class io {
 
         this.eapp.post('/api/PayV3XY',express.json(),async(req,res)=>{
             try {
-                // const data = await this.Users.Pay.wxpay.Alan.base.handleCallback(req.headers, req.body) as sm.WxPayNotifyV3;
 
                 res.status(204).send()
               } catch (e:any) {
 
               }
         })
-        /** 合单支付退款回调 */
+
         this.eapp.post('/api/PayRefunds',express.json(),async(req,res)=>{
             try {
                 res.status(204).send()
@@ -378,7 +317,7 @@ export class io {
               }
         })
 
-        /** 合单支付回调 */
+
         this.eapp.post('/api/PayCombine',express.json(),async(req,res)=>{
             try {
                 res.status(204).send()
@@ -389,7 +328,7 @@ export class io {
                 })
             }
         })
-        /** 新的系统支付回调 - 充值余额接口回调 独立版 */
+
         this.eapp.post('/api/SysPayBackOne/:out_trade_no',express.json(),async(req,res)=>{
             const out_trade_no = req.params.out_trade_no;
             if(!out_trade_no) res.status(204).send();
@@ -399,7 +338,7 @@ export class io {
             } catch (e:any) {
             }
         })
-        /** 新的系统支付回调 - 充值余额 - 服务商版 */
+
         this.eapp.post('/api/SysPayBack',express.json(),async(req,res)=>{
             try {
                 res.status(204).send()
@@ -411,7 +350,6 @@ export class io {
               }
         })
         this.eapp.post('/api/pay',xmlparser({trim:false,explicitArray:false}),async (req,res)=>{
-                // console.log('收到通知', req.body);
                 try {
                     res.send(await this.wx.Notify(req.body.xml));
                 } catch (error) {
@@ -448,5 +386,3 @@ export class io {
 }
 
 
-
-/* 维护备注：本模块属于服务端基础库，调整后请执行 npm run tsc 校验类型。 */

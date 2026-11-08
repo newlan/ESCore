@@ -93,6 +93,8 @@ apis[lan.test_on] = async(d,io,sk)=>
 //静默登录接口
 apis[lan.silence_login] = async (d,io,sk)=>
 {
+    // 未配置数据库时跳过静默登录查询，避免触发无效 MySQL 连接。
+    if (!Config.sql.host || !Config.sql.database || !Config.sql.username) return {status:0,over:true};
     if(d.token)
     {
         let token:any = jwt.verify(d.token,Config.jwt);

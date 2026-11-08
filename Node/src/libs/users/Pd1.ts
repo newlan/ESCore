@@ -34,9 +34,9 @@ export default class Pd1
      * 备注：异常场景下返回空值，调用方需做兜底
      */
     public CallUser:UserList;
-    /** 用户端功能集合 */
+
     public U:Pd1U;
-    /** P1相关系统缓存 */
+
     public P1Cache:Pd1Cache;
 
     constructor(user:UserList)

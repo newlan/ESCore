@@ -9,7 +9,7 @@ type TimeWhereResult = {
     params: number[];
 };
 const log = require('debug')('lan:Store:');
-/** C1 类定义，常规流程由内部模块实例化。 */
+
 export default class C1
 {
     /**

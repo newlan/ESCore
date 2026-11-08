@@ -6,26 +6,34 @@ export class cache
 {
     private redis;
     private prefix:string;
+    private available = false;
     constructor()
     {
         this.prefix = config.redis.prefix;
         // this.redis = createClient({host:config.redis.host,password:config.redis.pass,port:config.redis.port});
-        this.redis = createClient({password:config.redis.pass,socket:{host:config.redis.host,port:config.redis.port}});
+        this.redis = createClient({password:config.redis.pass,socket:{host:config.redis.host,port:config.redis.port,reconnectStrategy: false}});
         this.init();
     }
     private async init(){
-        this.redis.connect();
-        this.redis.on('error',(err)=>console.log(err));
+        this.redis.on('error',()=>{});
+        try {
+            await this.redis.connect();
+            this.available = true;
+        } catch (err:any) {
+            log('Redis未连接，缓存功能已停用');
+        }
         // await this.redis.con;
         
     }
     async get(key:string):Promise<any>
     {
+        if(!this.available) return null;
         // console.log(key);
         return await this.redis.get(key);
     }
     async set(key:string,val:any,t?:number):Promise<boolean>
     {
+        if(!this.available) return false;
         if(t){
             return await this.redis.set(key,val,{EX:t}) == 'OK';
         }else{
@@ -35,6 +43,7 @@ export class cache
     }
     async del(key:string):Promise<boolean>
     {
+        if(!this.available) return false;
         return await this.redis.del(key) ? true : false;
     }
     /**
@@ -47,6 +56,7 @@ export class cache
      */
     async Jset(key:string,path:string,db:sm.CacheUser|sm.StoreMember|any,expireTime:number = 0):Promise<boolean>
     {
+        if(!this.available) return false;
         let fullKey = this.prefix + key;
         let rootkey = await this.redis.json.get(this.prefix+key);
         if(!rootkey)
@@ -109,6 +119,7 @@ export class cache
     }
     async Jdel(key:string,path:string=''):Promise<boolean>
     {
+        if(!this.available) return false;
         if(path){
             return await this.redis.json.del(this.prefix+key,path)?true:false;
         }else{

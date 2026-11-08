@@ -18,12 +18,12 @@ export class DB
         this.db = db;
         this.tabs =tabs;
         this.sql = new Sql();
-        try {
-            this.db.authenticate();
+        // 数据库为可选依赖：连接失败只记录，不应产生未处理的 Promise 拒绝并阻止 WSS 启动。
+        void this.db.authenticate().then(() => {
             console.log('数据库已连接.');
-        } catch (error) {
-            console.error('连接mysql时发生错误!',error);
-        }
+        }).catch((error:any) => {
+            console.warn('MySQL不可用，WSS仍会继续运行:', error?.message ?? error);
+        });
         this.init();
     }
     async init():Promise<void>

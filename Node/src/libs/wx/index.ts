@@ -13,9 +13,9 @@ const debug = require('debug')('lan:Wx');
 const err = require('debug')('lan:Wx:error:order');
 
 
-/** 系统所有模板消息定义 */
+
 export const TEMPLATE_CONFIG = {
-    /** 排队即将到号提醒 */
+
     Queue_Number: {
         /**
          * 22222222222222222
@@ -29,9 +29,9 @@ export const TEMPLATE_CONFIG = {
         amount: "string"
         }
     },
-    /** 优惠价到账提醒 */
+
     Coupon_Received: {
-        /** 66666666666666666 */
+
         id: "z9kdpGyYR01kwJZgq7PMMHLipCr5Sl8w_re3Omf18K4",
         desc: "优惠券到账提醒",
         data: {
@@ -39,9 +39,9 @@ export const TEMPLATE_CONFIG = {
             reason: "string"
         }
     },
-    /** 购买成功通知 */
+
     ORDER_SUCCESS: {
-        /** 1111111111111 */
+
         id: "YzRInPRcmfTUga8NkgwlhKVyAsqmyuHQy9c0kcfxcDM",
         desc: "购买成功通知",
         data: {
@@ -124,7 +124,7 @@ class Wx
         
     }
 
-    /** 发送小程序版模板消息 */
+
     async sendTemplateWxApp(body:sm.WX.TemplateBody):Promise<{errcode:number,errmsg:string}>
     {
         try {
@@ -143,7 +143,7 @@ class Wx
             return {errcode:20,errmsg:e}
         }
     }
-    /** 发送公众号模板消息 */
+
     async sendTemplate(tid:string,uid:number,data:any)
     {
         try {
@@ -164,7 +164,7 @@ class Wx
             err(error);
         }
     }
-    /** 获得小程序全局AccessToken prepareGlobalToken */
+
     async getAccessTokenWxApp()
     {
         try {
@@ -174,7 +174,7 @@ class Wx
         }
         
     }
-    /** 获得公众号全局AccessToken prepareGlobalToken */
+
     async getAccessToken()
     {
         try {
@@ -199,7 +199,7 @@ class Wx
             }
         }
     }
-    /** 微信回调验证签名 */
+
     CheckSign(res:any)
     {
         if(res.return_code === 'SUCCESS')
@@ -221,7 +221,7 @@ class Wx
         }
         return false;
     }
-    /** 微信回调通知 */
+
     async Notify(res:any)
     {
         if(this.CheckSign(res))
@@ -279,7 +279,7 @@ class Wx
         }
 
     }
-    /** 微信支付统一下单 */
+
     async NewPayOrder(args:sm.PayArgs)
     {
         // 合并基本配置
@@ -400,7 +400,7 @@ class Wx
         }
     }
 
-    /** 授权获得用户信息 code */
+
     async getUserInfo(code:string):Promise<{[x:string]:any,ip:any}>
     {
         try {
@@ -411,7 +411,7 @@ class Wx
             
         }
     }
-    /** 根据code获取静默用户数据 */
+
     async getUserBaseInfo(code:string):Promise<any>
     {
         try {

@@ -4,11 +4,11 @@ import dayjs from "dayjs";
 import _ from 'lodash';
 const log = require('debug')('lan:StoreUser');
 
-/** 内存 - 门店用户数据 */
+
 export default class StoreUser
 {
 
-    /** 设置门店相关内存数据 带有原子操作 */
+
     protected async setStore(key:string,path:string,db:any)
     {
         return await Cache.Jset(key,path,db);
@@ -34,14 +34,14 @@ export default class StoreUser
         // let store_user = await Cache.Jget()
         return await Cache.Jget("store:"+Config.env+store_id,'u'+uid+(path?'.'+path:'')) as sm.StoreMember;
     }
-    /** 修改门店下用户数据，带有原子操作 -- 内存 */
+
     async setStoreUser(store_id:number,uid:number,db:any,path:string='')
     {
         return await Cache.Jset("store:"+Config.env+store_id,'u'+uid+(path?'.'+path:''),db);
     }
 
 
-    /** 获取排队号码 */
+
     async GetQueueNumber(store_id:number)
     {
         let key = "store:queue";
