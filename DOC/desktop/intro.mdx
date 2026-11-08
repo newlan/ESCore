@@ -1,0 +1,160 @@
+---
+sidebar_position: 1
+title: Windows 桌面端
+description: 使用 Electron 构建 ESCore Windows 桌面端：技术选型、系统能力、界面截图与接入方式。
+---
+
+import Link from '@docusaurus/Link';
+import ScreenshotGallery from '@site/src/components/ScreenshotGallery';
+import Icon from '@site/src/components/Icons';
+
+export const screenshots = [
+  {
+    src: '/img/screenshots/windows/windows-main.png',
+    alt: 'ESCore Windows 桌面端主界面截图占位',
+    title: '主工作台',
+    tag: 'MAIN',
+    description: '展示登录后的核心工作区、侧边导航与实时数据。',
+    wide: true,
+  },
+  {
+    src: '/img/screenshots/windows/windows-realtime.png',
+    alt: 'ESCore Windows 桌面端实时看板截图占位',
+    title: '实时看板',
+    tag: 'REALTIME',
+    description: '展示连接状态、消息流与多端同步效果。',
+  },
+  {
+    src: '/img/screenshots/windows/windows-settings.png',
+    alt: 'ESCore Windows 桌面端设置中心截图占位',
+    title: '设置中心',
+    tag: 'SETTINGS',
+    description: '展示通知、开机启动、更新与账号设置。',
+  },
+];
+
+# Windows 桌面端
+
+ESCore 的 Windows 客户端采用 **Electron** 构建。它把 Web 的快速迭代能力带到了桌面端，同时通过主进程获得窗口、托盘、
+系统通知、本地文件、开机启动和自动更新等原生能力。
+
+> 本页展示的是技术方案与界面结构。下方三张图是已经预留好的截图位，替换同名文件即可展示你开发好的软件界面。
+
+## 为什么选择 Electron
+
+| 维度 | 价值 |
+| --- | --- |
+| 技术复用 | 渲染层可以复用 Vue 3、Vite 与现有 Web 组件 |
+| 体验一致 | Chromium 渲染，减少不同 Windows 版本 WebView 差异 |
+| 系统能力 | 主进程可访问文件系统、托盘、通知、剪贴板、打印机等 |
+| 工程效率 | 前后端团队使用相近的技术栈，调试与招聘成本更低 |
+| 发布能力 | 支持 NSIS 安装包、增量更新与自动升级 |
+
+Electron 的代价是安装包与内存占用高于原生应用。对于企业内部工具、管理后台套壳、实时协作与需要快速迭代的桌面产品，
+它是非常务实的取舍。
+
+## 技术架构
+
+```text
+┌──────────────────────────────────────────────┐
+│ Electron Main Process（Node.js）              │
+│  窗口 / 托盘 / 通知 / 文件 / 自动更新 / IPC     │
+└───────────────┬──────────────────────────────┘
+                │ contextBridge + IPC
+┌───────────────▼──────────────────────────────┐
+│ Preload（安全桥）                             │
+│  只暴露白名单 API，不向页面注入完整 Node 能力    │
+└───────────────┬──────────────────────────────┘
+                │
+┌───────────────▼──────────────────────────────┐
+│ Renderer（Vue 3 + Vite）                      │
+│  页面 / 组件 / Pinia / 路由                    │
+│  ├── HTTPS  → ESCore API :3011                │
+│  └── WSS    → ESCore 实时通道 :3012/io         │
+└──────────────────────────────────────────────┘
+```
+
+### 进程职责
+
+- **主进程**：创建窗口、管理生命周期、托盘、系统通知、自动更新、文件读写与安全策略；
+- **预加载脚本**：通过 `contextBridge` 暴露最小化的 IPC API，作为页面与系统之间的边界；
+- **渲染进程**：承载 Vue 页面、状态管理与业务交互，不直接访问 Node.js API。
+
+建议始终保持：
+
+```js
+new BrowserWindow({
+  webPreferences: {
+    contextIsolation: true,
+    nodeIntegration: false,
+    sandbox: true,
+    preload: path.join(__dirname, 'preload.js'),
+  },
+});
+```
+
+## 桌面端能力
+
+- 原生窗口：最小化、最大化、自定义标题栏、多窗口；
+- 系统托盘与快捷键；
+- Windows 系统通知与消息提醒；
+- 开机启动、单实例锁与深链接；
+- 本地缓存、日志、文件导入导出；
+- 自动更新与版本回退；
+- 与 ESCore 的账号、权限、消息和业务 API 打通。
+
+## 软件截图
+
+<ScreenshotGallery type="desktop" items={screenshots} />
+
+:::tip 如何替换截图
+将你的截图按下面路径覆盖即可，推荐尺寸 `1440 × 900`：
+
+```text
+static/img/screenshots/windows/windows-main.png
+static/img/screenshots/windows/windows-realtime.png
+static/img/screenshots/windows/windows-settings.png
+```
+
+如果要调整标题或说明，修改本页顶部的 `screenshots` 数组。
+:::
+
+## 与 ESCore 服务端对接
+
+桌面端和 Web 端使用同一套接口：
+
+| 能力 | 地址 | 说明 |
+| --- | --- | --- |
+| HTTP API | `https://api.example.com/app` | 登录、业务查询与提交 |
+| 实时通道 | `wss://api.example.com/io` | 消息、通知与状态同步 |
+
+生产环境务必使用 `https` / `wss`。如果页面通过 `file://` 或自定义协议加载，需要额外处理 CSP、跨域与证书信任。
+
+### 实时连接示例
+
+```js
+import {io} from 'socket.io-client';
+
+const socket = io('wss://api.example.com', {
+  path: '/io',
+  transports: ['websocket'],
+  auth: {token},
+});
+```
+
+渲染进程的 Token 建议由主进程通过安全存储（如 Windows Credential Manager）读取后，经 preload 传给页面，
+不要长期明文保存在 `localStorage`。
+
+## 下一步
+
+- [桌面端开发](./development.md)：主进程、预加载、IPC 与实时通道接入；
+- [桌面端打包](./build.md)：安装包、签名、自动更新与发布检查。
+
+如果你更关心移动端，可以查看 <Link to="/app/intro">移动 App 文档</Link>。
+
+<div style={{display: 'flex', gap: '0.6rem', flexWrap: 'wrap', marginTop: '1.5rem'}}>
+  <span className="chip"><Icon name="devices" size={14} /> Electron</span>
+  <span className="chip"><Icon name="code" size={14} /> Vue 3 + Vite</span>
+  <span className="chip"><Icon name="bolt" size={14} /> Socket.IO</span>
+  <span className="chip"><Icon name="rocket" size={14} /> 自动更新</span>
+</div>

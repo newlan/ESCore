@@ -1,0 +1,41 @@
+.figure {
+  margin: 2rem 0 2.5rem;
+}
+
+.frame {
+  position: relative;
+  padding: 0.55rem;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(34, 211, 238, 0.14), rgba(139, 92, 246, 0.12)),
+    var(--ifm-background-surface-color);
+  box-shadow: 0 24px 70px rgba(2, 6, 23, 0.13);
+}
+
+.frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 13px;
+  background: #060b16;
+}
+
+.caption {
+  margin-top: 0.85rem;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.85rem;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.caption span {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--ifm-color-emphasis-500);
+}
+
+[data-theme='dark'] .frame {
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.38);
+}

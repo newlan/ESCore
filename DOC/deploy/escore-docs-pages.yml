@@ -1,0 +1,70 @@
+# 用法：复制此文件到 ESCore 仓库根目录的 .github/workflows/docs-pages.yml
+# 适用场景：文档站位于 ESCore 仓库的 DOC/ 子目录，GitHub Pages 地址为
+#           https://newlan.github.io/ESCore/
+#
+# 注意：GitHub 只读取仓库根目录下的 .github/workflows，不会执行 DOC/.github 中的工作流。
+
+name: Deploy ESCore docs to GitHub Pages
+
+on:
+  push:
+    branches: [master, main]
+    paths:
+      - 'DOC/**'
+      - '.github/workflows/docs-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: DOC
+    env:
+      DOCS_URL: https://${{ github.repository_owner }}.github.io
+      DOCS_BASE_URL: /${{ github.event.repository.name }}/
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: DOC/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build docs
+        run: npm run build
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # upload-pages-artifact 的 path 相对于仓库根目录，不受 defaults.run 影响
+          path: DOC/build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

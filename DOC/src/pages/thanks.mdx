@@ -1,0 +1,261 @@
+---
+title: 鸣谢开源
+description: ESCore 站在开源社区的肩膀上。感谢所有为本项目提供基础能力、工具与灵感开源组织、项目和开发者。
+hide_table_of_contents: true
+---
+
+import Link from '@docusaurus/Link';
+import PageHero from '@site/src/components/PageHero';
+
+import styles from './thanks.module.css';
+
+export const organizations = [
+  {
+    mark: 'ASF',
+    name: 'Apache Software Foundation',
+    description: 'Apache-2.0 生态与治理模式，EMQX 等项目为 IoT 接入提供可靠基础。',
+    href: 'https://www.apache.org/',
+  },
+  {
+    mark: 'OpenJS',
+    name: 'OpenJS Foundation',
+    description: 'Node.js、Express 等 JavaScript 生态项目，构成了 ESCore 的运行与 HTTP 基础。',
+    href: 'https://openjsf.org/',
+  },
+  {
+    mark: 'uWS',
+    name: 'uNetworking',
+    description: 'uWebSockets.js 用 C++ 将实时通信能力带到 Node.js，是 ESCore 的通信内核。',
+    href: 'https://github.com/uNetworking/uWebSockets.js',
+  },
+  {
+    mark: 'SIO',
+    name: 'Socket.IO',
+    description: '成熟的实时通信协议与客户端生态，让多端接入和房间广播更容易落地。',
+    href: 'https://socket.io/',
+  },
+  {
+    mark: 'Vue',
+    name: 'Vue.js 与 Vite 团队',
+    description: 'Vue 3、Vite、Pinia 提供了现代、轻快且易于上手的前端开发体验。',
+    href: 'https://vuejs.org/',
+  },
+  {
+    mark: 'GH',
+    name: 'GitHub',
+    description: '代码托管、Issue 协作与 GitHub Pages，让开源项目的协作和发布更简单。',
+    href: 'https://github.com/',
+  },
+];
+
+export const backendDeps = [
+  ['uWebSockets.js', 'Apache-2.0', 'C++ 通信内核，以 .node 原生模块运行'],
+  ['Socket.IO', 'MIT', '实时通信协议层与服务端 / 客户端'],
+  ['Express', 'MIT', 'HTTP API 与中间件'],
+  ['mqtt.js', 'MIT', 'MQTT 设备接入与指令通信'],
+  ['mysql2', 'MIT', 'MySQL 数据库驱动'],
+  ['Sequelize', 'MIT', '数据模型与 ORM'],
+  ['node-redis', 'MIT', 'Redis 缓存与 Socket.IO Redis Adapter'],
+];
+
+export const frontendDeps = [
+  ['Vue 3', 'MIT', '前端框架与组件化开发'],
+  ['Vite', 'MIT', '开发服务器与生产构建'],
+  ['Pinia', 'MIT', '状态管理'],
+  ['Element Plus / Vant / Ant Design Vue', 'MIT', '管理后台与多端 UI 组件'],
+  ['ECharts', 'Apache-2.0', '数据可视化'],
+];
+
+export const infraDeps = [
+  ['EMQX', 'Apache-2.0', 'MQTT Broker 与设备连接管理'],
+  ['MySQL', 'GPL-2.0', '关系型数据存储'],
+  ['Redis', 'BSD-3-Clause*', '缓存、会话与多实例广播'],
+  ['Nginx', 'BSD-2-Clause', '静态资源托管与反向代理'],
+  ['Docker', 'Apache-2.0', 'MQTT Broker 等基础服务的容器化部署'],
+];
+
+export const toolDeps = [
+  ['TypeScript', 'Apache-2.0', '类型系统与工程可维护性'],
+  ['PM2', 'AGPL-3.0', 'Node.js 进程守护与多实例部署'],
+  ['Docusaurus', 'MIT', '本站文档站构建'],
+  ['Electron', 'MIT', 'Windows / macOS 桌面端'],
+  ['uni-app', 'Apache-2.0', '移动 App、H5 与小程序多端开发'],
+];
+
+<PageHero
+  compact
+  eyebrow="OPEN SOURCE"
+  title={
+    <>
+      站在开源社区的
+      <br />
+      <span className="accent">肩膀上</span>
+    </>
+  }
+  description="ESCore 不是凭空出现的。通信内核、Web 框架、数据库驱动、构建工具、部署软件与文档系统，每一层都建立在前人长期积累之上。谨向所有开源组织、项目维护者和贡献者致以真诚的感谢。"
+  primaryLink="https://github.com/newlan/ESCore"
+  primaryLabel="查看 ESCore"
+  secondaryLink="/docs/architecture"
+  secondaryLabel="了解架构"
+/>
+
+<div className="container page-container">
+  <section className={styles.intro}>
+    <div className={styles.introMark} aria-hidden="true">“</div>
+    <p>
+      开源让一个小团队也能站在世界级基础设施之上，把精力放在真正属于自己的问题上。
+      我们能做的，是认真使用、及时反馈、力所能及地回馈，并把这份开放继续传递下去。
+    </p>
+    <span>ESCore 作者 · newlan</span>
+  </section>
+
+  <section className="page-section">
+    <div className="page-section-title">
+      <span className="kicker">ORGANIZATIONS</span>
+      <h2>开源组织与社区</h2>
+      <p>以下排序不分先后。感谢这些组织维护的生态、标准与基础设施。</p>
+    </div>
+    <div className={styles.orgGrid}>
+      {organizations.map((org) => (
+        <a
+          className={styles.orgCard}
+          key={org.name}
+          href={org.href}
+          target="_blank"
+          rel="noreferrer">
+          <span className={styles.orgMark}>{org.mark}</span>
+          <div>
+            <h3>{org.name}</h3>
+            <p>{org.description}</p>
+          </div>
+          <span className={styles.orgArrow} aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section className="page-section">
+    <div className="page-section-title">
+      <span className="kicker">DEPENDENCIES</span>
+      <h2>支撑 ESCore 的开源项目</h2>
+      <p>
+        下表按主要用途归类，仅列出部分直接依赖或关键基础组件。完整依赖与许可证信息请以
+        <code>package.json</code>、<code>node_modules</code> 与各项目仓库为准。
+      </p>
+    </div>
+
+    <div className={styles.depGroup}>
+      <h3><span>01</span> 通信与后端</h3>
+      <div className={styles.tableWrap}>
+        <table>
+          <thead>
+            <tr><th>项目</th><th>许可证</th><th>在 ESCore 中的角色</th></tr>
+          </thead>
+          <tbody>
+            {backendDeps.map(([name, license, usage]) => (
+              <tr key={name}><td>{name}</td><td><code>{license}</code></td><td>{usage}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div className={styles.depGroup}>
+      <h3><span>02</span> 前端与多端</h3>
+      <div className={styles.tableWrap}>
+        <table>
+          <thead>
+            <tr><th>项目</th><th>许可证</th><th>在 ESCore 中的角色</th></tr>
+          </thead>
+          <tbody>
+            {frontendDeps.map(([name, license, usage]) => (
+              <tr key={name}><td>{name}</td><td><code>{license}</code></td><td>{usage}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div className={styles.depGroup}>
+      <h3><span>03</span> 基础设施</h3>
+      <div className={styles.tableWrap}>
+        <table>
+          <thead>
+            <tr><th>项目</th><th>许可证</th><th>在 ESCore 中的角色</th></tr>
+          </thead>
+          <tbody>
+            {infraDeps.map(([name, license, usage]) => (
+              <tr key={name}><td>{name}</td><td><code>{license}</code></td><td>{usage}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div className={styles.depGroup}>
+      <h3><span>04</span> 工具与文档</h3>
+      <div className={styles.tableWrap}>
+        <table>
+          <thead>
+            <tr><th>项目</th><th>许可证</th><th>在 ESCore 中的角色</th></tr>
+          </thead>
+          <tbody>
+            {toolDeps.map(([name, license, usage]) => (
+              <tr key={name}><td>{name}</td><td><code>{license}</code></td><td>{usage}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p className={styles.note}>
+      许可证信息整理自各项目公开仓库，可能随版本变化。本页用于鸣谢，不构成法律意见；
+      商业使用或再分发前，请自行核对对应版本的 LICENSE 与义务。
+    </p>
+  </section>
+
+  <section className="page-section">
+    <div className={styles.licensePanel}>
+      <div className={styles.licenseCopy}>
+        <span className={styles.licenseKicker}>LICENSE & DISCLAIMER</span>
+        <h2>关于许可与免责</h2>
+        <p>
+          ESCore 的业务代码以 <strong>ISC License</strong> 发布。你可以将其用于个人或商业项目，
+          也可以修改与再分发，但请保留原始版权声明与许可声明。
+        </p>
+        <p>
+          uWebSockets.js、Socket.IO、EMQX 等第三方组件版权归各自作者或组织所有，本项目仅作集成使用，
+          与这些项目不存在隶属关系。涉及支付、微信、短信、设备控制等能力时，请自行完成安全评估、
+          合规审查与平台协议对接，并替换示例密钥。
+        </p>
+      </div>
+      <div className={styles.licenseBadge}>
+        <span>ISC</span>
+        <small>ESCore License</small>
+      </div>
+    </div>
+  </section>
+
+  <section className={styles.contrib}>
+    <div>
+      <span className={styles.contribKicker}>GIVE BACK</span>
+      <h2>最好的感谢，是把开源继续做下去</h2>
+      <p>
+        如果你在使用 ESCore，欢迎通过 Issue 反馈问题、通过 PR 提交改进，或者把使用体验分享给更多人。
+        也可以直接支持你依赖的上游项目，让它们持续健康发展。
+      </p>
+    </div>
+    <div className={styles.contribActions}>
+      <a
+        className={styles.contribPrimary}
+        href="https://github.com/newlan/ESCore/issues"
+        target="_blank"
+        rel="noreferrer">
+        参与贡献 <span>→</span>
+      </a>
+      <Link className={styles.contribSecondary} to="/about">
+        联系作者
+      </Link>
+    </div>
+  </section>
+</div>

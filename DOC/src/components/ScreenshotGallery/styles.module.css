@@ -1,0 +1,154 @@
+.gallery {
+  display: grid;
+  gap: 1.2rem;
+  margin: 1.8rem 0 2.4rem;
+}
+
+.desktopGallery {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.appGallery {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+}
+
+.item {
+  min-width: 0;
+  margin: 0;
+}
+
+.desktop.wide {
+  grid-column: 1 / -1;
+}
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 15px;
+  background: #08111f;
+  box-shadow:
+    0 18px 44px rgba(2, 6, 23, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.desktop .frame {
+  aspect-ratio: 16 / 10;
+}
+
+.app .frame {
+  aspect-ratio: 750 / 1624;
+  border-radius: 26px;
+  border-color: rgba(148, 163, 184, 0.32);
+  box-shadow:
+    0 24px 50px rgba(2, 6, 23, 0.2),
+    0 0 0 5px rgba(15, 23, 42, 0.72),
+    0 0 0 6px rgba(148, 163, 184, 0.2);
+}
+
+.frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.phoneSpeaker {
+  position: absolute;
+  z-index: 2;
+  top: 0.7rem;
+  left: 50%;
+  width: 24%;
+  height: 0.42rem;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: rgba(2, 6, 23, 0.45);
+}
+
+.item figcaption {
+  padding: 0.8rem 0.2rem 0;
+}
+
+.captionTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.captionTop strong {
+  color: var(--ifm-heading-color);
+  font-size: 0.94rem;
+}
+
+.captionTop span {
+  flex: none;
+  padding: 0.12rem 0.48rem;
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.07);
+  color: var(--ifm-color-primary);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.item figcaption p {
+  margin: 0.25rem 0 0.35rem;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.item figcaption code {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.7rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app .item figcaption {
+  text-align: center;
+}
+
+.app .captionTop {
+  justify-content: center;
+}
+
+.app .item figcaption code {
+  display: none;
+}
+
+@media (max-width: 996px) {
+  .desktopGallery,
+  .appGallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .desktop.wide {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .desktopGallery,
+  .appGallery {
+    grid-template-columns: 1fr;
+  }
+
+  .desktop.wide {
+    grid-column: auto;
+  }
+
+  .appGallery {
+    max-width: 20rem;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}

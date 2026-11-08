@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ESCore">
+  <defs>
+    <linearGradient id="escore-brand" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="0.52" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="escore-shine" x1="10" y1="8" x2="44" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="17" fill="#0b1220"/>
+  <rect x="2" y="2" width="60" height="60" rx="17" fill="url(#escore-brand)" opacity=".95"/>
+  <rect x="3.5" y="3.5" width="57" height="57" rx="15.5" fill="none" stroke="#fff" stroke-opacity=".22"/>
+  <path d="M18 47c4.2-7.2 4.2-22.8 0-30h13.2c5.4 0 9.8 4.1 9.8 9.2 0 4-2.3 7.2-5.8 8.5 4.6 1.2 7.8 5 7.8 10 0 7.1-5.8 12.3-13.2 12.3H18Z" fill="url(#escore-shine)"/>
+  <path d="M22 18v28" stroke="#fff" stroke-width="5.4" stroke-linecap="round"/>
+  <path d="M24 20h18M24 32h14M24 44h18" stroke="#fff" stroke-width="5.4" stroke-linecap="round"/>
+  <circle cx="49" cy="32" r="4.4" fill="#a5f3fc"/>
+  <path d="M44.5 23.5a12.2 12.2 0 0 1 0 17" fill="none" stroke="#e0f2fe" stroke-width="2.4" stroke-linecap="round" opacity=".8"/>
+</svg>

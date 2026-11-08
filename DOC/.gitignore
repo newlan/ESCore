@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# production build
+build/
+.docusaurus/
+
+# generated files
+.docusaurus/
+.cache-loader/
+
+# local browser automation scratch
+ego/
+
+# misc
+.DS_Store
+.env
+.env.local
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

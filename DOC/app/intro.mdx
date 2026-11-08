@@ -1,0 +1,194 @@
+---
+sidebar_position: 1
+title: 移动 App
+description: 使用 uni-app 与 HBuilderX 构建 ESCore 移动端，一套代码覆盖 App、H5 与小程序。
+---
+
+import Link from '@docusaurus/Link';
+import ScreenshotGallery from '@site/src/components/ScreenshotGallery';
+import Icon from '@site/src/components/Icons';
+
+export const screenshots = [
+  {
+    src: '/img/screenshots/app/app-home.png',
+    alt: 'ESCore 移动 App 首页截图占位',
+    title: '首页',
+    tag: 'HOME',
+    description: '核心入口、快捷操作与实时数据。',
+  },
+  {
+    src: '/img/screenshots/app/app-messages.png',
+    alt: 'ESCore 移动 App 消息页截图占位',
+    title: '消息',
+    tag: 'MESSAGES',
+    description: '会话列表、未读状态与实时推送。',
+  },
+  {
+    src: '/img/screenshots/app/app-profile.png',
+    alt: 'ESCore 移动 App 个人中心截图占位',
+    title: '我的',
+    tag: 'PROFILE',
+    description: '账号、设置、关于与退出登录。',
+  },
+];
+
+# 移动 App
+
+ESCore 的移动端采用 **uni-app + HBuilderX**。一套 Vue 语法代码，可以发布为 iOS / Android App、H5 页面，
+以及微信、支付宝、百度、字节跳动、QQ 等平台的小程序。
+
+> 下方是已经预留好的 App 截图位。把你开发好的软件截图按同名文件覆盖，就能直接展示在文档里。
+
+## 为什么选择 uni-app
+
+| 维度 | 价值 |
+| --- | --- |
+| 一套代码 | App、H5、小程序共享页面、组件与业务逻辑 |
+| Vue 生态 | 使用 Vue 3 语法、组合式 API 与熟悉的工程方式 |
+| 原生能力 | 通过 `plus`、原生插件与条件编译访问设备能力 |
+| 开发工具 | HBuilderX 提供可视化配置、真机运行与云打包 |
+| 发布效率 | 多端构建与证书管理集中在同一套工具栏中 |
+
+uni-app 适合业务型 App、企业内部应用、轻量工具与需要同时覆盖小程序的产品。对重度 3D、复杂音视频或极致性能场景，
+需要评估原生插件或原生开发的必要性。
+
+## 技术架构
+
+```text
+HBuilderX
+  │
+  ├── pages.json          页面、导航与分包
+  ├── manifest.json       应用标识、权限与 SDK 配置
+  ├── src/
+  │   ├── pages/          页面
+  │   ├── components/     组件
+  │   ├── stores/         Pinia 状态
+  │   ├── api/            请求封装
+  │   └── utils/socket/   实时连接适配
+  │
+  ├── App / H5 / 小程序
+  │
+  ├── HTTPS  → ESCore API :3011
+  └── WSS    → ESCore 实时通道 :3012/io
+```
+
+### 端能力差异
+
+uni-app 抹平了大量平台差异，但仍有一些能力必须按端处理：
+
+- 推送：App 端使用厂商推送 / uni-push，小程序使用订阅消息；
+- 文件：App 可直接访问文件系统，小程序受沙箱限制；
+- 支付：微信、支付宝、Apple IAP 的接入方式完全不同；
+- 实时连接：H5 可直接使用 Socket.IO，小程序 / App 原生环境需要协议适配；
+- 权限：定位、相机、通知、蓝牙等需要在 `manifest.json` 中声明并动态申请。
+
+## 软件截图
+
+<ScreenshotGallery type="app" items={screenshots} />
+
+:::tip 如何替换截图
+用你的截图覆盖下面三个文件，推荐尺寸 `750 × 1624`：
+
+```text
+static/img/screenshots/app/app-home.png
+static/img/screenshots/app/app-messages.png
+static/img/screenshots/app/app-profile.png
+```
+
+标题与说明在本页顶部的 `screenshots` 数组中修改。
+:::
+
+## 与 ESCore 服务端对接
+
+### HTTP 请求
+
+```ts
+export function request<T>(options: UniApp.RequestOptions) {
+  return new Promise<T>((resolve, reject) => {
+    uni.request({
+      ...options,
+      url: `${import.meta.env.VITE_API_BASE}${options.url}`,
+      header: {
+        Authorization: `Bearer ${uni.getStorageSync('token')}`,
+        ...options.header,
+      },
+      success: (response) => {
+        if (response.statusCode && response.statusCode >= 200 && response.statusCode < 300) {
+          resolve(response.data as T);
+        } else {
+          reject(response);
+        }
+      },
+      fail: reject,
+    });
+  });
+}
+```
+
+### 实时连接
+
+ESCore 使用 Socket.IO 协议，而不是裸 WebSocket。不同端的处理方式：
+
+| 端 | 方案 |
+| --- | --- |
+| H5 | 直接使用 `socket.io-client` |
+| App（plus 环境） | 使用支持 Socket.IO 协议的客户端适配，或提供裸 WebSocket 网关 |
+| 微信小程序 | 使用小程序可用的 Socket.IO 兼容客户端，或使用裸 WebSocket 网关 |
+| 不支持 Socket.IO 的设备 | 由服务端额外暴露一个原生 WebSocket 通道，自行定义消息格式 |
+
+H5 示例：
+
+```ts
+import {io} from 'socket.io-client';
+
+const socket = io(import.meta.env.VITE_WS_ORIGIN, {
+  path: '/io',
+  transports: ['websocket'],
+  auth: {token: uni.getStorageSync('token')},
+});
+```
+
+:::warning 不要直接用 uni.connectSocket 连接 Socket.IO
+`uni.connectSocket` 是原生 WebSocket，不会自动完成 Socket.IO 的握手、心跳与事件编码。
+如果直接连接 `/io`，通常会握手失败或收到无法解析的数据。请选择 Socket.IO 兼容客户端，或在服务端增加一层裸 WebSocket 网关。
+:::
+
+### 断线与离线
+
+移动端网络切换频繁，必须处理：
+
+- 前后台切换：回到前台时重新校验连接；
+- 弱网：指数退避重连，避免高频请求；
+- 离线：重要数据本地缓存，恢复后按游标补偿；
+- 推送：实时通道断开时，由系统推送兜底；
+- 多端：同一账号在 App 与 Web 同时在线时的消息同步策略。
+
+## 页面组织建议
+
+```text
+src/pages/
+├── home/index.vue
+├── messages/index.vue
+├── profile/index.vue
+└── login/index.vue
+```
+
+- `pages.json` 只保留页面与导航配置；
+- 业务状态放入 Pinia，不要把所有数据塞进页面；
+- 请求、上传、下载统一封装；
+- 实时事件在页面 `onShow` 订阅、`onHide` / `onUnload` 取消；
+- 需要登录的页面在路由守卫或页面生命周期统一校验。
+
+## 下一步
+
+- [移动端开发](./development.md)：HBuilderX 工程、页面、请求与真机调试；
+- [移动端打包](./build.md)：证书、云打包、小程序与 H5 发布。
+
+也可以从 <Link to="/desktop/intro">Windows 桌面端</Link> 了解另一个终端形态。
+
+<div style={{display: 'flex', gap: '0.6rem', flexWrap: 'wrap', marginTop: '1.5rem'}}>
+  <span className="chip"><Icon name="devices" size={14} /> uni-app</span>
+  <span className="chip"><Icon name="code" size={14} /> Vue 3</span>
+  <span className="chip"><Icon name="rocket" size={14} /> HBuilderX</span>
+  <span className="chip"><Icon name="bolt" size={14} /> 多端发布</span>
+</div>

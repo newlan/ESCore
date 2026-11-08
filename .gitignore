@@ -2,8 +2,12 @@ node_modules/
 **/dist/
 *.log
 public
-
+DOC/.docusaurus/
+DOC/build
 # npm 缓存（本机沙箱限制下临时放在仓库内）
 .npm-cache/
 # 预览截图
 shots/
+# 本地临时文件（与文档站无关）
+.tmp-vision/
+DOC/程序员老熊-公开资料档案.md

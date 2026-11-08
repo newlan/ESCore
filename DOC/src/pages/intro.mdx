@@ -1,0 +1,261 @@
+---
+title: 简介
+description: 了解 ESCore 企业实时通信框架的定位、架构分层、核心能力、适用项目与技术栈。
+hide_table_of_contents: true
+---
+
+import Link from '@docusaurus/Link';
+import PageHero from '@site/src/components/PageHero';
+import ArchitectureFigure from '@site/src/components/ArchitectureFigure';
+import Icon from '@site/src/components/Icons';
+
+import styles from './intro.module.css';
+
+<PageHero
+  eyebrow="ABOUT ESCORE"
+  title={
+    <>
+      以实时通信为内核，
+      <br />
+      <span className="accent">构建企业的数字业务底座</span>
+    </>
+  }
+  description="ESCore 是一套面向企业的实时通信与业务中台框架。通信层直接加载 uWebSockets.js 的 C++ 原生模块，在 Node.js 中跑出接近原生的吞吐；业务层内置账号、商户、订单、支付、权限、定时任务、MQTT 设备接入、对象存储与微信生态等常用能力。"
+  primaryLink="/docs/quick-start"
+  primaryLabel="快速开始"
+  secondaryLink="https://github.com/newlan/ESCore"
+  secondaryLabel="访问 GitHub 仓库">
+  <div className={styles.heroFacts}>
+    <span><b>10–30×</b> 通信吞吐参考</span>
+    <span><b>1–3 KB</b> 单连接内存</span>
+    <span><b>Socket.IO v4</b> 协议兼容</span>
+    <span><b>ISC</b> 开源许可</span>
+  </div>
+</PageHero>
+
+<div className="container page-container">
+  <section className={styles.leadGrid}>
+    <div className={styles.leadCopy}>
+      <span className={styles.kicker}>WHY ESCORE</span>
+      <h2>实时能力，不应该成为每个项目的重复建设</h2>
+      <p>
+        大多数企业应用都需要消息、通知、在线状态、设备数据或 AI 流式输出。真正困难的地方并不只是“建立一个
+        WebSocket 连接”，而是让连接可靠、可扩展，并且能够和账号、权限、订单、支付等业务能力自然衔接。
+      </p>
+      <p>
+        ESCore 把这些共性能力拆成清晰的层次：通信层专注连接与消息，业务层沉淀领域服务，多端层复用统一的
+        API 与实时通道。你可以从一个小型实时应用开始，也可以把它作为企业中台，持续扩展成完整的行业产品。
+      </p>
+      <div className="chip-row">
+        <span className="chip">企业级实时通信</span>
+        <span className="chip">业务中台</span>
+        <span className="chip">IoT 接入</span>
+        <span className="chip">AI Agent</span>
+        <span className="chip">多端应用</span>
+      </div>
+    </div>
+    <aside className={styles.principleCard}>
+      <div className={styles.principleTop}>
+        <span className={styles.principleIcon}><Icon name="layers" size={22} /></span>
+        <span>设计取向</span>
+      </div>
+      <blockquote>
+        “把复杂留在基础设施里，把简单交给业务开发者。”
+      </blockquote>
+      <ul>
+        <li><span>01</span> 通信与业务分层，互不绑架</li>
+        <li><span>02</span> 公共能力复用，减少重复建设</li>
+        <li><span>03</span> 单机可跑，多实例可扩</li>
+        <li><span>04</span> 对 Web、桌面、App、小程序与设备开放</li>
+      </ul>
+    </aside>
+  </section>
+
+  <section className="page-section" id="architecture">
+    <div className="page-section-title">
+      <span className="kicker">SYSTEM ARCHITECTURE</span>
+      <h2>一张图看懂 ESCore</h2>
+      <p>
+        从终端接入、安全网关，到实时同步、业务微服务、IoT 与 AI Agent 服务，
+        再到数据与运维基础设施，每一层都可以按业务规模独立演进。
+      </p>
+    </div>
+    <ArchitectureFigure />
+  </section>
+
+  <section className="page-section">
+    <div className="page-section-title">
+      <span className="kicker">LAYERS</span>
+      <h2>四个层次，覆盖实时业务的完整链路</h2>
+    </div>
+    <div className={styles.layerGrid}>
+      <article className={styles.layerCard}>
+        <span className={styles.layerNumber}>01</span>
+        <h3>多端接入与安全层</h3>
+        <p>Web、Windows / macOS、iOS / Android、小程序、管理后台与 IoT 设备统一接入。</p>
+        <div className={styles.layerTags}><span>HTTPS / REST</span><span>Socket.IO / WSS</span><span>MQTT</span></div>
+      </article>
+      <article className={styles.layerCard}>
+        <span className={styles.layerNumber}>02</span>
+        <h3>核心服务层</h3>
+        <p>实时同步、业务微服务、设备服务、文件与消息、AI Agent 各自职责清晰。</p>
+        <div className={styles.layerTags}><span>JWT</span><span>限流与权限</span><span>领域服务</span></div>
+      </article>
+      <article className={styles.layerCard}>
+        <span className={styles.layerNumber}>03</span>
+        <h3>基础设施与数据层</h3>
+        <p>MySQL、Redis、对象存储与消息队列承接业务数据、缓存、文件与异步任务。</p>
+        <div className={styles.layerTags}><span>MySQL</span><span>Redis</span><span>消息队列</span></div>
+      </article>
+      <article className={styles.layerCard}>
+        <span className={styles.layerNumber}>04</span>
+        <h3>运维与管理层</h3>
+        <p>服务状态、配置中心、日志监控、API 文档与部署管理，让系统可持续运营。</p>
+        <div className={styles.layerTags}><span>PM2</span><span>Nginx</span><span>Docker / Linux</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section className="page-section" id="scenarios">
+    <div className="page-section-title">
+      <span className="kicker">WHAT YOU CAN BUILD</span>
+      <h2>ESCore 能开发什么项目？</h2>
+      <p>
+        只要业务需要“实时发生”，并且需要一个可持续沉淀的公共底座，ESCore 都可以作为起点。
+        下面是几类最典型的产品形态。
+      </p>
+    </div>
+    <div className={styles.scenarioGrid}>
+      <article className={styles.scenarioCard}>
+        <span className={styles.scenarioIcon}><Icon name="chat" size={24} /></span>
+        <h3>企业实时协作平台</h3>
+        <p>即时通讯、群组、在线状态、已读回执、组织架构、消息推送与多端同步。</p>
+        <span className={styles.scenarioMeta}>IM · 协作 · 通知</span>
+      </article>
+      <article className={styles.scenarioCard}>
+        <span className={styles.scenarioIcon}><Icon name="building" size={24} /></span>
+        <h3>企业中台与行业 SaaS</h3>
+        <p>统一账号、商户门店、订单支付、角色权限、审计日志，支撑多条业务线。</p>
+        <span className={styles.scenarioMeta}>多租户 · 交易 · 权限</span>
+      </article>
+      <article className={styles.scenarioCard}>
+        <span className={styles.scenarioIcon}><Icon name="cart" size={24} /></span>
+        <h3>电商与本地生活</h3>
+        <p>从商品、下单、支付到履约通知，实时把订单状态变化推送给用户与商家。</p>
+        <span className={styles.scenarioMeta}>订单 · 支付 · 履约</span>
+      </article>
+      <article className={styles.scenarioCard}>
+        <span className={styles.scenarioIcon}><Icon name="cpu" size={24} /></span>
+        <h3>IoT 设备管理平台</h3>
+        <p>设备接入、心跳、遥测、远程控制、告警联动与网关在线状态管理。</p>
+        <span className={styles.scenarioMeta}>MQTT · 设备 · 边缘</span>
+      </article>
+      <article className={styles.scenarioCard}>
+        <span className={styles.scenarioIcon}><Icon name="sparkles" size={24} /></span>
+        <h3>AI 业务助手</h3>
+        <p>将大模型对话、Agent 工具调用与流式响应嵌入业务系统，形成新的交互入口。</p>
+        <span className={styles.scenarioMeta}>Agent · 流式 · 工具调用</span>
+      </article>
+      <article className={styles.scenarioCard}>
+        <span className={styles.scenarioIcon}><Icon name="devices" size={24} /></span>
+        <h3>多端客户端产品</h3>
+        <p>Web、Windows / macOS 桌面端、移动 App 与小程序共享同一套账号和实时能力。</p>
+        <span className={styles.scenarioMeta}>Electron · uni-app · H5</span>
+      </article>
+    </div>
+  </section>
+
+  <section className="page-section" id="multi-terminal">
+    <div className={styles.terminalPanel}>
+      <div className={styles.terminalCopy}>
+        <span className="kicker">MULTI-TERMINAL</span>
+        <h2>一个后台，连接所有终端</h2>
+        <p>
+          ESCore 的服务端不假设终端形态。浏览器通过 REST 与 WebSocket 接入；桌面端使用 Electron
+          复用前端能力并扩展系统级体验；移动端使用 uni-app + HBuilderX 一次开发、多端发布；硬件设备通过
+          MQTT 接入。
+        </p>
+        <div className={styles.terminalLinks}>
+          <Link to="/desktop/intro" className={styles.terminalLink}>
+            <span><Icon name="devices" size={21} /></span>
+            <div><b>Windows 桌面端</b><small>Electron · 原生能力 · 自动更新</small></div>
+            <em>→</em>
+          </Link>
+          <Link to="/app/intro" className={styles.terminalLink}>
+            <span><Icon name="radio" size={21} /></span>
+            <div><b>移动 App</b><small>uni-app · HBuilderX · 多端发布</small></div>
+            <em>→</em>
+          </Link>
+        </div>
+      </div>
+      <div className={styles.terminalVisual} aria-hidden="true">
+        <div className={styles.desktopMock}>
+          <span className={styles.mockBar}><i /><i /><i /></span>
+          <div className={styles.mockBody}>
+            <span className={styles.mockSide} />
+            <div className={styles.mockContent}>
+              <span /><span /><span />
+            </div>
+          </div>
+        </div>
+        <div className={styles.phoneMock}>
+          <span className={styles.phoneNotch} />
+          <div><span /><span /><span /><span /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section className="page-section" id="tech-stack">
+    <div className="page-section-title">
+      <span className="kicker">TECH STACK</span>
+      <h2>成熟、开放、可替换的技术组合</h2>
+      <p>
+        ESCore 不追求把技术栈锁死，而是选择生态成熟、团队容易招聘、社区资料充分的工具，
+        并把它们组织成一套可运行的工程结构。
+      </p>
+    </div>
+    <div className={styles.techGrid}>
+      <div className={styles.techGroup}>
+        <span className={styles.techGroupLabel}>通信与后端</span>
+        <div className={styles.techItems}>
+          <span>uWebSockets.js</span><span>Socket.IO 4</span><span>Node.js</span><span>TypeScript</span><span>Express 4</span>
+        </div>
+      </div>
+      <div className={styles.techGroup}>
+        <span className={styles.techGroupLabel}>前端与多端</span>
+        <div className={styles.techItems}>
+          <span>Vue 3</span><span>Vite</span><span>Pinia</span><span>Element Plus</span><span>Electron</span><span>uni-app</span>
+        </div>
+      </div>
+      <div className={styles.techGroup}>
+        <span className={styles.techGroupLabel}>数据与设备</span>
+        <div className={styles.techItems}>
+          <span>MySQL</span><span>Redis</span><span>MQTT 5</span><span>EMQX</span><span>对象存储</span>
+        </div>
+      </div>
+      <div className={styles.techGroup}>
+        <span className={styles.techGroupLabel}>构建与运维</span>
+        <div className={styles.techItems}>
+          <span>PM2</span><span>Nginx</span><span>Docker</span><span>GitHub Actions</span><span>Docusaurus</span>
+        </div>
+      </div>
+    </div>
+    <p className={styles.footnote}>
+      性能数字 10–30× 与 1–3 KB 为 uWebSockets 官方 / 项目参考指标，实际表现取决于协议、业务负载、连接模式与硬件环境，
+      请以目标环境中的压测结果为准。
+    </p>
+  </section>
+
+  <section className={styles.cta}>
+    <div>
+      <span className={styles.ctaKicker}>READY TO BUILD</span>
+      <h2>先跑起来，再决定把它扩展成什么</h2>
+      <p>从本地环境、双端口服务到第一个实时消息，快速开始会带你走完最小闭环。</p>
+    </div>
+    <div className={styles.ctaActions}>
+      <Link className={styles.ctaPrimary} to="/docs/quick-start">快速开始 <span>→</span></Link>
+      <Link className={styles.ctaSecondary} to="/docs/architecture">阅读架构设计</Link>
+    </div>
+  </section>
+</div>

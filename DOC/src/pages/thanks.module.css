@@ -1,0 +1,388 @@
+.intro {
+  max-width: 52rem;
+  margin: 0 auto 4.5rem;
+  padding: clamp(1.7rem, 3.5vw, 2.6rem);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 18px;
+  background:
+    radial-gradient(70% 120% at 100% 0%, rgba(34, 211, 238, 0.07), transparent 60%),
+    var(--ifm-background-surface-color);
+  text-align: center;
+}
+
+.introMark {
+  height: 1.8rem;
+  color: var(--ifm-color-primary);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 3.5rem;
+  line-height: 1;
+  opacity: 0.55;
+}
+
+.intro p {
+  margin: 0.6rem auto 0;
+  color: var(--ifm-color-emphasis-700);
+  font-size: clamp(1rem, 1.8vw, 1.14rem);
+  line-height: 1.95;
+}
+
+.intro > span {
+  display: block;
+  margin-top: 1.1rem;
+  color: var(--ifm-color-emphasis-500);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+}
+
+.orgGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.orgCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.35rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 13px;
+  background: var(--ifm-background-surface-color);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.orgCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(37, 99, 235, 0.32);
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.06);
+  text-decoration: none;
+}
+
+.orgMark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 3.1rem;
+  height: 3.1rem;
+  border: 1px solid rgba(96, 165, 250, 0.18);
+  border-radius: 11px;
+  background:
+    linear-gradient(135deg, rgba(34, 211, 238, 0.1), rgba(59, 130, 246, 0.08));
+  color: var(--ifm-color-primary);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.orgCard h3 {
+  margin: 0;
+  color: var(--ifm-heading-color);
+  font-size: 0.94rem;
+}
+
+.orgCard p {
+  margin: 0.4rem 0 0;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+.orgArrow {
+  margin-left: auto;
+  color: var(--ifm-color-emphasis-400);
+  font-size: 0.82rem;
+}
+
+.depGroup + .depGroup {
+  margin-top: 2rem;
+}
+
+.depGroup h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.7rem;
+  color: var(--ifm-heading-color);
+  font-size: 0.94rem;
+}
+
+.depGroup h3 span {
+  color: var(--ifm-color-primary);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 10px;
+}
+
+.tableWrap table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.tableWrap thead {
+  background: var(--ifm-color-emphasis-100);
+}
+
+.tableWrap th {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tableWrap th,
+.tableWrap td {
+  padding: 0.64rem 0.85rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.tableWrap tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.tableWrap tbody tr:hover {
+  background: rgba(37, 99, 235, 0.025);
+}
+
+.tableWrap td:first-child {
+  color: var(--ifm-heading-color);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tableWrap td:nth-child(2) code {
+  border: 0;
+  background: transparent;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.72rem;
+  padding: 0;
+}
+
+.tableWrap td:last-child {
+  color: var(--ifm-color-emphasis-700);
+}
+
+.note {
+  margin: 1.1rem 0 0;
+  color: var(--ifm-color-emphasis-500);
+  font-size: 0.72rem;
+  line-height: 1.7;
+}
+
+.licensePanel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
+  overflow: hidden;
+  padding: clamp(1.7rem, 3.5vw, 2.7rem);
+  border: 1px solid rgba(34, 211, 238, 0.17);
+  border-radius: 18px;
+  background:
+    radial-gradient(60% 90% at 90% 10%, rgba(34, 211, 238, 0.1), transparent 60%),
+    linear-gradient(145deg, #07111f, #081827);
+}
+
+.licenseKicker {
+  color: #67e8f9;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+}
+
+.licenseCopy h2 {
+  margin: 0.7rem 0 0;
+  color: #f8fafc;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  letter-spacing: -0.03em;
+}
+
+.licenseCopy p {
+  max-width: 46rem;
+  margin: 0.8rem 0 0;
+  color: #98abc1;
+  font-size: 0.84rem;
+  line-height: 1.8;
+}
+
+.licenseCopy strong {
+  color: #e2e8f0;
+}
+
+.licenseBadge {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 7.2rem;
+  height: 7.2rem;
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  border-radius: 50%;
+  background: rgba(34, 211, 238, 0.06);
+  box-shadow: inset 0 0 0 7px rgba(34, 211, 238, 0.025);
+}
+
+.licenseBadge span {
+  color: #67e8f9;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.licenseBadge small {
+  margin-top: 0.25rem;
+  color: #60768e;
+  font-size: 0.55rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.contrib {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
+  margin-top: 4rem;
+  padding-top: 3.2rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.contribKicker {
+  color: var(--ifm-color-primary);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+}
+
+.contrib h2 {
+  margin: 0.65rem 0 0;
+  color: var(--ifm-heading-color);
+  font-size: clamp(1.45rem, 2.6vw, 1.95rem);
+  letter-spacing: -0.03em;
+}
+
+.contrib p {
+  max-width: 42rem;
+  margin: 0.7rem 0 0;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.86rem;
+  line-height: 1.8;
+}
+
+.contribActions {
+  display: flex;
+  flex: none;
+  gap: 0.6rem;
+}
+
+.contribPrimary,
+.contribSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 2.75rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.contribPrimary {
+  background: var(--ifm-color-primary);
+  color: #fff;
+}
+
+.contribPrimary:hover {
+  background: var(--ifm-color-primary-dark);
+  color: #fff;
+  text-decoration: none;
+}
+
+.contribSecondary {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-700);
+}
+
+.contribSecondary:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+@media (max-width: 996px) {
+  .orgGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .licensePanel,
+  .contrib {
+    display: block;
+  }
+
+  .licenseBadge {
+    display: none;
+  }
+
+  .contribActions {
+    margin-top: 1.4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .intro {
+    margin-bottom: 3rem;
+  }
+
+  .orgCard {
+    padding: 1.1rem;
+  }
+
+  .orgMark {
+    width: 2.7rem;
+    height: 2.7rem;
+  }
+
+  .contribActions {
+    display: block;
+  }
+
+  .contribPrimary,
+  .contribSecondary {
+    width: 100%;
+  }
+
+  .contribSecondary {
+    margin-top: 0.6rem;
+  }
+
+  [class*='tableWrap'] {
+    margin-right: -0.1rem;
+    margin-left: -0.1rem;
+  }
+}
