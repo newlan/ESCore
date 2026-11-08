@@ -1,0 +1,9 @@
+node_modules/
+**/dist/
+*.log
+public
+
+# npm 缓存（本机沙箱限制下临时放在仓库内）
+.npm-cache/
+# 预览截图
+shots/

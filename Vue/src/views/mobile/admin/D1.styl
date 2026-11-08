@@ -1,0 +1,228 @@
+.w100 
+    width: 100%;
+.slide-fade-move
+    transition: all .8s ease;
+
+.slide-fade-enter-active 
+    transition: all 0.8s ease-in;
+.slide-fade-leave-active 
+    transition: all 0.8s ease-out;position: absolute;
+.slide-fade-enter-from
+    transform: scale(1.5) rotateX(80deg) translateY(-80px);opacity: 0.3;
+.slide-fade-leave-to 
+    transform: scale(1.5) rotateX(-80deg) translateY(-100px) translateX(100px);opacity: 0;
+    
+.user1-move
+    transition: all .8s ease;
+
+.user1-enter-active 
+    // transition: all 0.8s ease-out;
+    transition: all 0.8s  cubic-bezier(0.17, 1.06, 0.39, 1.43);
+.user1-leave-active 
+    // transition: all 0.8s ease-in;
+    transition: all 0.8s cubic-bezier(0.6, -0.48, 0.74, 0.05);
+    position: absolute;
+    z-index: 9999;
+.user1-enter-from
+    transform: scale(1) translateX(195px);opacity: 0.5;
+.user1-leave-to 
+    transform: scale(1) translateX(-195px);opacity: 0;
+
+.D1 
+    .add_user_info
+        text-align: left;
+        :deep(.ant-modal-body)
+            padding 0px;
+        .tags 
+            margin-bottom: 1rem;margin-top: 0.5rem;
+        .noTags 
+            text-align: center; padding: 10px; color: #c2c2c2;
+        :deep(.van-uploader__wrapper)
+            height :200px;
+        :deep(.van-uploader__preview-image)
+            max-height: 200px;
+
+        .mx-1 
+            margin-left: 0.5rem;margin-bottom: 0.5rem;
+    .on_car
+        :deep(.ant-drawer-body)
+            padding 0px
+        :deep(.ant-drawer-header)
+            padding: 10px 20px; 
+
+        .sworder 
+            padding: 5px;
+            .t1 
+                background: #f9f9f9; text-align: center; font-size: 14px; padding: 5px 2px 0px 2px; color: #a3a3a3; border-radius: 5px 5px 0px 0px;
+            .t2
+                border-radius: 0px 0px 5px 5px; background: #f9f9f9; padding: 3px; font-size: 12px; color: #7c7c7c; text-align: center;
+                .t21
+                    padding: 2px; background: white;margin: 1px 0;font-size: 13px; line-height: 1.5;
+                .t22 
+                    padding: 3px 3px 0 3px; font-size: 14px;
+            .t3
+                text-align: center; background: #fdfdfd; margin: 10px 0;padding: 5px;
+            .t4 
+                text-align: center; line-height: 1;
+                .t41
+                    margin-bottom: 9px; border: 1px solid #e3e3e3; padding: 5px; border-radius: 10px; align-items: center;
+                    .t412
+                        background: #1890ff;color: white;
+                    .t411
+                        line-height: 100%; display: flex; justify-content: center; align-items: center; border-radius: 5px;height: 32px;
+                .t42
+                    position: absolute; color: #a7a7a7; background: #ffffff; border: 1px solid #dfdfdf; top: -16px; padding: 1px 2px; left: -7px; border-radius: 3px 3px 0 0; font-size: 10px;
+    :deep(.full-modal) 
+        .ant-modal 
+            max-width: 100%; top: 0; padding-bottom: 0; margin: 0;
+        .ant-modal-content 
+            display: flex; flex-direction: column;
+        .ant-modal-body 
+            flex: 1;padding: 0px;line-height: normal;
+    .title
+        background: #4992ff; color: white; position: relative; height: 40px;
+        .t 
+            font-weight: bold; line-height: 40px;
+        .bad 
+            position: absolute; top: 10px; left: 14px; font-size: 20px;
+    :deep(.ant-drawer-header)
+        padding :0; 
+    .menu 
+        font-size: 16px; text-shadow: 0 0 1px black; color: black; border-radius: 5px; padding: 5px;margin-bottom: 9px;
+        i 
+            color: #939393; text-shadow: 0 0 1px #d5d5d5; font-size: 18px;
+    .sidebar
+        background: #4992ff;width: 240px;
+        .t 
+            padding: 20px;color: white; font-weight: bold; text-shadow: 0 0 2px #6a6a6a; font-size: 16px;
+            .img
+                width: 70px; height: 70px; border-radius: 50%; border: 2px solid white; 
+            .map 
+                font-size: 14px; font-weight: 100; margin-top: 6px; color: #f7f7f7; text-shadow: 0 0 2px #818181; 
+    .Blist
+        padding: 0 8px; background: #f1f1f1;
+    .Alist
+        min-height: 38px;background: #f1f1f1;
+        .zanwu 
+            padding: 6px; color: #d1d1d1; text-shadow: 0 0 2px #e5e5e5;background: #f1f1f1;min-height: 40px;line-height: 1.7;
+        .row
+            align-items: center;background: #f1f1f1; padding:8px 6px; padding-bottom:0px;margin-left: -3.5px; margin-right: -3.5px;perspective: 300px;
+
+            .c6 
+                margin-bottom: 6px;padding-left: 3.5px; padding-right: 3.5px; display: inline-block;transform-origin: top;
+
+    .car
+        background: #ffffff; color: #4992ff; padding: 2px 2px; border-radius: 3px; font-size: 14px; 
+        .car_number 
+            position: absolute; border-radius: 50%; padding: 0 3px; font-size: 10px; color: #fff; top: -2px; left: -4px; border: 1px solid;
+        .p2 
+            border: 1px solid; padding: 0 2px; text-align: center; border-radius: 3px; display: flex;justify-content: space-evenly; 
+            .concon
+                // margin-right: 4px; margin-left: 1px;
+            .typedian
+                width: 4px; height: 3px; border-radius: 4px; margin-top: 2px; background:#bfbfbf;
+        .p3 
+            align-items: center; line-height: 1.4;
+            .close
+                background: white; color: #ff0303; border-radius: 3px;
+        .git
+            position: absolute;background: #4992ff; top: 0; width: 16px; height: 15px; border-radius: 50%; font-size: 12px; border: 1px solid #fff; left: 0; margin-top: -3px; margin-left: -7px; color: white;
+    .Blist
+        .list 
+            background: #ffffff; display: flex; flex-direction: column; border-radius: 5px; height: 100%; padding: 3px;
+            .T1time 
+                position: absolute; background: #fff; border-radius: 5px 5px 0 0; right: 2px; top: 0; border: 1px solid #fbecfc; border-bottom: 0; margin-top: -17px; padding: 0 4px; width: 65px; display: flex; justify-content: center; align-items: center;
+            .list2 
+                background: #ffffff; flex: 2; border-radius: 5px; padding: 0px 0px 6px 0px;position relative;
+                .c02 
+                    padding: 2px;
+                    .zw  
+                        background: #a3a3a3; border-radius: 5px; padding: 5px; font-size: 13px; color: #dbdbdb;
+                .c01    
+                    .user  
+                        background: white; border-radius: 5px; margin-top: 8px;padding: 2px;position: relative;
+                        .add_info 
+                            position: absolute; z-index: 9; bottom: 4px; left: 50%; transform: translateX(-50%);
+                            .add_ 
+                                background: #ebf1f9; border: 2px solid white; color: var(--el-color-primary);
+                        .again 
+                            display: flex; line-height: 1; text-shadow: 0 0 2px #8d1a1a; align-items: center; justify-content: center; font-size: 12px; background: rgba(255, 0 ,0 , .85); border-radius: 5px 5px 0 0; position: absolute; width: 98%; z-index: 100; color: #fff; right: 0; left: 2px; padding: 7px;
+                        .up_str 
+                            border-radius: 50%; background: #fb1818; font-size: 12px; height: 36px; width: 38px; text-align: center; color: white; display: flex; justify-content: center; align-items: center; flex-direction: column; margin: auto; box-shadow: 0 0 4px red; line-height: 1.2;
+                            &:active 
+                                background: #910505; color: #ffbdba;
+                        .item
+                            padding: 4px 8px 0px 8px; font-size: 13px; text-align: left; display: flex; overflow: auto; white-space: pre;
+                            .ddd 
+                                border: 1px solid #e7e7e7; border-radius: 5px; padding: 1px 6px; display: flex; align-items: center;margin-right: 5px;
+                            .qd 
+                                color: #a7c8fb; background: #e8faff; border-radius: 5px; padding: 0px 2px;
+                            .tt 
+                                text-shadow: 0 0 1px #484848; font-size: 15px;
+                        .pay
+                            padding: 3px 8px 3px 8px; font-size: 13px; text-align: left;
+                            .daifu 
+                                color: red; text-shadow: 0 0 1px #9d9d9d;
+                        .ask1 
+                            // height: 100%;  border-radius: 5px;text-shadow: 2px 2px 2px #120000;font-weight: bold;
+                            .title1 
+                                padding: 10px; color: white;
+                            .title2 
+                                padding-bottom: 10px; color: red;
+                        .r1 
+                            align-items: center;padding: 4px; border-radius: 5px 5px 0 0;
+                            .row1
+                                display: flex; align-items: center; font-size: 15px; font-weight: bold;
+                            .m 
+                                padding-left: 2px; color: white;
+                            .v
+                                border-radius: 50%; background: #222; color: #fff; width: 17px; height: 17px; font-size: 12px; line-height: 19px; box-shadow: 0 0 3px #707070;
+            .t1 
+                background: white; border-radius: 5px 5px 0 0; padding: 2px 5px 5px 5px;border-bottom: 1px dashed #e5e5e5;
+                .n0 
+                    text-shadow: 0 0 2px #bbd6ff; color: #4992ff;
+                .n1 
+                    color: #b5b5b5; font-size: 12px; 
+
+.statistics 
+    background: rgb(241, 241, 241); font-size: 12px; line-height: 25px;padding: 5px 8px;
+    .p1
+        font-size: 20px; font-weight: bold; color: #727272;
+    .p2
+        font-size: 13px; color: #a7a7a7;padding-bottom: 3px;
+.DayOrder 
+    background: #f1f1f1; padding: 0 5px 10px 5px;
+    .title2
+        background: #fff; border-radius: 3px 3px 0 0; font-size: 14px; padding: 5px 10px; margin: 0 3px; border-bottom: 1px dashed #e5e5e5;
+        .l
+            text-align: left;color: #3388ff; font-weight: bold;
+        .r
+            text-align: right ;
+            .sxed0 
+                color: #219e1a; font-weight: bold; font-size: 15px; text-shadow: 1px 1px 2px #39cd1a;
+            .sxed1 
+                color: red; font-weight: bold; font-size: 15px; text-shadow: 1px 1px 2px #f68491;
+    .content2 
+        background: #fff; border-radius: 0 0 3px 3px; font-size: 14px; padding: 9px 9px 1px 9px; margin: 0 3px;
+        .order_user
+            display: flex; align-items: center; padding: 2px; border-radius: 5px; border: 1px solid #ffffff; margin-bottom: 9px; background: #f7f7f7; box-shadow: 0 0 2px lightgrey;
+            .av1
+                display: flex;align-items: center;
+                .avav
+                    position: relative;
+                    .index_
+                        position: absolute; background: rgba(88, 170, 255 , .85); border-radius: 5px; color: #fff; margin-top: -5px; line-height: 16px; padding: 0px 2px; margin-left: -5px; font-size: 12px; min-width: 20px; box-shadow: 0 0 2px #409eff;
+            .avatar
+                width: 34px; height: 34px; border-radius: 50%;
+            .name1
+                text-align: left; margin-left: 5px;
+                .nickname
+                    font-size: 15px; font-weight: bold;
+                .time
+                    color: #a1a1a1;font-size: 12px;
+            .price
+                color: red;
+            .s5
+                font-size: 12px; color: #a7c8fb;
+            .s6
+                font-size: 12px; color: #b7b7b7;

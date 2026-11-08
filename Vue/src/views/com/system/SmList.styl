@@ -1,0 +1,35 @@
+.SmList 
+    .container {}
+
+    .header { text-align: center; padding: 5px 0;}
+    .header span { color: #bebebe; font-size: 13px; background: #f9f9f9; border-radius: 5px; padding: 2px 6px; }
+
+    .swipe-container { overflow: hidden; position: relative; touch-action: pan-y pinch-zoom; height: auto; }
+
+    .swipe-wrapper { display: flex; align-items: flex-start; transition: transform 0.3s ease-out; cursor: grab; }
+
+    .swipe-wrapper.dragging { transition: none; cursor: grabbing; }
+
+    .swipe-slide { flex-shrink: 0; width: 100%; height: auto; }
+    .grid-container { display: grid; }
+    .grid-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+
+    .serial-badge { background: rgba(255, 255, 255, 0.2); padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; }
+
+    .item-id { font-size: 24px; font-weight: bold; opacity: 0.3; }
+
+    .item-title { font-size: 20px; font-weight: bold; margin-bottom: 10px; }
+
+    .item-desc { font-size: 14px; opacity: 0.9; }
+
+    .empty-item { background: #f0f0f0; border: 2px dashed #ccc; border-radius: 5px;display: flex; justify-content: center; align-items: center; color: #cdcdcd; text-shadow: 1px 1px #ffffff; }
+
+    .pagination { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
+
+    .dot { width: 12px; height: 12px; border-radius: 50%; background: #ddd; cursor: pointer; transition: all 0.3s ease; }
+
+    .dot.active { width: 32px; border-radius: 6px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+
+    .dot:hover:not(.active) { background: #bbb; }
+    .info { text-align: center; color: #666; font-size: 14px; }
+    .swipe-hint { text-align: center; color: #999; font-size: 13px; margin-top: 10px; font-style: italic; }

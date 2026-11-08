@@ -1,0 +1,15 @@
+{
+    "name": "开薪怡客",
+    "short_name": "清水湾",
+    "start_url": "https://m.sam322.com/pd1/18",
+    "display": "standalone",
+    "background_color": "#fff",
+    "theme_color": "#fff",
+    "icons": [
+      {
+        "src": "192x192.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ]
+  }

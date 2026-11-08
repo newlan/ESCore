@@ -1,0 +1,62 @@
+.member 
+
+    display: flex; flex-direction: column; width: 100%;height: 100vh;
+    .has_vip 
+        padding 10px;
+        .el-form-item
+            margin-bottom: 5px;
+    .list 
+        margin-top: 2.6rem;display: flex; width: 100%; flex-grow: 1; overflow: hidden;flex-direction: column;
+        .but 
+            padding: 5px; border-top: 1px solid #dfdfdf;
+        .el-tabs 
+            width: 100%; display: flex; flex-direction: column; overflow: hidden; height: 100%;
+            :deep(.el-tabs__header)
+                margin 0
+            :deep(.el-tabs__content)
+                flex: 1; display: flex; padding 0px;
+                .el-tab-pane
+                    flex: 1; overflow: hidden; display: flex; flex-direction: column;
+                    .concon 
+                        overflow: auto;padding 5px; text-align: left;
+                        .novip 
+                            color: #bbbbbb; padding: 20px; font-size: 14px;
+                        .vip_ 
+                            display: flex; flex-direction: row; padding: 5px; box-shadow: 0 0 2px #d6d6d6; border-radius: 5px; margin-bottom: 10px;
+                            .name 
+                                width 70px;
+                                .n 
+                                    text-align: center; color: #409eff; font-size: 15px;
+                                .p0 
+                                    text-align: center;padding-top: 3px;
+                                    .p 
+                                        background: #f1f1f1; border-radius: 5px; font-size: 12px; color: #b4b4b4; padding: 2px 6px;
+                            .info 
+                                flex 1; display: flex; flex-direction: column; justify-content: space-around;
+                                .tip_price 
+                                    font-size: 12px; background: #FF9800; color: #fff; padding: 1px 5px; border-radius: 5px;
+                                .out_price 
+                                    font-size: 12px; background: #9C27B0; color: #fff; padding: 1px 5px; border-radius: 5px;
+                                .jump 
+                                    font-size: 12px; background: #409eff; color: #fff; padding: 1px 5px; border-radius: 5px;
+                                .jump2 
+                                    font-size: 12px; background: #e5e5e5; color: #fff; padding: 1px 5px; border-radius: 5px;
+                                .jump3 
+                                    font-size: 12px; background: #00BCD4; color: #fff; padding: 1px 5px; border-radius: 5px;
+                                .i 
+                                    color: #777777; font-size: 13px; padding-right: 5px; padding-top: 3px;
+                            .edit 
+                                display: flex; align-items: center;
+    :deep(.vip_types) 
+        .ant-modal 
+            max-width: 100%; top: 0; padding-bottom: 0; margin: 0;
+        .ant-modal-content 
+            display: flex; flex-direction: column; height: calc(100vh);
+        
+        .ant-modal-body 
+            flex: 1
+    .cog 
+        font-size: 1.5rem; 
+
+
+

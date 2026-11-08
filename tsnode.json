@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+
+    "target": "esnext",                                     
+    "lib": ["ES2015","ES2016","ES2017","ESNext","ES2018"], 
+    "experimentalDecorators": true, 
+    "module": "commonjs", 
+    "moduleResolution": "node", 
+    "baseUrl": ".",
+    "paths": {
+      "@N/*":["Node/*"],
+      "@/*":["Vue/src/*"],
+      "@Nsrc/*":["Node/src/*"],
+      "LAN":["Node/src/libs"]
+
+    },
+    
+    "typeRoots": [
+      "node_modules/@types"
+    ],                                  
+
+    "outDir": "./Node/dist",    
+    "removeComments": true, 
+    "esModuleInterop": true, 
+    "forceConsistentCasingInFileNames": true, 
+    "strict": true,
+    "skipLibCheck": true 
+  },
+  "include": ["./Node/**/*","./types/**/*"]
+
+}

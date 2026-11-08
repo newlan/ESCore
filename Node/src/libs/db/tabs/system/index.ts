@@ -1,0 +1,1 @@
+export { ChinaArea }  from "./chinaArea";
