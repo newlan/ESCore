@@ -60,7 +60,6 @@ div.login_kxyk(v-loading="page.is_loading" element-loading-text="请稍候...")
 				template(#footer)
 					el-button(type="primary" style="width: 100%;" @click="page.is_open = true;page.open = false;") 登录即代表同意
 				div(style="background: #fff;")
-					Pact(:open="false")
 			el-checkbox(v-model="page.is_open" label="开薪怡客用户入协议" size="large" @click.stop="page.open = true") 
 		div.t10px(style="margin-top: 0;")
 			el-button(type="primary" style="width: 100%;" size="large" round :disabled="page.is_login" @click="login_submit") 登录
@@ -76,7 +75,7 @@ import { coms } from 'smkj';
 
 export default {
 	name:'LoginKxykWxapp',
-	components:{Madol:coms.Modal,Pact:coms.KxykPact}
+	components:{Madol:coms.Modal}
 }
 </script>
 
