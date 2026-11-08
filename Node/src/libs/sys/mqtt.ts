@@ -266,8 +266,8 @@ export class kxykMqtt
     async init(){
         this.client = mqtt.connect(Config.lock_server, {
             clientId: Config.lock_name,
-            username: 'newlan',   // 如果你配置了账号
-            password: 'lanlan',
+            username: 'admin0',
+            password: 'admin1',
             clean: true
         })
         this.client.on('connect', () => {
@@ -285,15 +285,12 @@ export class kxykMqtt
                 // log('收到消息', topic, message.toString())
                 try {
                     const data = JSON.parse(message.toString()) as sm.mqtt_all_cmd_red;
-                    // if(data.cmd !== 'heartbeat') log('收到消息',topic ,data)
-                    // 👇 优先处理“响应匹配”
                     if (data.id && this.pending.has(data.id)) {
                         const resolve = this.pending.get(data.id)!
                         this.pending.delete(data.id)
-                        resolve(data)   // 👈 返回给 await
+                        resolve(data)  
                         return
                     }
-                    // 👇 不是响应的正常走业务
                     this.readMsg(data)
 
                 } catch (error) {
@@ -329,7 +326,6 @@ export class kxykMqtt
         /** 添加锁 */
         if(m.cmd ==="addLock"){
             if(m.result ==="ok"){
-                /** 有新的锁加入 先判断当前网关下数据库是否已经绑定过这个锁了，如果没有绑定就添加绑定 */
                 if(m.clientId && m.lockId){
                     let lock = await DB.sql.get(`SELECT * FROM kxyk_mqtt_gateway_lock WHERE clientId = ? and lockId = ?`,[m.clientId,m.lockId]) as tb.kxyk_mqtt_gateway_lock;
                     if(!lock){
@@ -342,7 +338,6 @@ export class kxykMqtt
                 }
             }
             
-            /** 不论是成功还是失败都把状态反馈给前端 */
             if(this.lockPending.has(m.clientId)){
                 let staff = this.lockPending.get(m.clientId);
                 if(staff && staff.uid && Run){
@@ -352,10 +347,8 @@ export class kxykMqtt
             
         }
         if(m.cmd === 'heartbeat'){
-            // log('收到心跳',m); 
             /** 收到心跳包 */
             if(m.connect === 0){
-                /** 首次连接检查数据库是否存储过该网管设备 */
                 let wg = await DB.sql.getId(Api.tb.kxyk_mqtt_gateway,m.clientId,false,'clientId') as tb.UP<tb.kxyk_mqtt_gateway>;
                 if(!wg){
                     let newwg:tb.UP<tb.kxyk_mqtt_gateway> = {
