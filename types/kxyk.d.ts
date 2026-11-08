@@ -34,68 +34,68 @@ declare namespace sm {
 	import { __ } from 'lodash';
 	import { Pay } from '@N/src/libs/api/pay/enum';
 	interface EchartsDate{
-		/** 数值 */
+		
 		value:number,
-		/** 名称 */
+		
 		name:string,
-		/**  */
+		
 	}
 
 	interface mqtt_base
 	{
-		/** 指令序列id，最大长度20，后续服务器应当复制该id进行回复，否则网关会视为未回复，忽略服务器的回复指令 */
+		
 		id:string
-		/** 本网关设备唯一ID */
+		
 		clientId:string
 
 	}
-	/** 门锁基本类型 */
+	
 	interface mqtt_lock_base extends mqtt_base
 	{
-		/** 锁ID */
+		
 		lockId:string
 	}
-	/** 等待加入网关时请求端参数约定 map名称是网关ID 最后一次请求添加锁的用户信息 */
+	
 	interface mqtt_addLock_wait_staff{
-		/** 等待回调更新前端的用户UID */
+		
 		uid:number
-		/** 员工ID */
+		
 		clerk_id:number
 
 	}
 
-	/** 收到设备传来的心跳 */
+	
 	interface mqtt_heartbeat extends mqtt_base
 	{
-		/** 心跳包 */
+		
 		cmd:"heartbeat",
-		/** 0：代表网关当前还未连接上服务器，本次为第一次连接或重新连接（6秒一次）。 */
+		
 		connect?:0|1
 	}
-	/** 回复设备心跳包 */
+	
 	interface mqtt_heartbeat_send extends mqtt_heartbeat
 	{
-		/** 发送指令 */
+		
 		cmd:"heartbeat"
-		/** 当前时间戳 */
+		
 		timestamp:number
 	}
-	/** 发送获取设备配置命令 */
+	
 	type mqtt_gatewayInfo_send = mqtt_base & {
-		/** 发送命令 */
+		
 		cmd:"gatewayInfo",
 	}
-	/** 获取设备配置返回数据 */
+	
 	type mqtt_gatewayInfo = mqtt_gatewayInfo_send & {
-		/** 网关硬件版本号 */
+		
 		hardVer?:string
-		/** 网关软件版本号 */
+		
 		version?:string
-		/** 保留位，生产时烧入，不允许变更，可针对大客户定制 */
+		
 		customerId?:string
-		/** 网关MAC地址 */
+		
 		mac?:string
-		/** 网关IP地址 */
+		
 		ip?:string
 		/** 
 		 *  @param 0：正常工作状态
@@ -103,9 +103,9 @@ declare namespace sm {
 		 */
 		state?:0|1
 	}
-	/** 下发重置连接命令 */
+	
 	type mqtt_configGateway_send = mqtt_base & {
-		/** 命令 */
+		
 		cmd:"configGateway",
 		/** 
 		 * 是否重置网络连接
@@ -114,9 +114,9 @@ declare namespace sm {
 		 */
 		reset:0 | 1
 	}
-	/** 设备返回复位重置执行结果 */
+	
 	type mqtt_configGateway = mqtt_base & {
-		/** 命令 */
+		
 		cmd:"configGateway",
 		/** 
 		 * @param ok 执行成功
@@ -124,12 +124,12 @@ declare namespace sm {
 		 */
 		result:string
 	}
-	/** 发送添加门锁指令 */
+	
 	type mqtt_addLock_send = mqtt_base & {
-		/** 命令 */
+		
 		cmd:"addLock",
 	}
-	/** 接受设备返回添加锁指令的状态 */
+	
 	type mqtt_addLock = mqtt_base & mqtt_addLock_send & {
 		/** 
 		 * 返回状态
@@ -139,17 +139,17 @@ declare namespace sm {
 		 * @param fail 锁绑定失败
 		 */
 		result:"ok" | "timeout" | "wait" | "fail"
-		/** 锁绑定成功携带的锁ID */
+		
 		lockId?:string
 	}
-	/** 发送获取锁详情数据指令 */
+	
 	type mqtt_getLockInfo_send = mqtt_base & {
-		/** 命令 */
+		
 		cmd:"lockInfo",
-		/** 锁ID */
+		
 		lockId:string
 	}
-	/** 返回获取锁详情数据 */
+	
 	type mqtt_getLockInfo = mqtt_base & mqtt_getLockInfo_send & Omit<tb.kxyk_mqtt_gateway_lock,'id'> & {
 		/** 
 		 * 返回状态
@@ -157,12 +157,12 @@ declare namespace sm {
 		 * @param timeout 指令超时
 		 */
 		result:"ok" | "timeout"
-		/** 锁的位置状态 开发文档没有该字段 但设备返回了 */
+		
 		status?:string
 	}
-	/** 下发门锁指令 - 设置门锁 */
+	
 	type mqtt_lockCmd_send = mqtt_lock_base & Pick<tb.kxyk_mqtt_gateway_lock,'holdOpen' |'delayTime' | 'refuseCopy' | 'recordPush' | 'magneticPush' | 'invalidPush'> & {
-		/** 命令 */
+		
 		cmd:"configLock"
 		/** 
 		 * 打开还是关闭
@@ -171,9 +171,9 @@ declare namespace sm {
 		 */
 		action?:"open" | "close"
 	}
-	/** 发送设置门锁指令后收到的设备回馈 */
+	
 	type mqtt_lockCmd = mqtt_lock_base & {
-		/** 命令 */
+		
 		cmd:"configLock"
 		/** 
 		 * 返回状态
@@ -183,9 +183,9 @@ declare namespace sm {
 		result:"ok" | "timeout"
 	}
 
-	/** 获取锁内开锁日志 - 包括成功和失败的所有日志 */
+	
 	type mqtt_readRecord_send = mqtt_lock_base & {
-		/** 命令 */
+		
 		cmd:"readRecord" 
 		/** 读取日志需要三次握手 - 该接口也有可能自动触发 设备解锁成功或失败自动触发
 		 * 服务器首先读取 可以不带该参数，等设备返回数据时再次回复设备 此时需要携带该参数 
@@ -196,11 +196,11 @@ declare namespace sm {
 		result?:"ok" | "more" | 'timeout'
 	}
 
-	/** 接受读取锁内日志数据 */
+	
 	type mqtt_readRecord = mqtt_readRecord_send & {
-		/** 锁内总共记录数量 */
+		
 		totalnum:number
-		/** 本次推送的记录数量 */
+		
 		thisnum:number
 		/**
 		 * 记录合计，每个记录由38个字符构成，详解如下：
@@ -233,9 +233,9 @@ declare namespace sm {
 
 	}
 
-	/** 清空锁内所有授权接口 */
+	
 	type mqtt_clearAuth_send = mqtt_lock_base & {
-		/** 命令 */
+		
 		cmd:"clearAuth"
 		/** 
 		 * 要清除的授权类型
@@ -248,9 +248,9 @@ declare namespace sm {
 		authType:"card" | "password" | "face" | "finger" | "all"
 	}
 
-	/** 添加卡券授权 */
+	
 	type mqtt_authCard_send = mqtt_lock_base & {
-		/** 命令 */
+		
 		cmd:"authCard"
 		/** 
 		 * 是否立即清除门锁内所有卡片授权：
@@ -278,9 +278,9 @@ declare namespace sm {
 		 */
 		cardcodes:string
 	}
-	/** 添加密码授权 */
+	
 	type mqtt_authPassword_send = mqtt_lock_base & {
-		/** 命令 */
+		
 		cmd:"authPassword" 
 		/** 
 		 * 是否立即清除门锁内所有密码授权:
@@ -308,7 +308,7 @@ declare namespace sm {
 		 */
 		passwords:string
 	}
-	/** 添加授权统一回调 除了命令 */
+	
 	type atuh_base = mqtt_lock_base & {
 		/** 
 		 * 授权返回状态
@@ -319,30 +319,30 @@ declare namespace sm {
 		 */
 		result:"ok" | "timeout" | "fail" | "full"
 	}
-	/** 添加卡券授权回调 */
+	
 	type mqtt_authCard = atuh_base & {
-		/** 命令 */
+		
 		cmd:"authCard"
 	}
-	/** 添加密码授权回调 */
+	
 	type mqtt_authPassword = atuh_base & {
-		/** 命令 */
+		
 		cmd:"authPassword"
 	}
-	/** 清除授权回调字段 */
+	
 	type mqtt_clearAuth = Omit<mqtt_clearAuth_send,"authType"> & Pick<mqtt_lockCmd,"result">;
-	/** 接收到的所有指令合集 */
+	
 	type mqtt_all_cmd_red = mqtt_authCard | mqtt_authPassword | mqtt_clearAuth | mqtt_heartbeat | mqtt_gatewayInfo | mqtt_configGateway | mqtt_addLock | mqtt_getLockInfo | mqtt_lockCmd | mqtt_readRecord;
-	/** 可以发送到指令合集 */
+	
 	type mqtt_all_cmd_send = mqtt_authPassword_send | mqtt_authCard_send | mqtt_clearAuth_send | mqtt_readRecord_send | mqtt_heartbeat_send | mqtt_gatewayInfo_send | mqtt_lockCmd_send | mqtt_configGateway_send | mqtt_addLock_send | mqtt_getLockInfo_send;
-	/** 系统用户相关Base字段 */
+	
 	interface sm_user_base 
 	{
-		/** 用户昵称 */
+		
 		nickname?:string
-		/** 用户头像地址 */
+		
 		avatar?:string
-		/** 用户手机号码 */
+		
 		phone?:string
 	}
 
@@ -442,7 +442,7 @@ declare namespace sm {
 		notify_url?:string
 
 	}
-	/** 微信合并下单子订单数据模型 */
+	
 	interface WxPayCombineSubOrderData
 	{
 		/** 
@@ -532,12 +532,12 @@ declare namespace sm {
 		 */
 		goods_tag?:string
 	}
-	/** 微信支付回调通知解析后的参数 */
+	
 	interface WxPayNotifyV3
 	{
-		/** 通知ID  唯一 */
+		
 		id:string
-		/** 通知时间 iso8601时间 */
+		
 		create_time:string
 		/** 
 		 * 通知类型 
@@ -554,12 +554,12 @@ declare namespace sm {
 		 * @param 目前是encrypt-resource
 		*/
 		resource_type:string
-		/** 回调摘要 目前显示支付成功 */
+		
 		summary:string
-		/** 支付回调主要数据 */
+		
 		resource:WxPayNotifyV3Resource
 	}
-	/** 微信支付回调通知解析后的参数resource */
+	
 	interface WxPayNotifyV3Resource
 	{
 		/** 
@@ -629,57 +629,57 @@ declare namespace sm {
 		 * 支付完成时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss+TIMEZONE
 		 */
 		success_time:string
-		/** 支付者信息 */
+		
 		payer:
 		{
-			/** 用户在服务商下的openid */
+			
 			sp_openid:string
-			/** 用户在子商户下的openid */
+			
 			sub_openid:string
 		}
-		/** 订单金额 */
+		
 		amount:
 		{
-			/** 总金额 单位 分 */
+			
 			total:number
-			/** 用户支付金额 单位 分 */
+			
 			payer_total:number
 			/**
 			 *  货币类型 
 			 * @param CNY 人民币
 			 */
 			currency:string
-			/** 用户支付币种 CNY 人民币 */
+			
 			payer_currency:string
 		}
 	}
-	/** 大客户充值方法参数约束 */
+	
 	interface RechargeE23MoneyParameter{
-		/** 大客户ID */
+		
 		eid:number,
-		/** 充值金额 */
+		
 		price:number
-		/** 赠送金额 - 前端传来可用于验证 */
+		
 		give?:number 
-		/** 操作人UID */
+		
 		operator_uid:number 
-		/** 调用方法的角色 */
+		
 		role: "C1" | "E1"
 	}
-	/** 用户端页面相关接口约束 start */
+	
 	interface RoleFinance extends SelectDatePar {
-		/** 分页大小 */
+		
 		size:number
-		/** 分页页码 */
+		
 		page:number
-		/** 身份ID */
+		
 		role_id:number
-		/** 商圈ID */
+		
 		cid:number
 	}
-	/** 调用选择时间组件参数 */
+	
 	interface SelectDatePar{
-		/** 是否显示组件 */
+		
 		show:boolean
 		/**
 		 * 时间类型
@@ -691,11 +691,11 @@ declare namespace sm {
 		 * 6 = 全部
 		 */
 		type:number
-		/** 当前选择的日期字符串 */
+		
 		time:string | Date
-		/** 选择时段 开始日期 */
+		
 		time1:string | Date
-		/** 选择时段 结束日期 */
+		
 		time2:string | Date
 		/**
 		 *  二级数据条件
@@ -704,110 +704,110 @@ declare namespace sm {
 		 * 2 = E1端收益
 		 */
 		type2:number
-		/** 调用组件的身份 */
+		
 		role:"C1"|"D1"|"E1"|string
 	}
-	/** 充值余额方法参数 */
+	
 	interface RechargeYueParameter{
-		/** 被充值用户UID */
+		
 		uid:number
-		/** 充值金额 */
+		
 		price:number
-		/** 调用方法的角色 */
+		
 		role:'e1' | 'd1' | 'c1'
-		/** 角色关联ID 门店ID - 合伙人ID - 商圈ID */
+		
 		sid:number
-		/** 商圈ID */
+		
 		cid:number
-		/** 操作管理员Uid */
+		
 		s_uid:number
 	}
-	/** 充值门店专用余额方法参数 */
+	
 	interface RechargeStoreYueParameter{
-		/** 调用方法角色 */
+		
 		role:'d1',
-		/** 充值用户UID */
+		
 		uid:number,
-		/** 充值金额 */
+		
 		price:number
-		/** 门店ID */
+		
 		sid:number
-		/** 操作管理员UID */
+		
 		s_uid:number
-		/** 是否添加结算日志 */
+		
 		is_log:boolean
 	}
 
 	interface E111{
 		id:number
-		/** 商圈名称 */
+		
 		c_name:string
-		/** 合伙人微信头像地址 */
+		
 		avatar:string
-		/** 合伙人ID */
+		
 		id:number
-		/** 所属公司ID */
+		
 		cp_id:number
-		/** 添加本身份的上级管理UID */
+		
 		add_uid:number
-		/** 合伙人名称 */
+		
 		name:string
-		/** 合伙人联系电话 */
+		
 		phone:string
-		/** 当前身份所归属的上级身份ID */
+		
 		root_role_id?:number
-		/** 当前身份类型ID - C1 D1 */
+		
 		role_id?:number
-		/** 当前身份所属行业ID */
+		
 		type_id?:number
-		/** 用户UID */
+		
 		uid:number
-		/** 合伙人是否拥有投资门店权限 */
+		
 		is_E2:number
-		/** 投资门店数据列表 */
+		
 		E2list?:any[]
-		/** 合伙人是否拥有发卡权限 */
+		
 		is_E3:number
-		/** E3数据 */
+		
 		E3?:tb.kxyk_mch_role_e2e3_auth
-		/** 加入合伙人时间戳 */
+		
 		time:number
-		/** 大客户余额 */
+		
 		money:number
-		/** 授权金额 */
+		
 		money_auth:number
 	}
-	/** 门店所有服务和商品价格 普通价格 会员价格 等级会员价格 */
+	
 	interface StoreGoodsPrices{
-		/** 商品ID */
+		
 		id:number
-		/** 项目id */
+		
 		item_id:number
-		/** 商品或服务名称 */
+		
 		goods_name:string
-		/** 是否多规格 */
+		
 		is_spec:number
-		/** 商品游客价格 */
+		
 		price:number
-		/** 商品普通会员价格 */
+		
 		v_price:number
-		/** 商品是否有等级会员价格 */
+		
 		is_vip_price:number
-		/** 车型名称 - 规格名称 */
+		
 		spec_name:string
-		/** 服务名称 - 洗车 发动机清洗.. */
+		
 		suk_name:string
-		/** 项目名称 - 普洗 精细.... */
+		
 		item_name:string
-		/** 项目游客价格 */
+		
 		i_price:number
-		/** 项目普通会员价格 */
+		
 		i_v_price:number
-		/** 项目是否有等级会员价格 */
+		
 		iis_open_vip:number
-		/** 等级会员价格列表 */
+		
 		vip_price_list?:{name:string,price:number}[]
-		/** 前端佣金相关 */
+		
 		/** 
 		 * 佣金模式
 		 * 0 = 读取默认分佣
@@ -821,17 +821,17 @@ declare namespace sm {
 		 * 1 = 金额
 		 */
 		mode_type?:number
-		/** 自定义分佣数值 - 关联moda_type 支持两位小数点*/
+		
 		mode_number?:number
 	}
-	/** 购卡活动发放卡券方法参数 */
+	
 	interface GiveCouponActivity
 	{
 		/** 购买活动、申领活动表的ID - kxyk_mch_coupon_activity_user 
 		 *  或者股东ID
 		*/
 		cauid:number,
-		/** 购买或申领活动的用户UID */
+		
 		uid:number,
 		/** 
 		 * 调用类型 type
@@ -842,24 +842,24 @@ declare namespace sm {
 		 *	4 = 管理发放 - 余额补额度 - 支付
 		 */
 		is_pay:number
-		/** 支付金额 */
+		
 		pay_price:number
-		/** 补交金额 */
+		
 		add_pay:number
-		/** 操作员工UID 0 = 用户自主操作 */
+		
 		staff_uid:number
-		/** 门店ID */
+		
 		sid:number
-		/** 商圈ID 合伙人使用 */
+		
 		cid?:number
-		/** 股东ID */
+		
 		eid?:number
 	}
-	/** 购买卡券活动表 */
+	
 	interface StoreCouponActivity
 	{
 		id:number,
-		/** 商圈ID */
+		
 		cid:number,
 		/**
 		 * 活动状态
@@ -867,17 +867,17 @@ declare namespace sm {
 		 * 1 = 正常
 		 */
 		status:number,
-		/** 活动名称 */
+		
 		title:string,
-		/** 销售金额 - 不关联卡券的结算金额 */
+		
 		price:number,
-		/** 卡券ID列表 */
+		
 		coupons:number[] | string | string[],
-		/** 添加任务时间戳 */
+		
 		time:number
-		/** 前端展示活动地址 */
+		
 		url?:string
-		/** 前端展示卡券列表 */
+		
 		couponsList?:any
 		/** 
 		 * 新支付模式 - 多选
@@ -886,44 +886,44 @@ declare namespace sm {
 		 * pay3 = 微信支付
 		*/
 		pay_mode:string | string[]
-		/** 是否开启补交金额 */
+		
 		is_premium:number,
-		/** 补价差价金额 */
+		
 		premium:number,
-		/** 是否有发卡权限 C1 端配置门店或者股东适用 */
+		
 		is_grant?:number,
 	}
-	/** 员工表字段约束 */
+	
 	interface D1Staff{
 		id?:number,
-		/** 门店ID */
+		
 		store_id:number
-		/** 用户ID */
+		
 		uid:number
-		/** 添加用户的管理ID */
+		
 		add_uid:number
-		/** 是否店长 */
+		
 		is_shopkeeper:number
-		/** 是否有处理店铺任务的权限 */
+		
 		is_task:number
-		/** 是否允许发放营销卡券 */
+		
 		is_give:number
-		/** 员工昵称 */
+		
 		nickname?:string
-		/** 员工头像 */
+		
 		avatar?:string
-		/**  */
+		
 		give_numb?:any
 	}
-	/** 二维码组件参数 */
+	
 	interface ScanCom {
-		/** 扫码页面显示的文字 */
+		
 		str?:string,
-		/** 提示内容 */
+		
 		str2?:string,
-		/** 是否打开显示二维码 */
+		
 		open:boolean,
-		/** 二维码是否被扫描 */
+		
 		is_scan?:boolean,
 		/** 
 		 * 二维码类型
@@ -934,53 +934,53 @@ declare namespace sm {
 		 * type = 5 用户展示核销二维码 
 		*/
 		type:number,
-		/** 是否点击背景关闭二维码 */
+		
 		close:boolean
-		/** 要传送的数据 - 转换base64 1K以下 */
+		
 		db?:any
-		/** 调用角色 */
+		
 		role?:string
 	}
-	/** 检测和使用卡券返回字段约束 */
+	
 	interface CheckCouponIsUsedResult
 	{
-		/** 是否错误 */
+		
 		err:boolean,
-		/** 错误文本 */
+		
 		msg:string,
-		/** 返回卡券检测状态 */
+		
 		db:{
-			/** 卡券类型 0 = 检测错误  1 = 兑换券 2 = 低值券 */
+			
 			coupon_type:number,
-			/** 低值总金额 - 为低值券时，多张抵制券的总金额 */
+			
 			actual_price:number,
-			/** 是否渠道 */
+			
 			is_channel:boolean,
-			/** 渠道名称 */
+			
 			channel_name:string,
 		}
 		
 	}
-	/** 前端选择商品时的卡券列表 */
+	
 	interface HasCouponList
 	{
-		/** 卡包ID */
+		
 		pid:number,
-		/** 同类卡包名称 */
+		
 		label:string,
-		/** 卡券列表 */
+		
 		list:CouponUser[],
 	}
-	/** 开薪怡客数据库用户字段 */
-	/** 开薪怡客商圈用户资金变动数据字段 */
+	
+	
 	interface kxykCircleMemberFundLog
 	{
 		id?:number;
-		/** 用户ID */
+		
 		uid:number;
-		/** 商圈ID */
+		
 		cid:number;
-		/** 门店ID */
+		
 		sid:number;
 		/**
 		 *  业务类型
@@ -998,15 +998,15 @@ declare namespace sm {
 		 *  @param 12 = 权益转赠  
 		 */
 		type:number;
-		/** 业务类型 1 = 获得卡券 2 = 获得期卡 */
+		
 		type_str?:string;
-		/** type = 1 时挂载的卡券数据 */
+		
 		coupon?:CouponUser;
-		/** type = 2 时挂载的期卡数据 */
+		
 		annual?:kxykAnnualUser;
-		/** type = 11 时 挂载退款数据 */
+		
 		refund?:tb.kxyk_user_pay_log_refunds
-		/** type = 3 时挂载的订单数据 */
+		
 		order?:OrderDetall[]
 		/** 
 		 * 挂载充值日志
@@ -1014,117 +1014,117 @@ declare namespace sm {
 		 * @property 管理员充值没有plID
 		 */
 		pay_log?:tb.kxyk_user_pay_log
-		/** 业务关联ID */
+		
 		eid:number;
-		/** 日志消息体 */
+		
 		msg:string;
-		/** 记录时间 */
+		
 		t1:number;
 	}
-	/** 开薪怡客期卡基表声明 */
+	
 	interface kxykAnnual {
-		/** ID */
+		
 		id?:number;
-		/** 期卡名称 */
+		
 		name:string;
-		/** 结算价格 */
+		
 		price:number;
-		/** 可用次数 0 = 无限次 */
+		
 		count:number;
-		/** 期卡类型 0 = 月卡 1 = 年卡 */
+		
 		type:number;
-		/** 可用期限 关联期卡类型 type */
+		
 		term:number;
-		/** 商圈ID */
+		
 		cid:number;
-		/** 可用商品范围 item or goods ID */
+		
 		goods:string;
 		
 	}
-	/** 开薪怡客用户期卡基表 */
+	
 	interface kxykAnnualUser{
-		/** id */
+		
 		id?:number;
-		/** 关联期卡表ID */
+		
 		aid:number;
-		/** 获得期卡用户ID */
+		
 		uid:number;
-		/** 获得期卡渠道 0 = 从门店获取 1 = 从股东处获取 */
+		
 		give_type:number;
-		/** 获得渠道ID 关联渠道类型 门店ID 或 股东ID 等 */
+		
 		give_id:number;
-		/** 发放期卡的管理员 UID 门店下管理员UID 或 股东UID */
+		
 		give_uid:number;
-		/** 期卡是否可用 0 = 不可用 1 = 可用 */
+		
 		status:number;
-		/** 获得期卡时间戳 */
+		
 		t1:number;
-		/** 期卡到期时间戳 获得期卡时计算得到 */
+		
 		t2:number;
-		/** 已使用期卡次数 */
+		
 		use_count:number;
-		/** 期卡失效时间 */
+		
 		end_time:number;
-		/** 期卡可用数量 */
+		
 		count?:number;
-		/** 关联基表字段 */
-		/** 期卡类型 0 = 月卡 1 = 年卡 */
+		
+		
 		type?:number;
-		/** 期卡时限 1 2 3 月 或 年 */
+		
 		term?:number;
-		/** 可兑换列表 */
+		
 		goods?:string;
-		/** 可兑换服务列表ID */
+		
 		i?:number[];
-		/** 可兑换物品列表ID */
+		
 		g?:number[];
 	}
 	interface KxykUser
 	{
 		id:number,
-		/** 手机号码 */
+		
 		phone:string,
-		/** 用户名称 */
+		
 		nickname:string,
-		/** 用户头像 */
+		
 		avatar:string,
-		/** 公众号OPENID */
+		
 		wx_openid:string,
-		/** appOPENID */
+		
 		h5_openid:string,
-		/** 小程序OPENID */
+		
 		cx_openid:string,
-		/** unionid */
+		
 		unionid:string,
-		/** 注册时间 - unix时间戳*/
+		
 		add_time:number,
-		/** 注册IP  */
+		
 		add_ip:string,
 	}
-	/** 创建新用户字段约束 */
+	
 	interface CreateUser
 	{
-		/** 手机号码 */
+		
 		phone:string,
-		/** 用户名称 */
+		
 		nickname?:string,
-		/** 用户头像 */
+		
 		avatar?:string,
-		/** 用户状态 是否禁止用户登录  */
+		
 		status:number,
-		/** 公众号OPENID */
+		
 		wx_openid?:string,
-		/** appOPENID */
+		
 		h5_openid?:string,
-		/** 小程序OPENID */
+		
 		cx_openid?:string,
-		/** unionid */
+		
 		unionid?:string,
-		/** 注册时间 - unix时间戳*/
+		
 		add_time:number,
-		/** 注册IP  */
+		
 		add_ip:string,
-		/** 登录密码 */
+		
 		pwd?:string
 
 	}
@@ -1134,7 +1134,7 @@ declare namespace sm {
 	*/
 	interface Finance
 	{
-		/** ID !断言 */
+		
 		id?:number,
 		/** 财务类型 
 		 * @param 1 = 门店卖卡 
@@ -1156,24 +1156,24 @@ declare namespace sm {
          * @param 16 = 股东下级会员消费获得佣金 股东获得佣金 = 商圈支付
 		 */
 		type:number,
-		/** 商圈ID - 所有参数数据都基于商圈结算 */
+		
 		cid:number,
-		/** 门店ID - 收支门店 */
+		
 		sid:number,
-		/** 合伙人ID - 股东大客户 E2E3 ID */
+		
 		shareholder_id:number,
-		/** 收支金额 */
+		
 		price:number,
-		/** 支付用户 - 选填 - 关联业务 */
+		
 		pay_uid?:number,
 		/** 
 		 *  0 = 商圈支出 
 		 * 	1 = 商圈收益
 		 */
 		profit_payable:number,
-		/** 数据产生时间 - 字符串 */
+		
 		time:string,
-		/** 数据产生时间 - 时间戳 */
+		
 		time_unix:number,
 		/** 
 		 * 操作员 - 选填
@@ -1181,7 +1181,7 @@ declare namespace sm {
 		 * 或者C1 C2管理员UID 
 		 */
 		operator_uid:number,
-		/** 是否结算 0 = 没有结算 1 =等待结算（已申请） 2 = 结算完成  */
+		
 		checkout:number,
 		/** 
 		 * 业务关联ID1 
@@ -1201,9 +1201,9 @@ declare namespace sm {
          * @param type=15 订单详情关联的系统支付表ID pay_log表
 		 */
 		relation2?:number,
-		/** 文字说明 */
+		
 		info:string,
-		/** 关联kxyk_user_pay_log 支付日志表 */
+		
 		pl_id?:number
 		/** 
 		 * 商圈和平台结算 
@@ -1214,7 +1214,7 @@ declare namespace sm {
 		a1_check?:number
 
 	}
-	/** 发放卡包参数  */
+	
 	interface GrantPackParameter
 	{
 		/** 
@@ -1227,15 +1227,15 @@ declare namespace sm {
 		 * @param 5 = 团购活动发卡
 		 */
 		get_type:number,
-		/** 发卡ID 门店ID或股东ID或活动ID */
+		
         get_id:number,
-		/** 卡券所属商圈 */
+		
         cid:number,
-		/** 发卡人用户ID */
+		
         get_uid:number,
-		/** 获得卡券用户ID */
+		
 		uid:number,
-		/** 卡包ID */
+		
 		pid:number,
 		/**
 		 * 发卡类型 用户获卡方式
@@ -1248,19 +1248,19 @@ declare namespace sm {
 		 *  @param 6 = 老系统搬迁
 		 */ 
 		is_pay:number,
-		/** 发卡活动ID - 团购活动ID为用户购买之后订单ID */
+		
 		act_id?:number
-		/** 团购项目ID */
+		
 		act_p_id?:number
-		/** 门店手动发放活动卡时扩展的上缴金额 - 根据活动配置 */
+		
 		act_price?:number
-		/** 迁移老卡ID */
+		
 		ocid?:number
-		/** 用户中将表ID */
+		
 		prize_id?:number
-		/** 洗浴大厅ID  */
+		
 		hid?:number
-		/** 会员开牌赠卡规则ID - 关联kxyk_mch_store_vip_gift_rules表 */
+		
 		gift_rules_id?:number
 		/** 
 		 * 订单详情ID 
@@ -1268,44 +1268,44 @@ declare namespace sm {
 		 */
 		odid?:number
 	}
-	/** 平台用户卡券字段约束 */
+	
 	interface CouponUser
 	{
-		/** 卡券是否灰色显示 - 用户前端显示 - 用户购买卡券时显示 */
+		
 		is_grey?:number,
-		/** 卡券显示灰色原因 - 用户前端显示 - 用户购买卡券时显示 */
+		
 		grey_msg?:string,
-		/** ID */
+		
 		id?:number,
-		/** 卡券名称 */
+		
 		name:string,
-		/** 卡券状态 0=待使用 1=已使用 2=已过期 */
+		
 		status:number,
-		/** 领取时间 - 字符串 */
+		
 		get_time:string,
-		/** 领取时间 10位时间戳 */
+		
 		get_time_unix:number,
-		/** 使用时间 - 字符串 */
+		
 		use_time?:string,
-		/** 使用时间 10位时间戳 */
+		
 		use_time_unix?:number,
-		/** 使用方式 0=未使用 1=兑换使用 2=低值使用 */
+		
 		use_mode:number,
-		/** 兑换时显示面额 */
+		
 		show_price?:number,
-		/** 低值时低值金额 */
+		
 		actual_price?:number,
-		/** 是否兑换 */
+		
 		is_exchange?:number,
-		/** 可兑换列表 */
+		
 		exchange_list?:tb.kxyk_coupon_exchange_low[],
-		/** 是否低值 */
+		
 		is_low?:number,
-		/** 是否可以叠加其他低值券一起使用 */
+		
 		is_low_multiplex?:number,
-		/** 可低值列表 */
+		
 		low_list?:tb.kxyk_coupon_exchange_low[],
-		/** 卡券所属商圈 */
+		
 		cid:number,
 		/** 零卡类型 0=门店发卡 1=股东发卡 2=活动发卡 3=系统发卡(充值赠送) 4 =老系统搬迁  5 = 团购活动发卡 2024-08-01扩展 
 		 * @param 6 = 洗浴后台发卡 2026-06-08
@@ -1319,69 +1319,69 @@ declare namespace sm {
 		 * @param 洗浴后台发卡时为分享人UID 上级UID
 		 */
 		get_uid:number,
-		/** 卡券在哪个门店使用 使用门店ID */
+		
 		use_sid?:number,
-		/** 卡券所属用户ID */
+		
 		uid:number,
-		/** 卡券所属卡包ID */
+		
 		pid:number,
-		/** 卡券可用次数 */
+		
 		count:number,
-		/** 已用次数 */
+		
 		used_count:number,
-		/** 根据卡包计算后的有效期时间戳 */
+		
 		validity_time_unix:number,
-		/** 根据卡包计算后的有效期字符串 */
+		
 		validity_time:string,
-		/** CU里缓存卡包下的有效天数，防止卡包修改后无法对应 */
+		
 		use_day:number,
-		/** 卡券是否锁定状态 */
+		
 		is_lock:number,
-		/** 是否需要补差价 */
+		
 		is_rep:number,
-		/** 需要补充的差价金额 */
+		
 		rep_price?:number,
-		/** 收取差价的管理员UID */
+		
 		rep_staff_uid?:number,
-		/** 收取补价时间 - 时间戳 10位 */
+		
 		rep_time?:number,
-		/** 解锁时间 */
+		
 		unlock_time?:string,
-		/** 满多少可以使用抵值券 - 卡包字段 */
+		
 		full_low_price?:number,
-		/** 可使用抵值券的数量 - 卡包字段 */
+		
 		is_low_count?:number,
-		/** 是否在订单中被选择 - 虚拟字段 */
+		
 		is_select?:number,
-		/** 是否属于渠道卡券 - 卡包字段 */
+		
 		is_channel?:number,
-		/** 渠道名称 - 卡包字段 */
+		
 		channel_name?:string,
-		/** 是否转赠卡券 */
+		
 		is_transfer:number,
-		/** 转赠卡券用户的UID */
+		
 		transfer_uid:number,
-		/** 转赠时间 - 字符串格式 2022-02-01 */
+		
 		transfer_time:string
-		/** 赠送用户头像 */
+		
 		av1?:string,
-		/** 被送用户头像 */
+		
 		av2?:string,
-		/** 前端显示 - 关联商品时的卡券类型 -  0 = 低值 1 = 兑换 */
+		
 		[x:string]:any,
-		/** 转增卡券前端显示 - 是否赠送被选中 */
+		
 		is_select_transfer?:boolean
-		/** 是否迁移老系统卡券 */
+		
 		is_relocate?:number
 		/** 发卡活动ID 团购活动ID tuid 
 		 * @param 洗浴后台发卡时持卡人日志表ID 2026-06-08 kxyk_coupon_cardholder_log
 		*/
 		act_id?:number
-		/** 团购活动项目ID */
+		
 		act_p_id?:number
-		/** 被迁移的老系统卡券ID */
+		
 		relocate_id?:number
-		/** 关联用户中奖表ID */
+		
 		prize_id?:number
 		/** 
 		 * 订单详情ID 
@@ -1390,215 +1390,215 @@ declare namespace sm {
 		odid?:number
 	}
 
-	/** 平台卡包字段约束*/
+	
 	interface CouponPack
 	{
 		[x:string]:any,
 		id?:number,
 		cid?:number,
-		/** 卡包名称 */
+		
 		name:string,
-		/** 销售金额 */
+		
 		price:number,
-		/** 实际价格 - 每张卡券 */
-		/** 卡包内有多少卡券 - 单位张 */
+		
+		
 		count:number,
-		/** 卡包内的卡券每张可使用次数 */
+		
 		use_count:number,
-		/** 是否渠道 0 or 1 */
+		
 		is_channel?:number,
-		/** 渠道名称 */
+		
 		channel_str?:string,
-		/** 是否核销 */
+		
 		is_verification?:number,
-		/** 是否仅拓新分佣 - 只有新用户购买卡券时分佣 0关闭 1开启 */
+		
 		is_new_user_commission:number,
-		/** 分佣单位 百分比或者实际金额  0=百分比 1=实际金额*/
+		
 		commission_type:number,
-		/** 分佣金额 - 关联分佣单位 */
+		
 		commission:number,
-		/** 卡包发放数量 - 超过数量无法发放 */
+		
 		issued_count:number,
-		/** 当前卡包已经发放数量 */
+		
 		issued_has:number,
-		/** 票面金额 - 用户领取后显示的卡券金额(兑换券根据总售价计算卡券面额显示) */
+		
 		show_price:number,
-		/** 低值券配置模式 0 = 通用型(所有券使用相同低值金额) 1 = 手动配置（单独配置每张券的低值金额） */
+		
 		actual_type:number,
-		/** 抵值券实际价值 用于订单低值时的真实面额 自动模式所有卡券统一该值*/
+		
 		actual_price:number,
-		/**  领取用户限制 0=所有用户 1=仅新用户可领取该卡*/
+		
 		user_get_authority:number,
-		/** 兑换开关 */
+		
 		is_exchange:number,
-		/** 该卡包下的卡券可以兑换的门店和商品 - 这里扩展二三级结构 */
+		
 		exchange?:any,
-		/** 兑换组件左窗口选择数据 */
+		
 		exchange_left?:any[],
-		/** 兑换组件右窗口选择数据 */
+		
 		exchange_right?:any[]|string,
-		/** 消费满多少时可以低值 */
+		
 		full_low_price:number,
-		/** 单次可用于低值的卡券数量  */ 
+		 
 		is_low_count:number,
-		/** 卡包下的卡券是否可以低值金额 0 = 不可以低值（计算得到该值） 1=有低值区域和商品 */
+		
 		is_low:number,
-		/** 低值券是否可以叠加其他抵制券使用 */
+		
 		is_low_multiplex:number,
-		/** 可以低值的门店和商品 - 这里扩展二三级结构 */
+		
 		low?:any,
-		/** 低值组件左窗口选择数据 */
+		
 		low_left?:any[],
-		/** 低值组件右窗口选择数据 */
+		
 		low_right?:any[]|string,
-		/** 卡券发放规则 发放时间 0 = 立即发放 1 = 每周一发放 2 = 每月一号 自定义发放时间为10位时间戳*/
+		
 		issuing_rule:string,
-		/** 活动期限(自动发卡周期只在活动期限，可以发放的卡券也只能显示在活动期限内) 开始日期 - 结束日期 不填为长期 (10位时间戳) */
+		
 		issuing_start:string,
 		issuing_end:string,
-		/** 卡券使用期限 默认领取后1年内可使用 - 或者手动输入一个有效天数*/
+		
 		use_day:number,
-		/** 截止日期 卡券不受自身有效期影响 总的截止到期后 所有卡券都过期 - 时间戳 */
+		
 		use_end:string,
-		/** 是否允许赠送他人 */
+		
 		is_give:number,
-		/** 门店是否拥有发放权限 */
+		
 		is_grant?:number,
-		/** 卡券排序 */
+		
 		sort?:number,
-		/** 是否补价卡 */
+		
 		is_rep:number,
-		/** 补价说明 */
+		
 		rep_msg?:string,
-		/** 当前用户拥有数量 */
+		
 		has_count?:number,
-		/** 当前用户拥有已使用或已过期卡券数量 */
+		
 		has_used_count?:number,
-		/** 补价金额 */
+		
 		rep_price?:number,
-		/** 卡券列表 */
+		
 		coupon?:{
-			/** 卡券面额 */
+			
 			show_price:number,
-			/** 低值金额 */
+			
 			actual_price:number,
 		}[],
-		/** 前端发卡时一次性发放数量 */
+		
 		give_count?:number
-		/** 前端删除时一次性删除数量 */
+		
 		del_count?:number
 	}
-	/** 门店内存用户整体约束 */
+	
 	interface store_memory_user{
-		/** 所有用户列表 */
+		
 		AllList:sm.StoreMember[],
-		/** A列表 */
+		
 		Alist:sm.StoreMember[],
-		/** B列表 */
+		
 		Blist:sm.QueueList[],
 		DelayList:sm.StoreMember[],
 		[x:string]:any
 	}
-	/** 门店数据库表约约束 */
+	
 	interface store
 	{
 		id:number,
-		/** 门店名称 */
+		
 		name:string,
-		/** 倒号排队过期等待时间 */
+		
 		user_queue_expire:number,
-		/** 完成服务灰色等待时间 */
+		
 		user_end_expire:number,
-		/** 提前几人开始通知 */
+		
 		user_queue_notice:number,
-		/** 门店地址 */
+		
 		address:string,
-		/** 门头照片 */
+		
 		img:string,
-		/** 结算比例 */
+		
 		scale:number,
-		/** 门店联系人电话 */
+		
 		phone:string,
-		/** 门店开始营业时间 */
+		
 		operate_start:string,
-		/** 门店结束营业时间 */
+		
 		operate_end:string
-		/** 门店经纬 */
+		
 		lat:string,
-		/** 门店经纬度 */
+		
 		lng:string,
-		/** 门店状态 0=暂停营业 1=正常营业 2=停业维护*/
+		
 		status:number,
-		/** 停业说明 */
+		
 		status_msg:string,
-		/** 门店分类 */
+		
 		type:number,
-		/** 商圈ID */
+		
 		cid:number
 
 	}
-	/** 门店各类消息字段约束 */
+	
 	interface StoreNotice
 	{
-		/** 消息ID */
+		
 		id?:number,
-		/** 消息类型 1=用户扫码付款请求 */
+		
 		type:1|2,
-		/** 门店ID 0=通用公共 */
+		
 		sid:number,
-		/** 用户ID */
+		
 		uid:number,
-		/** 付款订单ID */
+		
 		order_id?:number,
-		/** 消息是否需要管理员处理 0=不需要处理 1=需要处理 */
+		
 		is_solve:0|1,
-		/** 消息处理状态 0 = 等待处理 1 = 已同意 2 = 已拒绝 */
+		
 		solve:0|1|2,
-		/** 处理消息的管理员ID */
+		
 		d1_uid?:number,
-		/** 消息创建日期 */
+		
 		time:int,
-		/** 消息体 255字符 */
+		
 		msg:string,
 	}
 
-	/** 车型字段约束 */
+	
 	interface CarType {
-		/** 车型ID */
+		
 		id: number,
-		/** 车型名称 */
+		
 		name: string,
-		/** 车型说明 */
+		
 		spec_name: string,
-		/** 车型是否可选 */
+		
 		is_select?:boolean,
 	}
 	//用户端sIndex首页
 	interface Sindex {
-		/** 页面名称 */
+		
 		pageName: string,
-		/** 门店ID */
+		
 		id: number,
 		is_error: boolean,
-		/** 是否在同步中 */
+		
 		is_sync:boolean,
-		/** 是否到店 */
+		
 		in: boolean,
 		error_title?: string, error_msg?: string,
-		/** 门店数据 包含门店数据下用户会员数据 */
+		
 		Store: Store,
-		/** 车型列表 */
+		
 		CarType: CarType[],
 	}
-	/** 通知D1事件 */
+	
 	interface action_d1
 	{
-		/** 消息通知   请求支付  */
+		
 		type:"notice"|"ask_pay",
 		db:any,
 	}
 	interface SearchUser{
-		/** 是否打开搜索框 */
+		
 		open:boolean,
 		/** 
 		 * 区分调用组件的地方 
@@ -1609,448 +1609,448 @@ declare namespace sm {
 		 * 4 = 用户绑游客时的搜索手牌
 		*/
 		type:number,
-		/** 商圈ID必填 */
+		
 		cid:number,
-		/** E1端调用时刷新列表 */
+		
 		ref?:boolean,
 	}
 	//D1端页面数据结构约束
 	interface PageD1 {
-		/** 页面名称 */
+		
 		pageName: string,
-		/** 页面权限是否已经准备好 */
+		
 		status:boolean,
-		/** 门店数据 */
+		
 		Store: Store,
-		/** 是否老板访问 */
+		
 		is_boss:boolean,
-		/** 是否在同步中 */
+		
 		is_sync:boolean,
-		/** 控制刷新门店通知 */
+		
 		is_up_notice:boolean,
-		/** 页面是否有错误 */
+		
 		is_error: boolean,
 		error_title?: string, error_msg?: string,
-		/** 是否显示用户首页组件 */
+		
 		is_show_user:boolean,
-		/** 是否显示设置到店状态模态框 */
+		
 		is_set_coms:boolean,
-		/** 当前准备设置到店状态的用户ID */
+		
 		has_set_coms_id:number,
-		/** 车型列表 */
+		
 		CarType: CarType[],
-		/** 侧边栏是否打开 */
+		
 		Sidebar: boolean,
-		/** 内存门店数据 */
+		
 		Store_: Store_,
-		/** 打开摄像头组件 */
+		
 		CameraComs:{open:boolean}
-		/** 搜索会员组件数据 */
+		
 		SearchUser:SearchUser
-		/** 购卡活动组件数据 */
+		
 		CouponActivity:{open:boolean,refresh:boolean}
-		/** 数据统计活动组件参数 */
+		
 		Statistics:{refresh:boolean}
-		/** 加载数据统计控制 - 权限完成才能加载 */
+		
 		is_d1:boolean
 	}
-	/** 排序排队列表 支持多队列 */
+	
 	interface SortQueueList{
-		/** 队列名称 精洗 普洗 */
+		
 		item_name:string,
-		/** 排队人数 */
+		
 		queue_count:number,
-		/** 是否可以升级 */
+		
 		is_up?:boolean,
-		/** 升级字符串 */
+		
 		up_str?:string,
-		/** 服务人数 */
+		
 		server_count:number,
-		/** 队伍列表 */
+		
 		list:QueueUserList[],
 	}
 	interface QueueList
 	{
-		/** 商品id */
+		
 		goods_id:number,
-		/** 商品名称 */
+		
 		goods_name:string,
-		/** 服务名称 */
+		
 		suk_name:string,
-		/** 项目名称 */
+		
 		item_name:string,
-		/** 排队用户数量 */
+		
 		queue_count:number,
-		/** 服务用户数量 */
+		
 		server_count:number,
-		/** 用户列表 */
+		
 		list:StoreMember[],
-		/** 后台配置的服务时长 - 分钟 */
+		
 		service_time:number,
-		/** 汇总项目价格 用于区分一键升级 */
+		
 		price?:number,
-		/** 是否可以升级服务 */
+		
 		is_up?:boolean,
-		/** 升级名称 */
+		
 		up_str?:string,
 	}
-	/** 门店内存数据 */
+	
 	interface Store_ {
-		/** 所有用户数据 */
+		
 		AllList:StoreMember[],
-		/** 付款后 服务超时没有完成的列表 - 包括没有开始服务 和开始服务后没有完成 */
+		
 		DelayList:StoreMember[];
-		/** 进店用户 - 还没有列队 - 包括没有完善资料的用户 - 会员却还没下单用户 - 订单内不包含列队服务用户 */
+		
 		AList:StoreMember[],
-		/** 正在排队用户列表 - 包括 下单成功 开始服务 等待结束服务用户 */
+		
 		BList:QueueList[],
-		/** 营业汇总 - 带有时间查询条件 */
+		
 		Summary:any[],
-		/** 今日订单  */
+		
 		DayOrder:any[],
-		/** 门店当前可用授信额度 -实时计算 */
+		
 		sxed:number
-		/** 店员员工相关 */
+		
 		Staff:{
-			/** 今日签到人数 */
+			
 			count:number,
-			/** 员工能列表 暂时没有约束后续定义 */
+			
 			list:any[]
 		}
 	}
-	/** 门店数据 包含门店数据下用户会员数据 */
+	
 	interface Store {
-		/** 门店ID */
+		
 		id: number,
-		/** 门店名称 */
+		
 		name: string,
-		/** 门店门头照片 */
+		
 		img: string,
-		/** 门店详细地址 */
+		
 		address: string,
-		/** 门店经度 */
+		
 		lat: string,
-		/** 门店维度 */
+		
 		lng: string,
-		/** 门店开始营业时间 */
+		
 		operate_start: string,
-		/** 门店结束营业时间 */
+		
 		operate_end: string,
-		/** 门店营业状态 */
+		
 		status: number,
-		/** 门店停业说明 */
+		
 		status_msg: string,
-		/** 门店联系电话 */
+		
 		phone: string,
-		/** 门店下属当前用户会员信息 */
+		
 		StoreMember: StoreMember,
-		/** 门店关注总人数 */
+		
 		FollowCount?: number,
-		/** 所属商圈ID */
+		
 		cid: number,
-		/** 商品列表 */
+		
 		goods: good[],
-		/** 扩展-当前页面所选车型 */
+		
 		has_type_car:string,
-		/** 倒号排队过期等待时间 */
+		
 		user_queue_expire:number,
-		/** 完成服务灰色等待时间 */
+		
 		user_end_expire:number,
-		/** 提前几人开始通知 */
+		
 		user_queue_notice:number,
 
 	};
-	/** 用户车牌 */
+	
 	interface UserCarMember
 	{
-		/** 车牌ID */
+		
 		id:number,
-		/** 车牌号码 */
+		
 		number:string,
-		/** 车型ID */
+		
 		type:number,
-		/** 车型名称 */
+		
 		name:string,
-		/** 是否显示 */
+		
 		is_show: boolean 
-		/** 是否选中当前车牌，用于区分那个车牌下单 */
+		
 		is_select?:boolean
-		/** d1端切换车牌选中变量 */
+		
 		sw_select?:boolean
-		/** D1端区分当前车牌是否新增 - 新增属性用户动态数组 */
+		
 		is_add?:boolean
 	}
-	/** 共享身份字段约束 */
+	
 	interface SharedRole{
-		/** 用户UID */
+		
 		uid:number,
-		/** 共享身份用户UID */
+		
 		s_uid:number,
-		/** 共享身份名称 */
+		
 		nickname:string
-		/** 共享身份头像 */
+		
 		avatar:string
-		/** 共享身份余额 */
+		
 		money:number
-		/** 共享身份电话 */
+		
 		phone:string
-		/** 是否允许共享余额 */
+		
 		is_money:number
-		/** 是否允许共享门店专用余额 */
+		
 		is_s_money:number
-		/** 共享身份门店专用余额 */
+		
 		s_money:number
-		/** 是否允许共享卡券 */
+		
 		is_coupon:number,
-		/** 是否允许共享身份 */
+		
 		is_role:number
-		/** 共享身份车牌列表 */
+		
 		car:UserCarMember[]
-		/** 共享身份下可用卡券 */
+		
 		coupons:CouponUser[],
-		/** 共享身份下可用卡券数量 */
+		
 		coupon_count?:number
-		/** 会员ID */
+		
 		vip:number
-		/** 会员名称 */
+		
 		vip_name:string
 	}
-	/** 门店下会员 */
+	
 	interface StoreMember {
 		id?:number,
-		/** 用户ID */
+		
 		uid: number,
-		/** 共享其他用户身份列表 */
+		
 		share_list?:  false | SharedRole[],
-		/** 是否游客 */
+		
 		is_guest?:boolean,
-		/** 是否关注门店 */
+		
 		is_follow: number,
-		/** 是否到店 */
+		
 		is_coms: boolean,
-		/** 用户下单状态 0 没有下单 1正在首次下单 2正在加单 3下单完成 */
+		
 		is_make_order:number,
-		/** 用户在门店状态 0进店 1进店且抽取号码 2进店排队且下单 3已支付 4下单后已开始服务 5服务完成 */
+		
 		status: number,
-		/** 是否需要注册 */
+		
 		is_reg: boolean,
-		/** 用户手机号码 */
+		
 		phone: string,
-		/** 商圈ID - Cid */
+		
 		cid: number,
-		/** 用户昵称 */
+		
 		nickname: string,
-		/** 用户头像 */
+		
 		avatar: string,
-		/** 用户余额 */
+		
 		money: number,
-		/** 门店专用余额 */
+		
 		s_money:number,
-		/** 总充值余额 */
+		
 		r_money:number,
-		/** 会员名称 */
+		
 		vip_name:string,
-		/** vip id */
+		
 		vip: number,
-		/** VIP充值提醒 */
+		
 		tip_vip?:{
-			/** 是否弹框提醒充值 */
+			
 			is_tip:boolean
-			/** 提醒金额 */
+			
 			tip_price:number
-			/** 过期金额 */
+			
 			out_price:number
-			/** 过期时间 */
+			
 			out_time:number
-			/** vip是否拥有插队功能 */
+			
 			is_jump:number
 		}
-		/** vip是否允许插队 */
+		
 		vip_jump:number,
-		/** 用户车牌列表 */
+		
 		car: UserCarMember[],
-		/** 当前选择车牌 - 用于下单时区分多车牌 */
-		/** 用户当前购物车 */
+		
+		
 		shoping_car: ShopingCar,
-		/** 用户卡券列表 */
+		
 		coupons: CouponUser[],
-		/** 2024-03-15扩展 - 缓存自己的卡券 - 用于多身份共享 */
+		
 		coupons_cache: CouponUser[],
-		/** 缓存VIP */
+		
 		vip_cache:number,
-		/** 缓存VIP名字 */
+		
 		vip_name_cache:string,
-		/** 缓存余额 */
+		
 		money_cache:number,
-		/** 门店专用余额 */
+		
 		s_money_cache:number,
-		/** 用户期卡列表 */
+		
 		annual:kxykAnnualUser[],
-		/** 订单相关 */
+		
 		order?:Order
-		/** 是否被通知 值=通知时间 */
+		
 		is_notice?:number,
-		/** 是否被记录重新抽号 0=不用重新抽号 时间戳=记录时间 需要重新抽号 */
+		
 		is_again_queue?:number,
-		/** 是否代客下单 */
+		
 		is_valet?:boolean,
-		/** 是否快速管理 */
+		
 		is_fast?:boolean,
-		/** 性别 */
+		
 		sex?:number,
-		/** 登录密码 */
+		
 		pwd?:string,
-		/** 真实姓名 */
+		
 		real_name?:string,
-		/** 出生日期 */
+		
 		birthday?:string,
-		/** 扩展member 下的银行卡字段 */
+		
 		bank_number?:string
-		/** 身份证号 */
+		
 		card_id?:string
-		/** 用户汽车照片URL */
+		
 		car_photo?:string,
-		/** 用户标签列表 */
+		
 		tags?:tb.kxyk_circle_member_tags[]
-		/** 临时添加的TGS */
+		
 		tags_tem?:[]
-		/** 是否显示迁移界面 */
+		
 		is_show_move?:boolean
-		/** 会员职业 */
+		
 		job?:string,
-		/** 当前用户是否选择了共享身份 - 共享其他用户的UID */
+		
 		shared_uid?:number,
-		/** 排队信息 */
+		
 		queue?: {
-			/** 排队号码 */
+			
 			number: string,
-			/** 排队时间 */
+			
 			time: string,
-			/** 前车数量 */
+			
 			before: {
-				/** a1 之前等待总车辆 */
+				
 				a1:number,
-				/** a2 店内等待数量 */
+				
 				a2:number,
-				/** 预约等待数量 */
+				
 				a3:number,
 			},
-			/** 还需等待时间 */
+			
 			waiting_time: number,
-			/** 自身之前的排队列表 */
+			
 			list?:SortQueueList[],
 		},
 	}
-	/** 排队列表项约束 */
+	
 	interface QueueUserList
 	{
-		/** 用户ID */
+		
 		uid:number,
-		/** 用户车牌 */
+		
 		car_number:string,
-		/** 是否到店 - 用于颜色计算 */
+		
 		is_coms:boolean,
-		/** 排队号码 */
+		
 		number:string,
-		/** 等待时间 */
+		
 		time:string,
-		/** 颜色状态 */
+		
 		status:number,
-		/** 车型 大中小型 */
+		
 		car_type:string,
-		/** 是否自己 */
+		
 		is_me?:boolean,
-		/** 是否VIP */
+		
 		vip:number,
-		/** 是否可以插队 */
+		
 		vip_jump:number,
 	}
-	/** 用户购物车 */
+	
 	interface ShopingCar {
-		/** 购物车内优惠字段 */
+		
 		discount: number,
-		/** 购物车余额字段 */
+		
 		yue: number,
-		/** 购物车现金字段 */
+		
 		cash: number,
-		/** 当前购物车关联车牌号码 */
+		
 		car_number:string,
-		/** 购物车详细条目 */
+		
 		glist: ShopingCarItem[]
-		/** 添加下单员工ID */
+		
 		clerk_id?:number
 	}
-	/** 购物车商品项目 */
+	
 	interface ShopingCarItem {
-		/** 商品ID */
+		
 		goods_id: number
-		/** 商品名称 */
+		
 		goods_name: string,
-		/** 是否多规格 */
+		
 		is_spec: number,
-		/** 是否只能现金购买 */
+		
 		is_cash?:number
-		/** 商品是否使用优惠券 - 有值就是优惠券ID */
+		
 		coupon_id: number,
-		/** 商品是否使用优惠券 - 优惠ID列表 */
+		
 		coupon_ids:number[],
-		/** 优惠券类型 0 = 没有使用优惠券 1 = 兑换券 2 = 抵值券 */
+		
 		coupon_type:number,
-		/** 当前用户身份购买时的价格 - 单价*数量的总价 */
+		
 		price:number
-		/** 优惠金额 */
+		
 		discount:number
-		/** 购买数量 */
+		
 		count: number,
-		/** 规格ID */
+		
 		spec_id?: number,
-		/** 规格名称 */
+		
 		spec_name?: string,
-		/** 服务项目列表 */
+		
 		suk: ShopingCarItemSuk[]
-		/** 购物车携带可能的 房型商品 入住房客登记信息 */
+		
 		collect?:sm.Com.CollectIDCardBack
-		/** 商品新类型 gt 2026-04-24 */
+		
 		gt?:number
-		/** 当前商品可能绑定的二级库存ID */
+		
 		stock_level2_id?:number
-		/** 选择的员工ID */
+		
 		clerk_id?:number
 	}
-	/** 购物车 - 服务项目下 -规格 */
+	
 	interface ShopingCarItemSuk {
-		/** 服务名称 洗车服务*/
+		
 		suk_name: string,
-		/** 服务ID */
+		
 		suk_id: number,
-		/** 项目名称  普洗*/
+		
 		item_name: string,
-		/** 项目ID */
+		
 		item_id: number,
-		/** 当前身份项目价格 */
+		
 		price: number,
-		/** 卡券支付优惠金额 */
+		
 		discount: number,
-		/** 余额支付优惠金额 */
+		
 		yue: number,
-		/** 现金支付金额 */
+		
 		cash: number,
-		/** 是否使用优惠券 - 如果有值就是优惠券ID */
+		
 		coupon_id: number,
-		/** 优惠券使用类型 - 0 = 没有使用优惠券 1 = 兑换券 2 = 低值券 */
+		
 		coupon_type:number,
-		/** 是否使用期卡 - 如果有值即是期卡ID */
+		
 		annual_id:number,
-		/** 卡券IDS */
+		
 		coupon_ids:number[],
-		/** 是否预约项目 */
+		
 		is_reserve?:number
 	}
-	/** 用户端页面 end */
+	
 
 
 
-	/** 内存数据通知店铺和用户的参数约束 */
+	
 	interface action_user { key: string, val: any }
 	interface action_store { 
 		uid: number, 
@@ -2062,53 +2062,53 @@ declare namespace sm {
 	}
 
 
-	/** 多规格商品接口 多规格项目表 start */
+	
 	// 属性 -  kxyk_mch_goods_spec_suk_item 表条目
 	interface item {
 
 		id: number,
-		/** 虚拟字段 商品分类下设置的PSR */
+		
 		sub_PSR?:number,
-		/** Platform settlement ratio 平台余额结算比例 */
+		
 		PSR?:number,
-		/** 项目名称 */
+		
 		item_name: string,
-		/** 游客购买价格 */ 
+		 
 		price: number,
-		/** 没有等级的普通会员购买价格 */
+		
 		v_price: number,
-		/** 上级项目ID 洗车服务 打蜡镀晶 机舱清理 */
+		
 		suk_id: number,
-		/** 上级规格ID 小型车 中型车 大型车*/
+		
 		spec_id: number,
-		/** 上级商品ID  汽车服务 */
+		
 		goods_id: number,
 		/** 服务结束方式 
 		 * 0 = 手动结束
 		 * 1 = 自动结束
 		 */
 		end_type?:number
-		/** 结束服务时间间隔 单位分钟 */
+		
 		end_time?:number
-		/** 当前项目是否使用了卡券 多选ID */
+		
 		coupon_ids:number[],
-		/** 当前项目是否使用了卡券 - 改为记录期卡ID */
+		
 		coupon_id:number|number[],
-		/** 卡券类型 0=没有卡券 1= 兑换 2=地址 */
+		
 		coupon_type?:number,
-		/** 卡券优惠金额  */
+		
 		coupon_price?:number,
-		/** 当前项目是否使用了包年包月期卡 */
+		
 		annaul_id?:number;
-		/** 期卡优惠金额 */
+		
 		annaul_price?:number;
-		/** 是否开启等级会员 */
+		
 		is_open_vip:number;
-		/** 是否只能现金购买 */
+		
 		is_cash?:number
-		/** 是否独立配置结算子商户 */
+		
 		is_sub_pay?:number
-		/** 结算子商户ID 关联 kxyk_mch_store_sub  */
+		
 		sub_pay?:number
 		/** 
 		 * 子商户结算单位 支持小数点
@@ -2122,9 +2122,9 @@ declare namespace sm {
 		 */
 		sub_pay_price?:number
 
-		/** 是否开启独立提成设置 20225-12-23扩展 */
+		
 		is_bouns?:number
-		/** 提成设置数额 */
+		
 		bouns?:number
 		/** 
 		 * 提成金额类型
@@ -2132,33 +2132,33 @@ declare namespace sm {
 		 * @param 1 实际数
 		 */
 		bouns_type?:number
-		/** 等级会员价格列表 */
+		
 		vips:ItemVipsPrice[];
-		/** 项目排序 */
+		
 		sort?:number;
-		/** 2025-11-12 扩展技师前端使用 */
+		
 
-		/** 当前项目suk名称 */
+		
 		suk_name?:string
-		/** 技师端显示的价格 */
+		
 		show_price?:number
-		/** 技师端前端生成可可选卡券列表 用户选择卡券组件 */
+		
 		select_coupons?:sm.Com.MultiCouponSelectorCoupon[]
-		/** 前端是否显示选择卡券 */
+		
 		show_select_coupons?:boolean
-		/** 2025-12-12扩展 虚拟字段 - 在新下单时判断是否为预约类型  */
+		
 		is_reserve?:number
 	};
 	interface ItemVipsPrice
 	{
-		/** 会员名称 */
+		
 		vip_name:string,
-		/** 会员价格 */
+		
 		price:number;
-		/** 会员ID */
+		
 		vip_id:number;
 	}
-	/** 2024-10-30 扩展洗浴门店商品列表 */
+	
 	interface store_goods extends tb.kxyk_mch_store_sub
 	{
 		goods:good[]
@@ -2172,9 +2172,9 @@ declare namespace sm {
 		type_id?: number,
 		cpid?: number,
 		stock?: number,
-		/** Platform settlement ratio 平台余额结算比例 */
+		
 		PSR?: number,
-		/** 门店ID */
+		
 		store_id?: number,
 		id: number,
 		/** 
@@ -2188,7 +2188,7 @@ declare namespace sm {
          * @param 6 = 普通商品
          */
         gt?:number
-		/** 房型商品绑定的房间ID */
+		
         rooms?:string | number[]
         /**
          * 房型已经使用的房间数量包括：入住+预定+维修
@@ -2198,13 +2198,13 @@ declare namespace sm {
          * 当前房型绑定的房间总数
          */
         room_count?:number
-		/**  商品副标题 - 房型介绍 1.8米大床 2人入住 等此类信息 */
+		
 		goods_name_sub?: string,
-		/** 商品名称 */
+		
 		goods_name: string,
-		/** 前端下单时选择的数量 */
+		
 		count: number,
-		/** 关联子门店ID 0 = 未关联  kxyk_mch_store_sub */
+		
 		sub?:number
 		/**
 		 *  关联收款收款商户号码
@@ -2229,67 +2229,67 @@ declare namespace sm {
 		 * @param 1 实际数
 		 */
 		bonus_type?:number,
-		/** 是否套餐商品订单 - 套餐商品捆绑订单*/
+		
         is_combo?:number
-		/** 套餐商品配置的商品或服务ID 直接下单 逗号分割ID */
+		
 		combo_list?:string | string[],
-		/** 是否套卡商品 下单购买赠送卡券 */
+		
 		is_combo2?:number
-		/** 套票商品配置的JSON 卡券ID和数量 */
+		
 		combo2_list?:string | {id:number,count:number}[],
-		/** 销售提成、奖金给服务员 */
+		
 		bonus?: number,
-		/** 是否多规格 */
+		
 		is_spec?: number,
-		/** 商品图片 */
+		
 		goods_img?: string,
-		/** 规格列表 */
+		
 		spec: sm.spec[],
-		/** 当前规格id */
+		
 		has_spec?: number,
-		/** 当前规格价格 */
+		
 		has_price?: number,
-		/** 非多规格商品是否开启会员价购买 */
+		
 		is_vip_price?: number,
-		/** 是否开启等级会员购买 */
+		
 		is_open_vip?:number,
-		/** 是否为预约型服务 */
+		
 		is_reserve?:number,
-		/** 预约型服务是否允许用户自主下单 */
+		
 		is_user_buy?:number,
-		/** 新的等级会员价格列表 */
+		
 		vips:ItemVipsPrice[],
-		/** 商品价格 - 完善信息后价格 */
+		
 		price?: number,
-		/** 会员价格 - 游客价格 */
+		
 		v_price?: number,
-		/** 排序 */
+		
 		sort?: number,
-		/** 是否使用优惠券 */
+		
 		coupon_id?:number|number[],
-		/** 扩展新的可多选优惠券ID */
+		
 		coupon_ids:number[],
-		/** 优惠券类型 0=没有卡券 1= 兑换 2=低值 */
+		
 		coupon_type?:number,
-		/** 优惠金额 */
+		
 		coupon_price?:number,
-		/** 进货价格 */
+		
 		import_price?: number,
-		/** 出货价格 */
+		
 		export_price?: number,
-		/** 进货渠道名 */
+		
 		import_store_name?: string,
-		/** 进货渠道电话 */
+		
 		import_store_phone?: number,
-		/** 用户购买后是否需要送货 默认送货 */
+		
         is_delivery?:number  
-		/** 是否第三方商品 */
+		
 		is_other?:number
-        /** 关联第三方表ID  kxyk_other_payment */
+        
         other_id?:number
-        /** 第三方商品价格 用于团购统计 */
+        
         other_price?:number
-		/** 商品详情 图片列表 */
+		
 		desc1?: string[] | string
 		/** 
 		 * 是否只能现金支付
@@ -2297,27 +2297,27 @@ declare namespace sm {
 		 * @param 1 = 只能现金支付 烟草类
 		 */
 		is_cash?:number
-		/** 前端显示 */
+		
 		UiShow?: {
-			/** 现金 */
+			
 			cash: number,
-			/** 余额 */
+			
 			yue: number,
-			/** 优惠 */
+			
 			discount: number,
 		},
-		/** 前端需要 是否携带入收集的入住客户信息 姓名 电话 身份等 */
+		
 		collect?:sm.Com.CollectIDCardBack
-		/** 是否二级库存商品 */
+		
 		is_secondary_stock?:boolean
-		/** 当前二级库存数量 */
+		
 		stock?:number
-		/** 当前关联的二级库存ID */
+		
 		stock_level2_id?:number
 	}
 	// 服务类前端展示商品列表 实际为商品分类下集成商品列表
 	interface good_type { 
-		/** 前端UI - 当前分类下选择的子门店ID */
+		
 		has_sub?:number,
 		has?: string, 
 		goods: sm.good[]; 
@@ -2327,25 +2327,25 @@ declare namespace sm {
 		root_id: number, 
 		children: any[] 
 	}
-	/** 多规格 end */
+	
 
-	/** 用户位置上报接口 */
+	
 	interface location { lat?: number; lng?: number; province?: string; city?: string; district?: string; address?: string; uid?: number; url?: string; ip?: string; os?: string;[index: number]: number; }
 	interface resArgs { 
-		/** 数据列表 */
+		
 		list?:any[],
-		/** 数据总条数 */
+		
 		count?:number
 
 		msg?: string, 
 		__error__?: number, 
-		/** 返回状态码 1=成功 0=错误 */
+		
 		status?: number; 
 		db?: any;
 		[x: string]: any; 
 	}
 	
-	/** 前后端传送参数多接口约束 */
+	
 
 	
 	interface reqArgs {
@@ -2360,20 +2360,20 @@ declare namespace sm {
 	interface beBackFunction {
 		(res: resArgs): void;
 	}
-	/** 缓存UserList用户数据 */
+	
 	interface CacheUser {
 		sid: string, uid?: number, [key: string]: any
 	}
-	/** 支付模块 - v3 2024-10-+10 */
+	
 	interface PayArgsV3
 	{
-		/** 支付金额 - 支持两位小数点数字 */
+		
 		price:number
 		/** 
 		 * 商品描述 - 购买商品名称等
 		 */
 		title: string
-		/** 支付环境 WX WXAPP APP*/
+		
 		ev?: "H5" | "WX" | "WXAPP" | "APP",
 		/** 
 		 * 支付方式 wxpay alipay bankpay....
@@ -2392,33 +2392,33 @@ declare namespace sm {
 		 * @param 2 = A公司收款
 		*/
 		is_sxed?:number
-		/** 公司ID */
-		cpid?:number
-		/** 商圈ID */
-		cid?:number
-		/** 当前支付用户UID */
-		uid?: number
-		/** 支付用户数据 */
-		user?:tb.sm_user
-		/** 支付日志表数据 */
 		
-		/** 门店ID */
+		cpid?:number
+		
+		cid?:number
+		
+		uid?: number
+		
+		user?:tb.sm_user
+		
+		
+		
 		sid?:number
-		/** 支付回调Api接口  */
+		
 		api:string
-		/** 支付完成后的跳转地址 */
+		
 		back_url:string
-		/** 如果商户设置了独立收款 - 独立收款商户号码 -独立收款必然是门店收款不处理is_sxed */
+		
 		sp_mchid?:string
-		/** 扩展字段 可以扩展一个对象参数来保存当前业务相关数据 */
+		
 		extend?:{
 			uid?:number
 			[x: string]: any
 		},
 	}
-	/** 微信支付参数 - 扩展余额支付  */
+	
 	interface PayArgs {
-		/** 支付金额 - 支持两位小数点的数字*/
+		
 		price: number,
 		/** 收款标题 规范 
 		 * PC网站	扫码支付 示例：腾讯充值中心-QQ会员充值
@@ -2430,36 +2430,36 @@ declare namespace sm {
 		 * 第三方APP	APP支付	应用市场上的APP名字-商品概述	天天爱消除-游戏充值 
 		 */
 		title: string,
-		/** 支付环境 WX WXAPP APP*/
+		
 		ev?: "H5" | "WX" | "WXAPP" | "APP",
 		/** 
 		 * 支付方式 wxpay alipay bankpay.... ,余额支付需要关联商圈ID
 		*/
 		mode: 'wxpay' | 'alipay' | 'bankpay' | 'yuepay',
-		/** 商圈ID */
+		
 		cid?:number,
-		/** 用户UID */
+		
 		uid?: number,
-		/** 支付回调Api接口 */
+		
 		api: string,
-		/** 当前支付用户 */
+		
 		user?: Tabe.User,
-		/** 支付日志表数据 */
+		
 		PayLog?: Tabe.PayLog,
-		/** 扩展字段 可以扩展一个对象参数来保存当前业务相关数据 */
+		
 		Extend?: any,
 		[x: string]: any,
 	}
 	interface Utils {
-		/**本地主机信息 */
+		
 		host: string;
-		/** 正则验证 */
+		
 		regx: { is_mobile: (n: number) => boolean, is_vehicle_number: (s: string) => boolean };
-		/** 系统环境验证 */
+		
 		sys: { is_ios: boolean, is_app: boolean, is_wx: boolean, is_wxapp: boolean, os: () => string },
-		/** 获得当前用户环境 */
+		
 		getEvn: () => string,
-		/** 模拟进程等待 */
+		
 		sleep: (ms: number) => any,
 		// find: (arr: any, obj: object) => object | boolean,
 		find: <U extends T,U>(arr: T[], obj: U) => T | boolean,
@@ -2468,37 +2468,37 @@ declare namespace sm {
 		format: (time: number, str: string) => string;
 		format_hh: (time: number) => string;
 		format_m: (m: number) => string;
-		/** 格式化时间之前 */
+		
 		beautifyTime:(m:number)=>string;
-		/**计算两个坐标返回差距 单位米 */
+		
 		getDistanceFromGCJ02: (lat1: number, lng1: number, lat2: number, lng2: number) => number;
 		DOM: {
-			/** 或者页面可视区域剩余高度 参数为要计算的class明数组 */
+			
 			get_surplus_higth: (c: string[]) => number;
-			/** 格式化时间为秒和分钟 */
+			
 			format_ms:(m:number)=>string,
 		}
 	}
 	interface Order
 	{
 		id?:number,
-		/** 门店ID */
+		
 		sid:number,
-		/** 用户ID */
+		
 		uid:number,
-		/** 订单总价 */
+		
 		order_price:number,
-		/** 优惠总价 */
+		
 		discount_price:number,
-		/** 线下现金支付金额 */
+		
 		cash_price:number,
-		/** 余额支付金额 */
+		
 		yue_price:number,
-		/** 门店专用余额支付金额 */
+		
 		yue_s_price:number,
-		/** 微信在线支付金额 */
+		
 		wx_price?:number
-		/** 下单车牌号码 */
+		
 		car_number:string,
 		/**
 		 * 支付方式
@@ -2510,7 +2510,7 @@ declare namespace sm {
 		 * @param 6 后续扩展其他支付方式 - 如支付宝
 		 */
 		pay_type:number,
-		/** 当前订单是否请求支付 - 用户线下扫码后等待状态 */
+		
 		ask_pay?:boolean|undefined,
 		/** 
 		 * 是否支付 
@@ -2519,73 +2519,73 @@ declare namespace sm {
 		 * @param 2 订单彻底支付完成 
 		*/
 		is_pay:number,
-		/** 支付时间 */
+		
 		pay_time:number,
-		/** 下单管理员ID */
+		
 		add_uid:number,
-		/** 下单时间 */
+		
 		time:number,
-		/** 订单详情 */
+		
 		detall?:OrderDetall[],
-		/** 订单状态 0 = 没有开始服务  1 = 正在服务 2 = 完成服务 */
+		
 		status:number
-		/** 开始服务时间 */
+		
 		t1:number,
-		/** 完成服务时间 */
+		
 		t2:number
-		/** 订单是否别人转增 - 或者订单是否为共享订单 */
+		
 		is_transfer?:number
-		/** 转增订单的UID */
+		
 		transfer_uid?:number
-		/** 订单是否已分账 */
+		
 		is_distribute?:number
-		/** 等待支付订单金额 */
+		
 		wait_pay_price?:number
-		/** 关联洗浴大厅表ID */
+		
 		hid?:number
 	}
 	interface OrderDetall
 	{
 		id?:number,
-		/** 订单ID */
+		
 		oid:number,
-		/** 商品ID */
+		
 		goods_id:number,
-		/** 项目ID */
+		
 		item_id:number,
-		/** 是否多规格 */
+		
 		is_spec:number,
-		/** 购买数量 */
+		
 		count:number,
-		/** 购买单价 */
+		
 		price:number,
-		/** 支付总价格 */
+		
 		pay_price:number,
-		/** 余额支付金额 */
+		
 		yue_pay?:number
-		/** 专用余额支付金额 */
+		
 		yue_s_pay?:number
-		/** 现金支付金额 */
+		
 		cash_pay?:number
-		/** 微信在线支付金额 */
+		
 		wx_pay?:number
-		/** 等待支付的金额 */
+		
 		wait_pay_price?:number
-		/** 是否优惠 */
+		
 		is_discount:number,
-		/** 服务项目名称 */
+		
 		item_name:string,
-		/** 优惠金额 */
+		
 		discount:number,
-		/** 优惠券类型 0 = 没有优惠券 1=兑换券 2=抵值券 3=包年包月期卡*/
+		
 		coupon_type:number,
-		/** 期卡ID*/
+		
 		coupon_id:number,
-		/** 优惠券ID组  */
+		
 		coupon_ids:number[] | string,
-		/** 本项是否为加单操作 */
+		
 		is_add_order:number,
-		/** 加单时间 - 没有加单时间的读取订单时间 */
+		
 		add_time:number,
 		/** 
 		 * 是否支付
@@ -2594,62 +2594,62 @@ declare namespace sm {
 		 * @param 2 完全支付
 		 */
 		is_pay:number,
-		/** 项目状态 0=没有开始服务 1=正在服务 2=服务已完成 3=服务已评价 4=服务被投诉 */
+		
 		status:number,
-		/** 项目优惠状态 */
+		
 		status2:string,
-		/** 开始服务时间 */
+		
 		t1:number,
-		/** 服务结束时间 */
+		
 		t2:number,
-		/** 评价时间 */
+		
 		t3:number,
-		/** 评价星级 */
+		
 		rate:number;
-		/** 评价内容 */
+		
 		msg:string,
-		/** 服务是否超时 */
+		
 		is_overtime?:boolean,
-		/** 超时时间 */
+		
 		overtime?:string,
-		/** 是否使用渠道卡券 */
+		
 		is_channel?:number,
-		/** 渠道名称 */
+		
 		channel_name?:string,
-		/** 扩展门店sid */
+		
 		sid?:number
-		/** 扩展商圈ID */
+		
 		cid?:number
-		/** 是否转增订单 - 洗浴转增订单放在订单详情 */
+		
 		is_transfer?:number
-		/** 转赠人UID */
+		
 		transfer_uid?:number
 		/** 
 		 * UI前端需要
 		 * 2024-12-20
 		 */
-		/** 是否显示详情 订单金额实付金额等 */
+		
 		is_show_detail?:boolean
 	}
-	/** 下拉刷新组件后端接受参数 */
+	
 	interface RefreshArgs{
-		/** 当前分页页码 */
+		
 		page:number,
-		/** 每页大小 */
+		
 		size:number,
-		/** 附带参数合集 */
+		
 		args:any
 	}
-	/** 下拉刷新带分页动态列表组件参数约束 前端 */
+	
 	interface RefreshList{
-		/** 接口地址 */
+		
 		url:string,
-		/** 分页大小 */
+		
 		size:number,
-		/** 刷新控制器 */
+		
 		refresh:boolean,
 		item_type?:any,
-		/** 携带参数 */
+		
 		args:{
 			sDate?:sm.SelectDatePar,
 			[x:string]:any
@@ -2664,29 +2664,29 @@ declare namespace sm {
 				: T
 			: T
 	interface rList<T = any, A = any,M = {}>{
-		/** 接口地址 */
+		
 		url:string,
-		/** 分页大小 */
+		
 		size:number,
-		/** 刷新控制器 */
+		
 		refresh:boolean,
-		/** 携带参数 */
+		
 		args:A
-		/** 分页组件返回item数据类型 */
+		
 		item_type?:InferItemType<T, A, M>
-		/** 布局xs <576px */
+		
 		xs?:number,
-		/** 布局sm ≥576px */
+		
 		sm?:number
-		/** 布局md ≥768px */
+		
 		md?:number
-		/** 布局lg ≥992px */
+		
 		lg?:number
-		/** 布局xl ≥1200px */
+		
 		xl?:number
-		/** 布局xxl ≥1600px */
+		
 		xxl?:number
-		/** row绑定class */
+		
 		class?:string
 	}
 }
@@ -2723,31 +2723,31 @@ declare namespace Tabe {
 	interface PayLog {
 		// 声明表字段
 		id: number;
-		/** 支付方式 微信 阿里 银行 */
+		
 		mode: string;
-		/** 支付环境 小程序 公众号 APP */
+		
 		ev: string;
-		/** 支付状态 */
+		
 		status: number;
-		/** 支付用户Uid */
+		
 		uid: number;
-		/** 支付用户OPENID */
+		
 		openid: string;
-		/** 支付回调接口 */
+		
 		api: string;
-		/** 支付金额 */
+		
 		price: number;
-		/** 是否发生支付错误 */
+		
 		fail: number;
-		/** 错误说明 */
+		
 		fail_msg: string;
-		/** 商户内唯一ID */
+		
 		out_trade_no: string;
-		/** 预支付ID */
+		
 		prepay_id: string;
-		/** 微信transaction_id */
+		
 		transaction_id: string;
-		/** 扩展字段合集 */
+		
 		extend: string;
 		save: Function;
 	}

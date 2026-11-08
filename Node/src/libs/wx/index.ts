@@ -114,16 +114,11 @@ class Wx
         wxappconfig.store = new RedisStore(
             { appId: wxappconfig.miniProgram.appId }
         )
+        // 单独收款更新V3
         this.wxappsdk = new Wechat(wxappconfig);
         config.wx.appId = appId;
-        // console.log('appconfig',appconfig);
         
     }
-    /** 获取公众号用户详细信息 */
-    // async getUserInfo(openid:string){
-
-    // }
-
 
     /** 发送小程序版模板消息 */
     async sendTemplateWxApp(body:sm.WX.TemplateBody):Promise<{errcode:number,errmsg:string}>

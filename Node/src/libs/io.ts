@@ -82,7 +82,6 @@ export class io {
         this.task=new task();
         Logs.setIo(this);
         Mqtt.setIo(this);
-        /** 因性能问题这里在服务器启动时缓存接口字符串数组 */
         this.ApiInit();
     };
     /** 权限验证 */

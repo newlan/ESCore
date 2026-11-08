@@ -14,15 +14,15 @@ declare namespace sm.A1
      * @protected 例如 C1 身份包含 下级管理员、合伙人等
      */
     interface A1C1SubRole extends tb.kxyk_mch_role{
-        /** 当前身份下的用户列表 */
+        
         users?:SubRoleUser[]
     }
 
-    /** A1 C1管理端下级身份下管理员 */
+    
     interface SubRoleUser extends tb.kxyk_mch_role_info{
-        /** 关联用户昵称 */
+        
         nickname?:string
-        /** 关联用户头像 */
+        
         avatar?:string
     }
 }

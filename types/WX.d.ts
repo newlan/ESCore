@@ -6,51 +6,51 @@
 declare namespace sm.WX
 {
 
-    /** 排队到号提醒模板 */
+    
     interface Template_Queue_Number {
-        /** 排队到号提醒模板 */
+        
         template_id: "J5cpcbpAsWQ-6xNnOo6O_68J81w9xf45vkJFKinc_CM";
         data: {
-            /** 排队站点 */
+            
             thing1:{
                 value:string
             },
-            /** 还需等待人数 */
+            
             number4:{
                 value:string
             },
-            /** 您的排号 */
+            
             character_string7:{
                 value:string
             },
-            /** 温馨提示 */
+            
             thing5:{
                 value:string
             }
         };
     }
-    /** 优惠券到账提醒模板 */
+    
     interface Template_Coupon_Received {
-        /** 优惠券到账提醒模板 */
+        
         template_id: "z9kdpGyYR01kwJZgq7PMMHLipCr5Sl8w_re3Omf18K4";
         data: {
-            /** 卡券名称 */
+            
             thing1:{
                 value:string
             },
-            /** 卡券类型 */
+            
             phrase2:{
                 value:string
             },
-            /** 卡券获取时间 */
+            
             time3:{
                 value:string
             },
-            /** 卡券过期时间 */
+            
             time4:{
                 value:string
             },
-            /** 备注 */
+            
             time5:{
                 value:string
             },
@@ -60,21 +60,21 @@ declare namespace sm.WX
     // 所有模板的联合类型
     type TemplateUnion = Template_Queue_Number | Template_Coupon_Received;
     interface SendTemplateMessageBase {
-        /** 用户OPENID */
+        
         touser: string;
-        /** 跳转页面 */
+        
         page?: string;
-        /** 跳转的小程序状态 */
+        
         miniprogram_state?: "developer" | "trial" | "formal";
-        /** 语言 */
+        
         lang?: "zh_CN" | "en_US" | "zh_HK" | "zh_TW";
     }
-    /** 发送模板消息时的body参数 */
+    
     type TemplateBody = SendTemplateMessageBase & TemplateUnion
 
-    /** 合单数量超过50 重新合并订单参数set 用来去重收款商户 */
+    
     interface CombineOrderPar1{
-        /** 收款商户号码 */
+        
         pay_number:string 
         /**
          *  待付款金额
@@ -86,11 +86,11 @@ declare namespace sm.WX
          * @property 相同商户号码共用一个ID 用于后续图库
          */
         out_trade_no:string
-        /** 收款商品描述 */
+        
         description:string[]
 
     }
-    /** 微信退款回调参数约定 */
+    
     interface RefundBack
     {
         /** 
@@ -188,13 +188,13 @@ declare namespace sm.WX
              * 金额信息 必填 object
              */
             amount:{
-                /** 订单总金额，单位为分，只能为整数，详见支付金额 */
+                
                 total:number 
-                /** 退款金额，币种的最小单位，只能为整数，不能超过原订单支付金额，如果有使用券，后台会按比例退 */
+                
                 refund:number 
-                /** 用户实际支付金额，单位为分，只能为整数，详见支付金额 */
+                
                 payer_total:number 
-                /** 退款给用户的金额，不包含所有优惠券金额 */
+                
                 payer_refund:number 
             }
 
@@ -209,7 +209,7 @@ declare namespace sm.WX
 
         }
     }
-    /** 微信合并下单支付回调参数约定 */
+    
     interface CombinePayBack{
         /** 
          * 通知的唯一ID。 必填 string(36) 
@@ -265,7 +265,7 @@ declare namespace sm.WX
              * 支付场景信息描述 选填 object
              */
             scene_info?:{
-                /** 终端设备号（门店号或收银设备ID） 必填 string(16) */
+                
                 device_id?:string
             }
 
@@ -354,11 +354,11 @@ declare namespace sm.WX
                  * 订单金额信息 必填 object
                  */
                 amount:{
-                    /** 子单金额，单位为分 必填 int */
+                    
                     total_amount:number
-                    /** 符合ISO 4217标准的三位字母代码，人民币：CNY。 必填 string(16) */
+                    
                     currency:string
-                    /** 订单现金支付金额。 必填 int64 */
+                    
                     payer_amount:number
                     /** 
                      * 货币类型 必填 string(8)
@@ -375,9 +375,9 @@ declare namespace sm.WX
                  * 优惠功能，享受优惠时返回该字段  选填 array
                  */
                 promotion_detail?:{
-                    /** 券ID 必填 string(32) */
+                    
                     coupon_id:string
-                    /** 优惠名称。 选填 string(64) */
+                    
                     name?:string
                     /** 
                      * 优惠类型 选填 string(32)
@@ -397,32 +397,32 @@ declare namespace sm.WX
                      */
                     amount:number
 
-                    /** 活动ID，批次ID 选填 string(32) */
+                    
                     stock_id?:string
 
-                    /** 微信出资，单位为分。选填 int */
+                    
                     wechatpay_contribute?:int
 
-                    /** 商户出资，单位为分。 选填 int */
+                    
                     merchant_contribute?:string
 
-                    /** 其他出资，单位为分。 选填 int */
+                    
                     other_contribute?:string
 
-                    /** CNY：人民币，境内商户号仅支持人民币。 选填 string(32) */
+                    
                     currency?:string
 
-                    /** 单品列表信息 选填 array */
+                    
                     goods_detail?:{
-                        /** 商品编码。 必填 string(32) */
+                        
                         gods_id:string
-                        /** 商品数量 必填 int */
+                        
                         quantity:string
-                        /** 商品单价，单位为分。 必填 int */
+                        
                         unit_price:string
-                        /** 商品优惠金额。 必填 int */
+                        
                         discount_amount:string
-                        /** 商品备注信息 选填 string(128) */
+                        
                         goods_remark:string
                     }[]
 
@@ -431,7 +431,7 @@ declare namespace sm.WX
         }
 
     }
-    /** 微信验证银行账户汇款信息 */
+    
     interface AccountValidation
     {
         /** 
@@ -441,7 +441,7 @@ declare namespace sm.WX
          * @property https://pay.weixin.qq.com/doc/v3/partner/4013059060
          */
         account_name:string
-        /** 解密后的付款户名 */
+        
         account_name_decrypt?:string
 
         /** 
@@ -451,7 +451,7 @@ declare namespace sm.WX
          * @property https://pay.weixin.qq.com/doc/v3/partner/4013059060
          */
         account_no:string
-        /** 解密后的付款卡号 */
+        
         account_no_decrypt?:string
 
         /** 
@@ -515,7 +515,7 @@ declare namespace sm.WX
 		 */
 		applyment_state:"CHECKING"|"ACCOUNT_NEED_VERIFY"|"AUDITING"|"REJECTED"|"NEED_SIGN"|"FINISH"|"FROZEN"|"CANCELED"
 
-		/** 【申请状态描述】申请状态描述, 示例："审核中" */
+		
 		applyment_state_desc:string
 
 		/** 
@@ -541,9 +541,9 @@ declare namespace sm.WX
          * @property 各项资料的审核情况。当申请状态为REJECTED或 FROZEN时才返回。
 		 */
 		audit_detail?:{
-            /** 【参数名称】提交申请单的资料项名称。 */
+            
             param_name:string
-            /** 【驳回原因】提交资料项被驳回原因。 */
+            
             reject_reason:string
         }[]
 
@@ -574,7 +574,7 @@ declare namespace sm.WX
          */
         sign_state?:string
 	}
-    /** 微信二级商户对公对私银行数据列表 */
+    
     export interface BanksList
     {
         /** 
@@ -603,7 +603,7 @@ declare namespace sm.WX
          */
         need_bank_branch:boolean
     }
-    /** 微信二级商户最终受益人列表单项 */
+    
     export interface UboInfoList
     {
         /** 
@@ -628,7 +628,7 @@ declare namespace sm.WX
          * @property 5、可上传1张图片，请填写通过图片上传API预先上传图片生成好的MediaID 。
          */
         ubo_id_doc_copy?:string
-        /** 证件正面照片微信media_id */
+        
         ubo_id_doc_copy_media_id?:string
 
         /** 
@@ -641,7 +641,7 @@ declare namespace sm.WX
          * @property 6、可上传1张图片，请填写通过图片上传API预先上传图片生成好的MediaID。
          */
         ubo_id_doc_copy_back?:string
-        /** 证件反面照片微信media_id */
+        
         ubo_id_doc_copy_back_media_id?:string
 
         /** 
@@ -653,7 +653,7 @@ declare namespace sm.WX
          * @property 5、该字段需要使用微信支付公钥加密（推荐），请参考获取微信支付公钥ID说明以及微信支付公钥加密敏感信息指引，也可以使用微信支付平台证书公钥加密，参考获取平台证书序列号、平台证书加密敏感信息指引
          */
         ubo_id_doc_name?:string
-        /** 证件项目加密 */
+        
         ubo_id_doc_name_encrypt?:string
 
         /** 
@@ -669,7 +669,7 @@ declare namespace sm.WX
          * @property 2、该字段需要使用微信支付公钥加密（推荐），请参考获取微信支付公钥ID说明以及微信支付公钥加密敏感信息指引，也可以使用微信支付平台证书公钥加密，参考获取平台证书序列号、平台证书加密敏感信息指引
          */
         ubo_id_doc_number?:string
-        /** 证件号码加密 */
+        
         ubo_id_doc_number_encrypt?:string
 
         /** 
@@ -683,7 +683,7 @@ declare namespace sm.WX
          * @property 7、 该字段需要使用微信支付公钥加密（推荐），请参考获取微信支付公钥ID说明以及微信支付公钥加密敏感信息指引，也可以使用微信支付平台证书公钥加密，参考获取平台证书序列号、平台证书加密敏感信息指引
          */
         ubo_id_doc_address?:string 
-        /** 证件居住地址加密 */
+        
         ubo_id_doc_address_encrypt?:string
 
         /** 
@@ -703,7 +703,7 @@ declare namespace sm.WX
     
     }
 
-    /** 平台收付通 二级商户进件 营业执照信息 */
+    
     export interface business_license_info
     {
         /** 
@@ -736,7 +736,7 @@ declare namespace sm.WX
          */
         business_license_copy:string
        
-        /** 营业执照扫描件 预上传MediaID */
+        
         business_license_copy_media_id?:string
         
         /** 
@@ -796,7 +796,7 @@ declare namespace sm.WX
         business_time?:string
     }
     
-    /** 平台收付通二级商户进件金融机构许可证信息 */
+    
     export interface finance_institution_info
     {
         /** 
@@ -821,11 +821,11 @@ declare namespace sm.WX
          * @property （3）水印仅限于微信支付业务相关。
          */
         finance_license_pics:string[]
-        /** 金融机构许可图片微信media_id 数组最多5张 */
+        
         finance_license_pics_media_id?:string[]
     }
 
-    /** 平台收付通二级商户进件经营者/法人身份证信息 */
+    
     export interface id_card_info
     {
         /** 
@@ -837,7 +837,7 @@ declare namespace sm.WX
          */
         id_card_copy:string
 
-        /** 身份证人像面预上传 微信media_id */
+        
         id_card_copy_media_id?:string
 
         /** 
@@ -849,7 +849,7 @@ declare namespace sm.WX
          */
         id_card_national:string
 
-        /** 身份证国徽面预上传 微信media_id */
+        
         id_card_national_media_id?:string
         
         /** 
@@ -863,7 +863,7 @@ declare namespace sm.WX
          */
         id_card_name:string
 
-        /** 身份证姓名加密字段 */
+        
         id_card_name_encrypt?:string
 
         /** 
@@ -872,7 +872,7 @@ declare namespace sm.WX
          * @property 2、7位数字+1位数字|X，该字段需要使用微信支付公钥加密（推荐），请参考获取微信支付公钥ID说明以及微信支付公钥加密敏感信息指引，也可以使用微信支付平台证书公钥加密，参考获取平台证书序列号、平台证书加密敏感信息指引
          */
         id_card_number:string
-        /** 身份证号码加密字段 */
+        
         id_card_number_encrypt?:string
 
         /** 
@@ -891,7 +891,7 @@ declare namespace sm.WX
         id_card_valid_time:string
     }
 
-    /** 平台收付通二级商户进件经营者/法人其他类型证件信息 */
+    
     export interface id_doc_info 
     {
         /** 
@@ -905,7 +905,7 @@ declare namespace sm.WX
          */
         id_doc_name:string
 
-        /** 证件姓名加密字段 */
+        
         id_doc_name_encrypt?:string
 
         /** 
@@ -921,7 +921,7 @@ declare namespace sm.WX
          */
         id_doc_number:string
 
-        /** 证件号码加密字段 */
+        
         id_doc_number_encrypt?:string
 
         /** 
@@ -933,7 +933,7 @@ declare namespace sm.WX
          */
         id_doc_copy:string
 
-        /** 证件正面照片 微信media_id */
+        
         id_doc_copy_media_id?:string
         
         /** 
@@ -946,7 +946,7 @@ declare namespace sm.WX
          */
         id_doc_copy_back?:string
 
-        /** 证件反面照片 微信media_id */
+        
         id_doc_copy_back_media_id?:string
 
         /** 
@@ -965,7 +965,7 @@ declare namespace sm.WX
         doc_period_end:string
     }
 
-    /** 平台收付通二级商户进件结算银行账号信息 */
+    
     export interface account_info
     {
         /** 
@@ -991,7 +991,7 @@ declare namespace sm.WX
          * @property 3、该字段需要使用微信支付公钥加密（推荐），请参考获取微信支付公钥ID说明以及微信支付公钥加密敏感信息指引，也可以使用微信支付平台证书公钥加密，参考获取平台证书序列号、平台证书加密敏感信息指引
          */
         account_name:string 
-        /** 开户名称加密 */
+        
         account_name_encrypt?:string
 
         /** 
@@ -1021,11 +1021,11 @@ declare namespace sm.WX
          * @property 2、该字段需要使用微信支付公钥加密（推荐），请参考获取微信支付公钥ID说明以及微信支付公钥加密敏感信息指引，也可以使用微信支付平台证书公钥加密，参考获取平台证书序列号、平台证书加密敏感信息指引
          */
         account_number:string
-        /** 银行账号加密 */
+        
         account_number_encrypt?:string
     }
 
-    /** 平台收付通二级商户进件超级管理员信息 */
+    
     export interface contact_info 
     {
         /** 
@@ -1048,7 +1048,7 @@ declare namespace sm.WX
          * @property 7、该字段需要使用微信支付公钥加密（推荐），请参考获取微信支付公钥ID说明以及微信支付公钥加密敏感信息指引，也可以使用微信支付平台证书公钥加密，参考获取平台证书序列号、平台证书加密敏感信息指引
          */
         contact_name:string
-        /** 管理员姓名加密 */
+        
         contact_name_encrypt?:string
 
         /** 
@@ -1080,7 +1080,7 @@ declare namespace sm.WX
          * @property 4、该字段需要使用微信支付公钥加密（推荐），请参考获取微信支付公钥ID说明以及微信支付公钥加密敏感信息指引，也可以使用微信支付平台证书公钥加密，参考获取平台证书序列号、平台证书加密敏感信息指引
          */
         contact_id_card_number?:string
-        /** 管理员证件号码加密 */
+        
         contact_id_card_number_encrypt?:string
 
         /** 
@@ -1092,7 +1092,7 @@ declare namespace sm.WX
          * @property 5、可上传1张图片，请填写通过图片上传API预先上传图片生成好的MediaID。
          */
         contact_id_doc_copy?:string
-        /** 超级管理员正面照片微信mediaId */
+        
         contact_id_doc_copy_media_id?:string
 
         /** 
@@ -1104,7 +1104,7 @@ declare namespace sm.WX
          * @property 5、可上传1张图片，请填写通过图片上传API预先上传图片生成好的MediaID。
          */
         contact_id_doc_copy_back?:string
-        /** 超级管理员反面照片微信mediaId */
+        
         contact_id_doc_copy_back_media_id?:string
 
         /** 
@@ -1131,7 +1131,7 @@ declare namespace sm.WX
          * @property 3、可上传1张图片，请填写通过图片上传API预先上传图片生成好的MediaID。
          */
         business_authorization_letter?:string
-        /** 业务办理授权函微信mediaId */
+        
         business_authorization_letter_media_id?:string
 
         /** 
@@ -1144,11 +1144,11 @@ declare namespace sm.WX
          * @property 4、该字段需要使用微信支付公钥加密（推荐），请参考获取微信支付公钥ID说明以及微信支付公钥加密敏感信息指引，也可以使用微信支付平台证书公钥加密，参考获取平台证书序列号、平台证书加密敏感信息指引
          */
         mobile_phone:string
-        /** 管理员手机号码加密 */
+        
         mobile_phone_encrypt?:string
     }
 
-    /** 平台收付通一级商户进件经营场景信息 */
+    
     export interface sales_scene_info
     {
         /** 
@@ -1171,7 +1171,7 @@ declare namespace sm.WX
          * @property 3、请填写通过图片上传API预先上传图片生成好的MediaID，仅能上传1张图片。
          */
         store_qr_code?:string
-        /** 店铺二维码微信mediaId */
+        
         store_qr_code_media_id?:string
 
         /** 
@@ -1182,7 +1182,7 @@ declare namespace sm.WX
         mini_program_sub_appid ?:string
     }
 
-    /** 平台收付通一级商户进件结算规则信息 */
+    
     export interface settlement_info 
     {
         /** 
@@ -1202,12 +1202,12 @@ declare namespace sm.WX
         qualification_type?:string
     }
 
-    /** 平台收付通二级商户进件递交参数 */
+    
     export interface SecondLevelMerchantSubmission
     {
-        /** ID */
+        
         id:number
-        /** 门店ID */
+        
         sid:number 
         /** 
          * 进件状态
@@ -1295,7 +1295,7 @@ declare namespace sm.WX
          * @property 3、可上传1张图片，请填写通过图片上传API预先上传图片生成好的MediaID。
          */
         authorize_letter_copy?:string 
-        /** 法定代表人说明函微信media_id */
+        
         authorize_letter_copy_media_id?:string
 
         /** 

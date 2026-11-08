@@ -6,14 +6,9 @@ import _ from "lodash";
 
 const log = require('debug')('lan:Shop');
 
-/** 用户对象下属商场相关类 */
 const shop =  {
-    /** 门店相关 */
     store:{
-
-
     },
-    /** 身份相关 */
     role:
     {
         B1:{
